@@ -1,5 +1,7 @@
 package org.i9.lock.platform.model;
 
+
+
 public class Lock {
     private Long id;
     
@@ -23,6 +25,7 @@ public class Lock {
      */
     private Byte battery;
 
+    
     public Long getId() {
         return id;
     }
