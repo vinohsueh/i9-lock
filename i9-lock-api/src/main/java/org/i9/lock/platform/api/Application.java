@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ServletComponentScan // 扫描使用注解方式的servlet 
 @ImportResource(value = { "classpath:applicationContext.xml" })
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
