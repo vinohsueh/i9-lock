@@ -1,3 +1,15 @@
 /.project
 /.settings
 /.classpath
+/i9-lock-api/.project
+/i9-lock-api/.settings
+/i9-lock-api/.classpath
+/i9-lock-dao/.settings
+/i9-lock-dao/.classpath
+/i9-lock-dao/.project
+/i9-lock-service/.project
+/i9-lock-service/.settings
+/i9-lock-service/.classpath
+/i9-lock-utils/.project
+/i9-lock-utils/.settings
+/i9-lock-utils/.classpath
