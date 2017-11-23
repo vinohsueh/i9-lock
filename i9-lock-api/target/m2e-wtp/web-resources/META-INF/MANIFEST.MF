@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: i9-lock-api
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: org.i9.lock.platform
+Build-Jdk: 1.7.0_79
+Built-By: vinohsueh
+Created-By: Maven Integration for Eclipse
+

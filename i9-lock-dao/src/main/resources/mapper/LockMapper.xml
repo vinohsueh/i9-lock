@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.i9.lock.platform.dao.mapper.LockMapper" >
+  <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.Lock" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="keyDev" property="keyDev" jdbcType="BIGINT" />
+    <result column="userId" property="userId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="battery" property="battery" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Query_By_Dto_Where_Clause">
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.userId != null">
+            and userId = #{example.userId} 
+        </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, keyDev, userId, name, battery
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_lock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_lock
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_lock
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.i9.lock.platform.model.LockExample" >
+    delete from t_lock
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.i9.lock.platform.model.Lock" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_lock (keyDev, userId, name, 
+      battery)
+    values (#{keyDev,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
+      #{battery,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Lock" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_lock
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="keyDev != null" >
+        keyDev,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="name != null and name != ''" >
+        name,
+      </if>
+      <if test="battery != null" >
+        battery,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="keyDev != null" >
+        #{keyDev,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null and name != ''" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="battery != null" >
+        #{battery,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.i9.lock.platform.model.LockExample" resultType="java.lang.Integer" >
+    select count(*) from t_lock
+    <if test="_parameter != null" >
+      <include refid="Query_By_Dto_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_lock
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.keyDev != null" >
+        keyDev = #{record.keyDev,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        userId = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null and record.name != ''" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.battery != null" >
+        battery = #{record.battery,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_lock
+    set id = #{record.id,jdbcType=BIGINT},
+      keyDev = #{record.keyDev,jdbcType=BIGINT},
+      userId = #{record.userId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      battery = #{record.battery,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.Lock" >
+    update t_lock
+    <set >
+      <if test="keyDev != null" >
+        keyDev = #{keyDev,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null and name != ''" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="battery != null" >
+        battery = #{battery,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Lock" >
+    update t_lock
+    set keyDev = #{keyDev,jdbcType=BIGINT},
+      userId = #{userId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      battery = #{battery,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByLimitPage" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from t_lock
+    <if test="_parameter != null">
+        <include refid="Query_By_Dto_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null and example.orderByClause != ''">
+        order by ${example.orderByClause}
+    </if>
+    limit #{offset},#{limit}
+  </select>
+</mapper>
