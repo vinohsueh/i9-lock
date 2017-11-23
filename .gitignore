@@ -13,3 +13,8 @@
 /i9-lock-utils/.project
 /i9-lock-utils/.settings
 /i9-lock-utils/.classpath
+/i9-lock-api/target
+/i9-lock-dao/target
+/i9-lock-service/target
+/i9-lock-utils/target
+/i9-lock-dao/mbg_configuration.xml
