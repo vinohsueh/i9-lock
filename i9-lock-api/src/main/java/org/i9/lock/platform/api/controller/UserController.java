@@ -3,7 +3,9 @@ package org.i9.lock.platform.api.controller;
 import java.util.HashMap;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.EncryptUtils;
@@ -25,7 +27,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    
+    /**
+     * 登录
+     * @param user
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping("/login")
     public HashMap<String, Object> login(@Valid User user,BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -33,6 +41,12 @@ public class UserController {
         return result;
     }
     
+    /**
+     * 注册
+     * @param user
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping("/regist")
     public HashMap<String, Object> regist(@Valid User user,BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -40,6 +54,10 @@ public class UserController {
         return result;
     }
     
+    /**
+     * 获取登录人的keyadmin
+     * @return
+     */
     @RequestMapping("/currentUser")
     public HashMap<String, Object> currentUser() {
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -47,6 +65,13 @@ public class UserController {
         byte [] a = EncryptUtils.longToBytes(user.getId());
         String keyAdmin = EncryptUtils.bytesToHexString(a);
         result.put("keyAdmin", keyAdmin);
+        return result;
+    }
+    
+    @RequestMapping("/updateFamilyPhone")
+    public HashMap<String, Object> updateFamilyPhone(@Valid @NotBlank(message="手机号不能为空") @Pattern(regexp = "^1[3|4|5|7|8][0-9]\\d{8}$", message = "请输入正确的手机号")String phone) {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        userService.updateFamilyPhone(phone);
         return result;
     }
 }
