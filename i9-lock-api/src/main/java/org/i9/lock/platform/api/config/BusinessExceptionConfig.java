@@ -22,8 +22,9 @@ public class BusinessExceptionConfig {
     @ExceptionHandler(BusinessException.class)
     public Object exceptionHandler(BusinessException e, HttpServletResponse response) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        result.put("errorCode", e.getErrorCode());
-        result.put("errorMessage", e.getErrorMessage());
+        result.put("success", false);
+        result.put("errorMsg", e.getErrorMessage());
+        result.put("result", "");
         return result;
     }
 }

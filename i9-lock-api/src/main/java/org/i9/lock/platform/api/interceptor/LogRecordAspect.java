@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.i9.lock.platform.utils.BindingResultException;
 import org.i9.lock.platform.utils.BusinessException;
-import org.i9.lock.platform.utils.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -54,33 +53,35 @@ public class LogRecordAspect {
             Object object = (HashMap<String, Object>) pjp.proceed();
             if (object instanceof HashMap) {
                 HashMap<String, Object> data = (HashMap<String, Object>) object;
-                result.put("data", data);
+                result.put("result", data);
             }
             else if (object instanceof JSONObject) {
                 JSONObject jsonObject = (JSONObject) object;
-                result.put("data", jsonObject);
+                result.put("result", jsonObject);
             }
-            result.put("errorCode", 0);
-            result.put("errorMessage", "success");
+            result.put("success", true);
+            result.put("errorMsg", "");
         } catch (BusinessException exception) {
             result = new HashMap<String, Object>();
-            result.put("errorCode", exception.getErrorCode());
-            result.put("errorMessage", exception.getErrorMessage());
+            result.put("success", false);
+            result.put("errorMsg", exception.getErrorMessage());
+            result.put("result", "");
             exception.printStackTrace();
             logger.error("error, message: {}, errorMessage: {}, exception: {}",exception.getMessage(),exception.getErrorMessage(),exception.getExceptionMessage());
         }
         catch (BindingResultException exception) {
             result = new HashMap<String, Object>();
-            result.put("errorCode", ErrorCode.BINDING_RESULT_ERROR);
-            result.put("errorMessage", "BINDING RESULT ERROR");
-            result.put("errorResult", exception.toErrors());
+            result.put("success", false);
+            result.put("errorMsg", "参数格式错误");
+            result.put("result", exception.toErrors());
             exception.printStackTrace();
             logger.error(exception.getMessage());
         }
         catch (Exception e) {
             result = new HashMap<String, Object>();
-            result.put("errorCode", ErrorCode.UNKNOWN_ERROR);
-            result.put("errorMessage", "系统错误");
+            result.put("success", false);
+            result.put("errorMsg", "系统错误");
+            result.put("result", "");
             e.printStackTrace();
             logger.error(e.getMessage());
         }
