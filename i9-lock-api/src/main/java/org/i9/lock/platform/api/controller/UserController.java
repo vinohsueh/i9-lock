@@ -55,7 +55,7 @@ public class UserController {
     }
     
     /**
-     * 获取登录人的keyadmin
+     * 获取帐号7字节
      * @return
      */
     @RequestMapping("/currentUser")
@@ -63,8 +63,10 @@ public class UserController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         byte [] a = EncryptUtils.longToBytes(user.getId());
-        String keyAdmin = EncryptUtils.bytesToHexString(a);
-        result.put("keyAdmin", keyAdmin);
+        byte [] b = new byte[a.length-1];
+        System.arraycopy(a, 1, b, 0, b.length);
+        String keyAdmin = EncryptUtils.bytesToHexString(b);
+        result.put("account", keyAdmin);
         return result;
     }
     
