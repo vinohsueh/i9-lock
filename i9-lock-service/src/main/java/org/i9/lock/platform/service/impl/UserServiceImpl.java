@@ -1,5 +1,6 @@
 package org.i9.lock.platform.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserById(int id) throws BusinessException {
+    public User getUserById(Long id) throws BusinessException {
         try {
             return userDao.getUserById(id);
         } catch (Exception e) {
@@ -144,5 +145,37 @@ public class UserServiceImpl implements UserService{
     public User getCurrentUser() throws BusinessException {
         User user = (User) request.getSession().getAttribute("user");
         return user;
+    }
+
+    @Override
+    public void updateFamilyPhone(String phone) throws BusinessException {
+        
+        User currentUser = null;
+        try {
+            User user = this.getCurrentUser();
+            currentUser = this.userDao.getUserById(user.getId());
+        } catch (Exception e1) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"查询用户失败",e1.getMessage());
+        }
+        //判断离上次修改时间是否超过一个月
+        if (currentUser != null) {
+            if (currentUser.getModifyFamilyPhoneTime() != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(currentUser.getModifyFamilyPhoneTime());
+                cal.add(Calendar.DATE, 30);
+                Date date = cal.getTime();
+                Date now = new Date();
+                if (now.getTime() < date.getTime()) {
+                    throw new BusinessException(ErrorCode.UNABLE_MODIFY,"一个月之内之内修改一次亲情号");
+                }
+            }
+            currentUser.setFamilyPhone(phone);
+            currentUser.setModifyFamilyPhoneTime(new Date());
+            try {
+                userDao.updateUser(currentUser);
+            } catch (Exception e) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"修改亲情号失败",e.getMessage());
+            }
+        }
     }
 }

@@ -26,4 +26,9 @@ public class ErrorCode {
      */
     public static final int CRUD_ERROR = 10007;
     
+    /**
+     * 修改亲情号时间错误
+     */
+    public static final int UNABLE_MODIFY = 10008;
+    
 }

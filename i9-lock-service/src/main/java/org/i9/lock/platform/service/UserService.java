@@ -41,7 +41,7 @@ public interface UserService {
      * @return
      * @throws BusinessException
      */
-    User getUserById(int id) throws BusinessException;
+    User getUserById(Long id) throws BusinessException;
     
     /**
      * 根据用户名搜索
@@ -90,4 +90,10 @@ public interface UserService {
      * @throws BusinessException
      */
     User getCurrentUser() throws BusinessException;
+    
+    /**
+     * 更新亲情号
+     * @param phone
+     */
+    void updateFamilyPhone(String phone) throws BusinessException;
 }   
