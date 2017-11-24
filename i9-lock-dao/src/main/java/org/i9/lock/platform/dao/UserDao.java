@@ -40,7 +40,7 @@ public interface UserDao {
      * @return
      * @throws Exception
      */
-    User getUserById(int id) throws Exception;
+    User getUserById(Long id) throws Exception;
     
     /**
      * 根据用户名搜索

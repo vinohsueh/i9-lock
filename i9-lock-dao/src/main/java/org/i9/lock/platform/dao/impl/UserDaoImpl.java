@@ -38,7 +38,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User getUserById(int id) throws Exception {
+    public User getUserById(Long id) throws Exception {
         return userMapper.selectByPrimaryKey(id);
     }
 
