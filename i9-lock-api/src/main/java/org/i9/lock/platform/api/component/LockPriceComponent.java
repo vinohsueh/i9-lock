@@ -10,11 +10,11 @@ import com.alibaba.fastjson.JSONObject;
  * @version  
  * 
  */
-public class LockInfoComponent {
+public class LockPriceComponent {
     
     private Lock lock;
     
-    public LockInfoComponent setLock(Lock lock){
+    public LockPriceComponent setLock(Lock lock){
         this.lock = lock;
         return this;
     }
@@ -24,6 +24,12 @@ public class LockInfoComponent {
         jsonObject.put("id", lock.getId());
         jsonObject.put("name", lock.getName());
         jsonObject.put("battery", lock.getBattery());
+        jsonObject.put("eleNumber", lock.getEleNumber());
+        jsonObject.put("elePrice", lock.getElePrice());
+        jsonObject.put("gasNumber", lock.getGasNumber());
+        jsonObject.put("gasPrice", lock.getGasPrice());
+        jsonObject.put("waterNumber", lock.getWaterNumber());
+        jsonObject.put("waterPrice", lock.getWaterPrice());
         return jsonObject;
     }
 }

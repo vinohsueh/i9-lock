@@ -112,6 +112,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <select id="selectUsernameById" parameterType="int" resultType="string">
+    select username from t_user where id = #{id}
+  </select>
   <insert id="insert" parameterType="org.i9.lock.platform.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()

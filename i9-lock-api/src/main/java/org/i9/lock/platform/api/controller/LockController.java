@@ -6,7 +6,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.i9.lock.platform.api.component.LockInfoComponent;
+import org.i9.lock.platform.api.component.LockListInfoComponent;
+import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.User;
@@ -36,6 +37,11 @@ public class LockController {
     @Autowired
     private UserService userService;
     
+    /**
+     * 添加锁
+     * @param keyDev
+     * @return
+     */
     @RequestMapping(value={"/save"},method = {RequestMethod.POST})
     public HashMap<String, Object> saveLock(@Valid @NotBlank(message="密钥不能为空") @Pattern(regexp="^[0-9]{8}$",message="请输入8个数字")String keyDev){
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -47,6 +53,11 @@ public class LockController {
         return result;
     }
     
+    /**
+     * 更新锁
+     * @param lock
+     * @return
+     */
     @RequestMapping(value={"/update"},method = {RequestMethod.POST})
     public HashMap<String, Object> updateLock(Lock lock){
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -54,16 +65,40 @@ public class LockController {
         return result;
     }
     
+    /**
+     * 设备列表
+     * @param lockSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value={"/list"},method = {RequestMethod.POST})
     public HashMap<String, Object> list(LockSearchDto lockSearchDto,int currectPage, int pageSize){
         HashMap<String, Object> result = new HashMap<String, Object>();
         PageBounds<Lock> pageBounds = lockService.selectByLimitPage(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
-            JSONObject jsonObject = new LockInfoComponent().setLock(lock).build();
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
             jsonArray.add(jsonObject);
         }
         result.put("locks", jsonArray);
         return result;
     }
+    
+    /**
+     * 物业缴费
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/price"},method = {RequestMethod.POST})
+    public HashMap<String, Object> price(long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Lock lock = lockService.getLockById(lockId);
+        if (lock != null) {
+            JSONObject jsonObject = new LockPriceComponent().setLock(lock).build();
+            result.put("lock", jsonObject);
+        }
+        return result;
+    }
+    
 }
