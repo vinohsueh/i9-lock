@@ -90,16 +90,20 @@ public class LockExample {
             criteria.add(new Criterion(condition));
         }
 
-        protected void addCriterion(String condition, Object value, String property) {
+        protected void addCriterion(String condition, Object value,
+                String property) {
             if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
+                throw new RuntimeException("Value for " + property
+                        + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
         }
 
-        protected void addCriterion(String condition, Object value1, Object value2, String property) {
+        protected void addCriterion(String condition, Object value1,
+                Object value2, String property) {
             if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
+                throw new RuntimeException("Between values for " + property
+                        + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
@@ -413,10 +417,430 @@ public class LockExample {
             addCriterion("battery not between", value1, value2, "battery");
             return (Criteria) this;
         }
+
+        public Criteria andEleNumberIsNull() {
+            addCriterion("eleNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberIsNotNull() {
+            addCriterion("eleNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberEqualTo(Double value) {
+            addCriterion("eleNumber =", value, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberNotEqualTo(Double value) {
+            addCriterion("eleNumber <>", value, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberGreaterThan(Double value) {
+            addCriterion("eleNumber >", value, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberGreaterThanOrEqualTo(Double value) {
+            addCriterion("eleNumber >=", value, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberLessThan(Double value) {
+            addCriterion("eleNumber <", value, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberLessThanOrEqualTo(Double value) {
+            addCriterion("eleNumber <=", value, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberIn(List<Double> values) {
+            addCriterion("eleNumber in", values, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberNotIn(List<Double> values) {
+            addCriterion("eleNumber not in", values, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberBetween(Double value1, Double value2) {
+            addCriterion("eleNumber between", value1, value2, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andEleNumberNotBetween(Double value1, Double value2) {
+            addCriterion("eleNumber not between", value1, value2, "eleNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceIsNull() {
+            addCriterion("elePrice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceIsNotNull() {
+            addCriterion("elePrice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceEqualTo(Double value) {
+            addCriterion("elePrice =", value, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceNotEqualTo(Double value) {
+            addCriterion("elePrice <>", value, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceGreaterThan(Double value) {
+            addCriterion("elePrice >", value, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("elePrice >=", value, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceLessThan(Double value) {
+            addCriterion("elePrice <", value, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceLessThanOrEqualTo(Double value) {
+            addCriterion("elePrice <=", value, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceIn(List<Double> values) {
+            addCriterion("elePrice in", values, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceNotIn(List<Double> values) {
+            addCriterion("elePrice not in", values, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceBetween(Double value1, Double value2) {
+            addCriterion("elePrice between", value1, value2, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andElePriceNotBetween(Double value1, Double value2) {
+            addCriterion("elePrice not between", value1, value2, "elePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberIsNull() {
+            addCriterion("gasNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberIsNotNull() {
+            addCriterion("gasNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberEqualTo(Double value) {
+            addCriterion("gasNumber =", value, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberNotEqualTo(Double value) {
+            addCriterion("gasNumber <>", value, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberGreaterThan(Double value) {
+            addCriterion("gasNumber >", value, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberGreaterThanOrEqualTo(Double value) {
+            addCriterion("gasNumber >=", value, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberLessThan(Double value) {
+            addCriterion("gasNumber <", value, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberLessThanOrEqualTo(Double value) {
+            addCriterion("gasNumber <=", value, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberIn(List<Double> values) {
+            addCriterion("gasNumber in", values, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberNotIn(List<Double> values) {
+            addCriterion("gasNumber not in", values, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberBetween(Double value1, Double value2) {
+            addCriterion("gasNumber between", value1, value2, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasNumberNotBetween(Double value1, Double value2) {
+            addCriterion("gasNumber not between", value1, value2, "gasNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceIsNull() {
+            addCriterion("gasPrice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceIsNotNull() {
+            addCriterion("gasPrice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceEqualTo(Double value) {
+            addCriterion("gasPrice =", value, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceNotEqualTo(Double value) {
+            addCriterion("gasPrice <>", value, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceGreaterThan(Double value) {
+            addCriterion("gasPrice >", value, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("gasPrice >=", value, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceLessThan(Double value) {
+            addCriterion("gasPrice <", value, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceLessThanOrEqualTo(Double value) {
+            addCriterion("gasPrice <=", value, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceIn(List<Double> values) {
+            addCriterion("gasPrice in", values, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceNotIn(List<Double> values) {
+            addCriterion("gasPrice not in", values, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceBetween(Double value1, Double value2) {
+            addCriterion("gasPrice between", value1, value2, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andGasPriceNotBetween(Double value1, Double value2) {
+            addCriterion("gasPrice not between", value1, value2, "gasPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberIsNull() {
+            addCriterion("waterNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberIsNotNull() {
+            addCriterion("waterNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberEqualTo(Double value) {
+            addCriterion("waterNumber =", value, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberNotEqualTo(Double value) {
+            addCriterion("waterNumber <>", value, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberGreaterThan(Double value) {
+            addCriterion("waterNumber >", value, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberGreaterThanOrEqualTo(Double value) {
+            addCriterion("waterNumber >=", value, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberLessThan(Double value) {
+            addCriterion("waterNumber <", value, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberLessThanOrEqualTo(Double value) {
+            addCriterion("waterNumber <=", value, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberIn(List<Double> values) {
+            addCriterion("waterNumber in", values, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberNotIn(List<Double> values) {
+            addCriterion("waterNumber not in", values, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberBetween(Double value1, Double value2) {
+            addCriterion("waterNumber between", value1, value2, "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterNumberNotBetween(Double value1, Double value2) {
+            addCriterion("waterNumber not between", value1, value2,
+                    "waterNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceIsNull() {
+            addCriterion("waterPrice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceIsNotNull() {
+            addCriterion("waterPrice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceEqualTo(Double value) {
+            addCriterion("waterPrice =", value, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceNotEqualTo(Double value) {
+            addCriterion("waterPrice <>", value, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceGreaterThan(Double value) {
+            addCriterion("waterPrice >", value, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceGreaterThanOrEqualTo(Double value) {
+            addCriterion("waterPrice >=", value, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceLessThan(Double value) {
+            addCriterion("waterPrice <", value, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceLessThanOrEqualTo(Double value) {
+            addCriterion("waterPrice <=", value, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceIn(List<Double> values) {
+            addCriterion("waterPrice in", values, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceNotIn(List<Double> values) {
+            addCriterion("waterPrice not in", values, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceBetween(Double value1, Double value2) {
+            addCriterion("waterPrice between", value1, value2, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andWaterPriceNotBetween(Double value1, Double value2) {
+            addCriterion("waterPrice not between", value1, value2, "waterPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeIsNull() {
+            addCriterion("safeMode is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeIsNotNull() {
+            addCriterion("safeMode is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeEqualTo(Byte value) {
+            addCriterion("safeMode =", value, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeNotEqualTo(Byte value) {
+            addCriterion("safeMode <>", value, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeGreaterThan(Byte value) {
+            addCriterion("safeMode >", value, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeGreaterThanOrEqualTo(Byte value) {
+            addCriterion("safeMode >=", value, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeLessThan(Byte value) {
+            addCriterion("safeMode <", value, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeLessThanOrEqualTo(Byte value) {
+            addCriterion("safeMode <=", value, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeIn(List<Byte> values) {
+            addCriterion("safeMode in", values, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeNotIn(List<Byte> values) {
+            addCriterion("safeMode not in", values, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeBetween(Byte value1, Byte value2) {
+            addCriterion("safeMode between", value1, value2, "safeMode");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeModeNotBetween(Byte value1, Byte value2) {
+            addCriterion("safeMode not between", value1, value2, "safeMode");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }
@@ -424,19 +848,12 @@ public class LockExample {
 
     public static class Criterion {
         private String condition;
-
         private Object value;
-
         private Object secondValue;
-
         private boolean noValue;
-
         private boolean singleValue;
-
         private boolean betweenValue;
-
         private boolean listValue;
-
         private String typeHandler;
 
         public String getCondition() {
@@ -494,7 +911,8 @@ public class LockExample {
             this(condition, value, null);
         }
 
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+        protected Criterion(String condition, Object value, Object secondValue,
+                String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;

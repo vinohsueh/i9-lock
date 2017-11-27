@@ -7,6 +7,13 @@
     <result column="userId" property="userId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="battery" property="battery" jdbcType="TINYINT" />
+    <result column="eleNumber" jdbcType="DOUBLE" property="eleNumber" />
+    <result column="elePrice" jdbcType="DOUBLE" property="elePrice" />
+    <result column="gasNumber" jdbcType="DOUBLE" property="gasNumber" />
+    <result column="gasPrice" jdbcType="DOUBLE" property="gasPrice" />
+    <result column="waterNumber" jdbcType="DOUBLE" property="waterNumber" />
+    <result column="waterPrice" jdbcType="DOUBLE" property="waterPrice" />
+    <result column="safeMode" jdbcType="TINYINT" property="safeMode" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,7 +81,8 @@
     </trim>
   </sql>
   <sql id="Base_Column_List" >
-    id, keyDev, userId, name, battery
+     id, keyDev, userId, name, battery, eleNumber, elePrice, gasNumber, gasPrice, waterNumber, 
+    waterPrice, safeMode
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
     select
@@ -110,10 +118,14 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_lock (keyDev, userId, name, 
-      battery)
+   insert into t_lock (keyDev, userId, name, 
+      battery, eleNumber, elePrice, 
+      gasNumber, gasPrice, waterNumber, 
+      waterPrice, safeMode)
     values (#{keyDev,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{battery,jdbcType=TINYINT})
+      #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, #{elePrice,jdbcType=DOUBLE}, 
+      #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, #{waterNumber,jdbcType=DOUBLE}, 
+      #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Lock" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -133,6 +145,27 @@
       <if test="battery != null" >
         battery,
       </if>
+      <if test="eleNumber != null">
+        eleNumber,
+      </if>
+      <if test="elePrice != null">
+        elePrice,
+      </if>
+      <if test="gasNumber != null">
+        gasNumber,
+      </if>
+      <if test="gasPrice != null">
+        gasPrice,
+      </if>
+      <if test="waterNumber != null">
+        waterNumber,
+      </if>
+      <if test="waterPrice != null">
+        waterPrice,
+      </if>
+      <if test="safeMode != null">
+        safeMode,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="keyDev != null" >
@@ -146,6 +179,27 @@
       </if>
       <if test="battery != null" >
         #{battery,jdbcType=TINYINT},
+      </if>
+       <if test="eleNumber != null">
+        #{eleNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="elePrice != null">
+        #{elePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="gasNumber != null">
+        #{gasNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="gasPrice != null">
+        #{gasPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="waterNumber != null">
+        #{waterNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="waterPrice != null">
+        #{waterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="safeMode != null">
+        #{safeMode,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -173,18 +227,46 @@
       <if test="record.battery != null" >
         battery = #{record.battery,jdbcType=TINYINT},
       </if>
+       <if test="record.eleNumber != null">
+        eleNumber = #{record.eleNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="record.elePrice != null">
+        elePrice = #{record.elePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.gasNumber != null">
+        gasNumber = #{record.gasNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="record.gasPrice != null">
+        gasPrice = #{record.gasPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.waterNumber != null">
+        waterNumber = #{record.waterNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="record.waterPrice != null">
+        waterPrice = #{record.waterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.safeMode != null">
+        safeMode = #{record.safeMode,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_lock
+     update t_lock
     set id = #{record.id,jdbcType=BIGINT},
       keyDev = #{record.keyDev,jdbcType=BIGINT},
       userId = #{record.userId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      battery = #{record.battery,jdbcType=TINYINT}
+      battery = #{record.battery,jdbcType=TINYINT},
+      eleNumber = #{record.eleNumber,jdbcType=DOUBLE},
+      elePrice = #{record.elePrice,jdbcType=DOUBLE},
+      gasNumber = #{record.gasNumber,jdbcType=DOUBLE},
+      gasPrice = #{record.gasPrice,jdbcType=DOUBLE},
+      waterNumber = #{record.waterNumber,jdbcType=DOUBLE},
+      waterPrice = #{record.waterPrice,jdbcType=DOUBLE},
+      safeMode = #{record.safeMode,jdbcType=TINYINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -204,6 +286,27 @@
       <if test="battery != null" >
         battery = #{battery,jdbcType=TINYINT},
       </if>
+       <if test="eleNumber != null">
+        eleNumber = #{eleNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="elePrice != null">
+        elePrice = #{elePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="gasNumber != null">
+        gasNumber = #{gasNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="gasPrice != null">
+        gasPrice = #{gasPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="waterNumber != null">
+        waterNumber = #{waterNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="waterPrice != null">
+        waterPrice = #{waterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="safeMode != null">
+        safeMode = #{safeMode,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -212,7 +315,14 @@
     set keyDev = #{keyDev,jdbcType=BIGINT},
       userId = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
-      battery = #{battery,jdbcType=TINYINT}
+      battery = #{battery,jdbcType=TINYINT},
+      eleNumber = #{eleNumber,jdbcType=DOUBLE},
+      elePrice = #{elePrice,jdbcType=DOUBLE},
+      gasNumber = #{gasNumber,jdbcType=DOUBLE},
+      gasPrice = #{gasPrice,jdbcType=DOUBLE},
+      waterNumber = #{waterNumber,jdbcType=DOUBLE},
+      waterPrice = #{waterPrice,jdbcType=DOUBLE},
+      safeMode = #{safeMode,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">
