@@ -838,6 +838,127 @@ public class LockExample {
             addCriterion("safeMode not between", value1, value2, "safeMode");
             return (Criteria) this;
         }
+
+        public Criteria andIfSharedIsNull() {
+            addCriterion("ifShared is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedIsNotNull() {
+            addCriterion("ifShared is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedEqualTo(Byte value) {
+            addCriterion("ifShared =", value, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedNotEqualTo(Byte value) {
+            addCriterion("ifShared <>", value, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedGreaterThan(Byte value) {
+            addCriterion("ifShared >", value, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedGreaterThanOrEqualTo(Byte value) {
+            addCriterion("ifShared >=", value, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedLessThan(Byte value) {
+            addCriterion("ifShared <", value, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedLessThanOrEqualTo(Byte value) {
+            addCriterion("ifShared <=", value, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedIn(List<Byte> values) {
+            addCriterion("ifShared in", values, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedNotIn(List<Byte> values) {
+            addCriterion("ifShared not in", values, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedBetween(Byte value1, Byte value2) {
+            addCriterion("ifShared between", value1, value2, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andIfSharedNotBetween(Byte value1, Byte value2) {
+            addCriterion("ifShared not between", value1, value2, "ifShared");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteIsNull() {
+            addCriterion("alertMinute is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteIsNotNull() {
+            addCriterion("alertMinute is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteEqualTo(Integer value) {
+            addCriterion("alertMinute =", value, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteNotEqualTo(Integer value) {
+            addCriterion("alertMinute <>", value, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteGreaterThan(Integer value) {
+            addCriterion("alertMinute >", value, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteGreaterThanOrEqualTo(Integer value) {
+            addCriterion("alertMinute >=", value, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteLessThan(Integer value) {
+            addCriterion("alertMinute <", value, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteLessThanOrEqualTo(Integer value) {
+            addCriterion("alertMinute <=", value, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteIn(List<Integer> values) {
+            addCriterion("alertMinute in", values, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteNotIn(List<Integer> values) {
+            addCriterion("alertMinute not in", values, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteBetween(Integer value1, Integer value2) {
+            addCriterion("alertMinute between", value1, value2, "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andAlertMinuteNotBetween(Integer value1, Integer value2) {
+            addCriterion("alertMinute not between", value1, value2,
+                    "alertMinute");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

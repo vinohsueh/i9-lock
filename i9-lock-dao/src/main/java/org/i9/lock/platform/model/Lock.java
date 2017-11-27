@@ -57,9 +57,35 @@ public class Lock {
      * 房客安全模式
      */
     private Byte safeMode;
+    
+    /**
+     * 是否合租
+     */
+    private Byte ifShared;
+    
+    /**
+     * 报警时长
+     */
+    private Integer alertMinute;
+    
+    
+    
+    public Byte getIfShared() {
+        return ifShared;
+    }
 
-    
-    
+    public void setIfShared(Byte ifShared) {
+        this.ifShared = ifShared;
+    }
+
+    public Integer getAlertMinute() {
+        return alertMinute;
+    }
+
+    public void setAlertMinute(Integer alertMinute) {
+        this.alertMinute = alertMinute;
+    }
+
     public Double getEleNumber() {
         return eleNumber;
     }
