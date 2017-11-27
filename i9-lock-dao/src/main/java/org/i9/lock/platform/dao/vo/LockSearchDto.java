@@ -8,6 +8,17 @@
 public class LockSearchDto {
     
     private Long userId;
+    
+    private String orderByClause;
+    
+    
+    public String getOrderByClause() {
+        return orderByClause;
+    }
+
+    public void setOrderByClause(String orderByClause) {
+        this.orderByClause = orderByClause;
+    }
 
     public Long getUserId() {
         return userId;

@@ -37,7 +37,12 @@ public class UserController {
     @RequestMapping("/login")
     public HashMap<String, Object> login(@Valid User user,BindingResult bindingResult) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        userService.login(user);
+        User currentUser = userService.login(user);
+        byte [] a = EncryptUtils.longToBytes(currentUser.getId());
+        byte [] b = new byte[a.length-1];
+        System.arraycopy(a, 1, b, 0, b.length);
+        String keyAdmin = EncryptUtils.bytesToHexString(b);
+        result.put("account", keyAdmin);
         return result;
     }
     
