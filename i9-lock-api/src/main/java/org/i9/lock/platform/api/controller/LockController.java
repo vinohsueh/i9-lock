@@ -47,7 +47,7 @@ public class LockController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         Lock lock = new Lock();
-        lock.setKeyDev(Long.valueOf(keyDev));
+        lock.setKeyAdmin(Long.valueOf(keyDev));
         lock.setUserId(user.getId());
         lockService.addLock(lock);
         return result;

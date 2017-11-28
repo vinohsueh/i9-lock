@@ -3,7 +3,8 @@
 <mapper namespace="org.i9.lock.platform.dao.mapper.LockMapper" >
   <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.Lock" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="keyDev" property="keyDev" jdbcType="BIGINT" />
+    <result column="keyAdmin" jdbcType="BIGINT" property="keyAdmin" />
+    <result column="effective" jdbcType="TINYINT" property="effective" />
     <result column="userId" property="userId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="battery" property="battery" jdbcType="TINYINT" />
@@ -83,8 +84,8 @@
     </trim>
   </sql>
   <sql id="Base_Column_List" >
-     id, keyDev, userId, name, battery, eleNumber, elePrice, gasNumber, gasPrice, waterNumber, 
-    waterPrice, safeMode, ifShared, alertMinute
+     id, keyAdmin, effective, userId, name, battery, eleNumber, elePrice, gasNumber, gasPrice, 
+    waterNumber, waterPrice, safeMode, ifShared, alertMinute
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
     select
@@ -120,16 +121,16 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-   insert into t_lock (keyDev, userId, name, 
-      battery, eleNumber, elePrice, 
-      gasNumber, gasPrice, waterNumber, 
-      waterPrice, safeMode, ifShared, 
-      alertMinute)
-    values (#{keyDev,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, #{elePrice,jdbcType=DOUBLE}, 
-      #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, #{waterNumber,jdbcType=DOUBLE}, 
-      #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, #{ifShared,jdbcType=TINYINT}, 
-      #{alertMinute,jdbcType=INTEGER})
+   insert into t_lock (keyAdmin, effective, userId, 
+      name, battery, eleNumber, 
+      elePrice, gasNumber, gasPrice, 
+      waterNumber, waterPrice, safeMode, 
+      ifShared, alertMinute)
+    values (#{keyAdmin,jdbcType=BIGINT}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
+      #{name,jdbcType=VARCHAR}, #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, 
+      #{elePrice,jdbcType=DOUBLE}, #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, 
+      #{waterNumber,jdbcType=DOUBLE}, #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, 
+      #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Lock" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -137,8 +138,11 @@
     </selectKey>
     insert into t_lock
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="keyDev != null" >
-        keyDev,
+      <if test="keyAdmin != null">
+        keyAdmin,
+      </if>
+      <if test="effective != null">
+        effective,
       </if>
       <if test="userId != null" >
         userId,
@@ -178,8 +182,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="keyDev != null" >
-        #{keyDev,jdbcType=BIGINT},
+      <if test="keyAdmin != null">
+        #{keyAdmin,jdbcType=BIGINT},
+      </if>
+      <if test="effective != null">
+        #{effective,jdbcType=TINYINT},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
@@ -231,8 +238,11 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.keyDev != null" >
-        keyDev = #{record.keyDev,jdbcType=BIGINT},
+       <if test="record.keyAdmin != null">
+        keyAdmin = #{record.keyAdmin,jdbcType=BIGINT},
+      </if>
+      <if test="record.effective != null">
+        effective = #{record.effective,jdbcType=TINYINT},
       </if>
       <if test="record.userId != null" >
         userId = #{record.userId,jdbcType=BIGINT},
@@ -278,7 +288,8 @@
   <update id="updateByExample" parameterType="map" >
      update t_lock
     set id = #{record.id,jdbcType=BIGINT},
-      keyDev = #{record.keyDev,jdbcType=BIGINT},
+      keyAdmin = #{record.keyAdmin,jdbcType=BIGINT},
+      effective = #{record.effective,jdbcType=TINYINT},
       userId = #{record.userId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       battery = #{record.battery,jdbcType=TINYINT},
@@ -298,8 +309,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.Lock" >
     update t_lock
     <set >
-      <if test="keyDev != null" >
-        keyDev = #{keyDev,jdbcType=BIGINT},
+      <if test="keyAdmin != null">
+        keyAdmin = #{keyAdmin,jdbcType=BIGINT},
+      </if>
+      <if test="effective != null">
+        effective = #{effective,jdbcType=TINYINT},
       </if>
       <if test="userId != null" >
         userId = #{userId,jdbcType=BIGINT},
@@ -342,7 +356,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Lock" >
     update t_lock
-    set keyDev = #{keyDev,jdbcType=BIGINT},
+    set keyAdmin = #{keyAdmin,jdbcType=BIGINT},
+      effective = #{effective,jdbcType=TINYINT},
       userId = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       battery = #{battery,jdbcType=TINYINT},

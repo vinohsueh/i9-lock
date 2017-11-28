@@ -4,9 +4,14 @@ public class Lock {
     private Long id;
     
     /**
-     *  固定密钥
+     *  密钥
      */
-    private Long keyDev;
+    private Long keyAdmin;
+    
+    /**
+     * 是否有效 1：有效   0：无效
+     */
+    private Byte effective;
     
     /**
      * 房东id
@@ -110,6 +115,24 @@ public class Lock {
         this.gasNumber = gasNumber;
     }
 
+    
+    
+    public Long getKeyAdmin() {
+        return keyAdmin;
+    }
+
+    public void setKeyAdmin(Long keyAdmin) {
+        this.keyAdmin = keyAdmin;
+    }
+
+    public Byte getEffective() {
+        return effective;
+    }
+
+    public void setEffective(Byte effective) {
+        this.effective = effective;
+    }
+
     public Double getGasPrice() {
         return gasPrice;
     }
@@ -148,14 +171,6 @@ public class Lock {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getKeyDev() {
-        return keyDev;
-    }
-
-    public void setKeyDev(Long keyDev) {
-        this.keyDev = keyDev;
     }
 
     public Long getUserId() {

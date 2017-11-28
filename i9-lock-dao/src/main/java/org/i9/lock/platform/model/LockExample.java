@@ -168,63 +168,123 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevIsNull() {
-            addCriterion("keyDev is null");
+        public Criteria andKeyAdminIsNull() {
+            addCriterion("keyAdmin is null");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevIsNotNull() {
-            addCriterion("keyDev is not null");
+        public Criteria andKeyAdminIsNotNull() {
+            addCriterion("keyAdmin is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevEqualTo(Long value) {
-            addCriterion("keyDev =", value, "keyDev");
+        public Criteria andKeyAdminEqualTo(Long value) {
+            addCriterion("keyAdmin =", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevNotEqualTo(Long value) {
-            addCriterion("keyDev <>", value, "keyDev");
+        public Criteria andKeyAdminNotEqualTo(Long value) {
+            addCriterion("keyAdmin <>", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevGreaterThan(Long value) {
-            addCriterion("keyDev >", value, "keyDev");
+        public Criteria andKeyAdminGreaterThan(Long value) {
+            addCriterion("keyAdmin >", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevGreaterThanOrEqualTo(Long value) {
-            addCriterion("keyDev >=", value, "keyDev");
+        public Criteria andKeyAdminGreaterThanOrEqualTo(Long value) {
+            addCriterion("keyAdmin >=", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevLessThan(Long value) {
-            addCriterion("keyDev <", value, "keyDev");
+        public Criteria andKeyAdminLessThan(Long value) {
+            addCriterion("keyAdmin <", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevLessThanOrEqualTo(Long value) {
-            addCriterion("keyDev <=", value, "keyDev");
+        public Criteria andKeyAdminLessThanOrEqualTo(Long value) {
+            addCriterion("keyAdmin <=", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevIn(List<Long> values) {
-            addCriterion("keyDev in", values, "keyDev");
+        public Criteria andKeyAdminIn(List<Long> values) {
+            addCriterion("keyAdmin in", values, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevNotIn(List<Long> values) {
-            addCriterion("keyDev not in", values, "keyDev");
+        public Criteria andKeyAdminNotIn(List<Long> values) {
+            addCriterion("keyAdmin not in", values, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevBetween(Long value1, Long value2) {
-            addCriterion("keyDev between", value1, value2, "keyDev");
+        public Criteria andKeyAdminBetween(Long value1, Long value2) {
+            addCriterion("keyAdmin between", value1, value2, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyDevNotBetween(Long value1, Long value2) {
-            addCriterion("keyDev not between", value1, value2, "keyDev");
+        public Criteria andKeyAdminNotBetween(Long value1, Long value2) {
+            addCriterion("keyAdmin not between", value1, value2, "keyAdmin");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveIsNull() {
+            addCriterion("effective is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveIsNotNull() {
+            addCriterion("effective is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveEqualTo(Byte value) {
+            addCriterion("effective =", value, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveNotEqualTo(Byte value) {
+            addCriterion("effective <>", value, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveGreaterThan(Byte value) {
+            addCriterion("effective >", value, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveGreaterThanOrEqualTo(Byte value) {
+            addCriterion("effective >=", value, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveLessThan(Byte value) {
+            addCriterion("effective <", value, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveLessThanOrEqualTo(Byte value) {
+            addCriterion("effective <=", value, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveIn(List<Byte> values) {
+            addCriterion("effective in", values, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveNotIn(List<Byte> values) {
+            addCriterion("effective not in", values, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveBetween(Byte value1, Byte value2) {
+            addCriterion("effective between", value1, value2, "effective");
+            return (Criteria) this;
+        }
+
+        public Criteria andEffectiveNotBetween(Byte value1, Byte value2) {
+            addCriterion("effective not between", value1, value2, "effective");
             return (Criteria) this;
         }
 
@@ -1046,4 +1106,5 @@ public class LockExample {
             this(condition, value, secondValue, null);
         }
     }
+
 }
