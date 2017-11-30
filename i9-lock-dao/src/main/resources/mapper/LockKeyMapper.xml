@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.i9.lock.platform.dao.mapper.LockKeyMapper" >
+  <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.LockKey" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="lockId" property="lockId" jdbcType="BIGINT" />
+    <result column="hirerPhone" property="hirerPhone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="hireType" property="hireType" jdbcType="TINYINT" />
+    <result column="hirePrice" property="hirePrice" jdbcType="DECIMAL" />
+    <result column="startTime" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, lockId, hirerPhone, password, hireType, hirePrice, startTime, endTime, type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockKeyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_lock_key
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_lock_key
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_lock_key
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.i9.lock.platform.model.LockKeyExample" >
+    delete from t_lock_key
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.i9.lock.platform.model.LockKey" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_lock_key (lockId, hirerPhone, password, 
+      hireType, hirePrice, startTime, 
+      endTime, type)
+    values (#{lockId,jdbcType=BIGINT}, #{hirerPhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{hireType,jdbcType=TINYINT}, #{hirePrice,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="org.i9.lock.platform.model.LockKey" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_lock_key
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lockId != null" >
+        lockId,
+      </if>
+      <if test="hirerPhone != null" >
+        hirerPhone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="hireType != null" >
+        hireType,
+      </if>
+      <if test="hirePrice != null" >
+        hirePrice,
+      </if>
+      <if test="startTime != null" >
+        startTime,
+      </if>
+      <if test="endTime != null" >
+        endTime,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lockId != null" >
+        #{lockId,jdbcType=BIGINT},
+      </if>
+      <if test="hirerPhone != null" >
+        #{hirerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hireType != null" >
+        #{hireType,jdbcType=TINYINT},
+      </if>
+      <if test="hirePrice != null" >
+        #{hirePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.i9.lock.platform.model.LockKeyExample" resultType="java.lang.Integer" >
+    select count(*) from t_lock_key
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_lock_key
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockId != null" >
+        lockId = #{record.lockId,jdbcType=BIGINT},
+      </if>
+      <if test="record.hirerPhone != null" >
+        hirerPhone = #{record.hirerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hireType != null" >
+        hireType = #{record.hireType,jdbcType=TINYINT},
+      </if>
+      <if test="record.hirePrice != null" >
+        hirePrice = #{record.hirePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.startTime != null" >
+        startTime = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        endTime = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_lock_key
+    set id = #{record.id,jdbcType=INTEGER},
+      lockId = #{record.lockId,jdbcType=BIGINT},
+      hirerPhone = #{record.hirerPhone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      hireType = #{record.hireType,jdbcType=TINYINT},
+      hirePrice = #{record.hirePrice,jdbcType=DECIMAL},
+      startTime = #{record.startTime,jdbcType=TIMESTAMP},
+      endTime = #{record.endTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.LockKey" >
+    update t_lock_key
+    <set >
+      <if test="lockId != null" >
+        lockId = #{lockId,jdbcType=BIGINT},
+      </if>
+      <if test="hirerPhone != null" >
+        hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hireType != null" >
+        hireType = #{hireType,jdbcType=TINYINT},
+      </if>
+      <if test="hirePrice != null" >
+        hirePrice = #{hirePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        startTime = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.LockKey" >
+    update t_lock_key
+    set lockId = #{lockId,jdbcType=BIGINT},
+      hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      hireType = #{hireType,jdbcType=TINYINT},
+      hirePrice = #{hirePrice,jdbcType=DECIMAL},
+      startTime = #{startTime,jdbcType=TIMESTAMP},
+      endTime = #{endTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

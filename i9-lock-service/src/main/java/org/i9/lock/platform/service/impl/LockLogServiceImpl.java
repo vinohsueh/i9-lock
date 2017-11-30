@@ -9,6 +9,7 @@ import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /** 
  * 创建时间：2017年11月27日 下午1:50:08
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
  * 
  */
 @Service
+@Transactional
 public class LockLogServiceImpl implements LockLogService{
 
     @Autowired
