@@ -58,4 +58,10 @@ public interface LockDao {
     PageBounds<Lock> selectByLimitPage(LockSearchDto lockSearchDto,
             int currectPage, int pageSize) throws Exception;
     
+    /**
+     * 移除锁具
+     * @param id
+     */
+    void releaseLock(Long id) throws Exception;
+    
 }

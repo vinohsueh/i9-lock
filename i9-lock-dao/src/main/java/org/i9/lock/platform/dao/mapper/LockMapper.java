@@ -31,4 +31,10 @@ public interface LockMapper {
     int updateByPrimaryKey(Lock record);
     
     List<Lock> selectByLimitPage(@Param("example") LockSearchDto lockSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    
+    /**
+     * 移除锁具
+     * @param id
+     */
+    void releaseLock(Long id);
 }

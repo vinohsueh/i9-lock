@@ -64,4 +64,9 @@ public class LockDaoImpl implements LockDao{
         return pageBounds;
     }
 
+    @Override
+    public void releaseLock(Long id) throws Exception {
+        lockMapper.releaseLock(id);
+    }
+
 }

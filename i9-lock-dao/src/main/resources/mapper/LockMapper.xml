@@ -382,4 +382,8 @@
     </if>
     limit #{offset},#{limit}
   </select>
+  
+  <update id="releaseLock" parameterType="long">
+    update t_lock set keyAdmin = null,userId = null where id = #{id}
+  </update>
 </mapper>

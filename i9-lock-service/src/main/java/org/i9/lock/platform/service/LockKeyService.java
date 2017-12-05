@@ -1,6 +1,7 @@
 package org.i9.lock.platform.service;
 
 import org.i9.lock.platform.dao.vo.LockKeyDto;
+import org.i9.lock.platform.dao.vo.TemporaryKeyDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.utils.BusinessException;
@@ -52,5 +53,11 @@ public interface LockKeyService {
      */
     PageBounds<LockKey> selectByLimitPage(LockKeyExample example,
             int currectPage, int pageSize) throws BusinessException;
+    
+    /**
+     * 添加临时锁
+     * @param temporaryKeyDto
+     */
+    void addTemporaryKey(TemporaryKeyDto temporaryKeyDto);
     
 }

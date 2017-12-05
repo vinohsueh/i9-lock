@@ -31,4 +31,14 @@ public class ErrorCode {
      */
     public static final int UNABLE_MODIFY = 10008;
     
+    /**
+     * 移交锁具失败
+     */
+    public static final int RELEASE_LOCK_ERROR = 10009;
+    
+    /**
+     * 接收数据错误
+     */
+    public static final int RECEIVE_DATA_ERROR = 10010;
+    
 }

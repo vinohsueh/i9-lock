@@ -1,5 +1,6 @@
 package org.i9.lock.platform.service;
 
+import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.utils.BusinessException;
@@ -58,4 +59,10 @@ public interface LockService {
      */
     PageBounds<Lock> selectByLimitPage(LockSearchDto lockSearchDto,
             int currectPage, int pageSize) throws BusinessException;
+    
+    /**
+     * 锁具移交管理
+     * @param lockReleaseDto
+     */
+    void releaseLock(LockReleaseDto lockReleaseDto) throws BusinessException;
 }

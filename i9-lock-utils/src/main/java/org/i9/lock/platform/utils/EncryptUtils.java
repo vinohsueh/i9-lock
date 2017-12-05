@@ -294,4 +294,29 @@ public class EncryptUtils {
     private static byte charToByte(char c) {
         return (byte) "0123456789ABCDEF".indexOf(c);
     }
+    
+    /**
+     * 数字字符串转字节数组
+     * @param number
+     * @return
+     */
+    public static byte[] numberStringToByte(String number) {
+        byte[] bytes=number.getBytes();
+        for(int i=bytes.length-1;i>=0;i--){
+            bytes[i]-=(byte)'0';
+        }
+        return bytes;
+    }
+    
+    /**
+     * 字节数组转数字字符串
+     * @param number
+     * @return
+     */
+    public static String byteToNumberString(byte[] bytes) {
+        for(int i=bytes.length-1;i>=0;i--){
+            bytes[i]+=(byte)'0';
+        }
+        return bytes.toString();
+    }
 }

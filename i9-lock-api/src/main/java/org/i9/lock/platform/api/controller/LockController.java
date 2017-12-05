@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.i9.lock.platform.api.component.LockListInfoComponent;
 import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.dao.vo.LockAddDto;
+import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.User;
@@ -101,4 +102,13 @@ public class LockController {
         }
         return result;
     }
+    
+    
+    @RequestMapping(value={"/release"},method = {RequestMethod.POST})
+    public HashMap<String, Object> release(@Valid LockReleaseDto lockReleaseDto,BindingResult bindingResult){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockService.releaseLock(lockReleaseDto);
+        return result;
+    }
+    
 }

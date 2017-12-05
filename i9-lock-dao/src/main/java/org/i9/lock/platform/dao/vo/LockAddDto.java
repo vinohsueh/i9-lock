@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class LockAddDto {
     
-    @NotBlank(message="密钥不能为空") 
+    @NotBlank(message="锁具码不能为空") 
     @Pattern(regexp="^[0-9]{8}$",message="请输入8个数字")
     private String keyAdmin;
     
