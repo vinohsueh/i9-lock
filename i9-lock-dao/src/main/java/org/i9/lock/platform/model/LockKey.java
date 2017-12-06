@@ -3,6 +3,8 @@ package org.i9.lock.platform.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.i9.lock.platform.utils.StringUtil;
+
 public class LockKey {
     private Integer id;
     
@@ -56,8 +58,43 @@ public class LockKey {
      */
     private Long userId;
     
+    private User user;
+    /**
+     * 领取标记 0未领取   1领取
+     */
+    private Byte receiveFlag;
+    
+    /**
+     * 领取时间
+     */
+    private Date receiveTime;
     
     
+    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Byte getReceiveFlag() {
+        return receiveFlag;
+    }
+
+    public void setReceiveFlag(Byte receiveFlag) {
+        this.receiveFlag = receiveFlag;
+    }
+
+    public Date getReceiveTime() {
+        return receiveTime;
+    }
+
+    public void setReceiveTime(Date receiveTime) {
+        this.receiveTime = receiveTime;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -144,5 +181,9 @@ public class LockKey {
 
     public void setType(Byte type) {
         this.type = type;
+    }
+    
+    public String getReceiveTimeString(){
+        return StringUtil.dateToStringWithoutTime(receiveTime);
     }
 }

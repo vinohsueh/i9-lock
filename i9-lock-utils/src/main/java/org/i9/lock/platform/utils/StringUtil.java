@@ -1,6 +1,8 @@
 package org.i9.lock.platform.utils;
 
 import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 字符串工具
@@ -34,4 +36,18 @@ public class StringUtil {
         return md5StrBuff.toString();
     }
     
+    /**
+     * 日期转换
+     * 
+     * @param date
+     * @return
+     */
+    public static String dateToStringWithoutTime(Date date) {
+        if (null != date) {
+            SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd");
+            return sdm.format(date);
+        } else {
+            return "";
+        }
+    }
 }

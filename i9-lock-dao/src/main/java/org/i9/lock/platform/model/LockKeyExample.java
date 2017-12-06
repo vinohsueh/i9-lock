@@ -791,6 +791,128 @@ public class LockKeyExample {
             addCriterion("userId not between", value1, value2, "userId");
             return (Criteria) this;
         }
+
+        public Criteria andReceiveFlagIsNull() {
+            addCriterion("receiveFlag is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagIsNotNull() {
+            addCriterion("receiveFlag is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagEqualTo(Byte value) {
+            addCriterion("receiveFlag =", value, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagNotEqualTo(Byte value) {
+            addCriterion("receiveFlag <>", value, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagGreaterThan(Byte value) {
+            addCriterion("receiveFlag >", value, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagGreaterThanOrEqualTo(Byte value) {
+            addCriterion("receiveFlag >=", value, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagLessThan(Byte value) {
+            addCriterion("receiveFlag <", value, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagLessThanOrEqualTo(Byte value) {
+            addCriterion("receiveFlag <=", value, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagIn(List<Byte> values) {
+            addCriterion("receiveFlag in", values, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagNotIn(List<Byte> values) {
+            addCriterion("receiveFlag not in", values, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagBetween(Byte value1, Byte value2) {
+            addCriterion("receiveFlag between", value1, value2, "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveFlagNotBetween(Byte value1, Byte value2) {
+            addCriterion("receiveFlag not between", value1, value2,
+                    "receiveFlag");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeIsNull() {
+            addCriterion("receiveTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeIsNotNull() {
+            addCriterion("receiveTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeEqualTo(Date value) {
+            addCriterion("receiveTime =", value, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeNotEqualTo(Date value) {
+            addCriterion("receiveTime <>", value, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeGreaterThan(Date value) {
+            addCriterion("receiveTime >", value, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("receiveTime >=", value, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeLessThan(Date value) {
+            addCriterion("receiveTime <", value, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeLessThanOrEqualTo(Date value) {
+            addCriterion("receiveTime <=", value, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeIn(List<Date> values) {
+            addCriterion("receiveTime in", values, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeNotIn(List<Date> values) {
+            addCriterion("receiveTime not in", values, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeBetween(Date value1, Date value2) {
+            addCriterion("receiveTime between", value1, value2, "receiveTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andReceiveTimeNotBetween(Date value1, Date value2) {
+            addCriterion("receiveTime not between", value1, value2,
+                    "receiveTime");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

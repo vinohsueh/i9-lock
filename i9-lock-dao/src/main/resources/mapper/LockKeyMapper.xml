@@ -13,6 +13,11 @@
     <result column="type" property="type" jdbcType="TINYINT" />
     <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
     <result column="userId" jdbcType="BIGINT" property="userId" />
+    <result column="receiveFlag" jdbcType="TINYINT" property="receiveFlag" />
+    <result column="receiveTime" jdbcType="TIMESTAMP" property="receiveTime" />
+  </resultMap>
+  <resultMap type="org.i9.lock.platform.model.LockKey" id="DetailResultMap" extends="BaseResultMap">
+    <association property="user" column="userId" javaType="org.i9.lock.platform.model.User" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"></association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, lockId, hirerPhone, password, hireType, hirePrice, startTime, endTime, type, 
-    orderNumber, userId
+    orderNumber, userId, receiveFlag, receiveTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockKeyExample" >
     select
@@ -113,11 +118,13 @@
     insert into t_lock_key (lockId, hirerPhone, password, 
       hireType, hirePrice, startTime, 
       endTime, type, orderNumber, 
-      userId)
+      userId, receiveFlag, receiveTime
+      )
     values (#{lockId,jdbcType=BIGINT}, #{hirerPhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{hireType,jdbcType=TINYINT}, #{hirePrice,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT}, #{orderNumber,jdbcType=INTEGER}, 
-      #{userId,jdbcType=BIGINT})
+      #{userId,jdbcType=BIGINT}, #{receiveFlag,jdbcType=TINYINT}, #{receiveTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.LockKey" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -155,6 +162,12 @@
       <if test="userId != null">
         userId,
       </if>
+      <if test="receiveFlag != null">
+        receiveFlag,
+      </if>
+      <if test="receiveTime != null">
+        receiveTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="lockId != null" >
@@ -187,12 +200,18 @@
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
       </if>
+       <if test="receiveFlag != null">
+        #{receiveFlag,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null">
+        #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="org.i9.lock.platform.model.LockKeyExample" resultType="java.lang.Integer" >
     select count(*) from t_lock_key
     <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+      <include refid="Update_By_Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
@@ -231,6 +250,12 @@
       <if test="record.userId != null">
         userId = #{record.userId,jdbcType=BIGINT},
       </if>
+      <if test="record.receiveFlag != null">
+        receiveFlag = #{record.receiveFlag,jdbcType=TINYINT},
+      </if>
+      <if test="record.receiveTime != null">
+        receiveTime = #{record.receiveTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +273,9 @@
       endTime = #{record.endTime,jdbcType=TIMESTAMP},
       type = #{record.type,jdbcType=TINYINT},
       orderNumber = #{record.orderNumber,jdbcType=INTEGER},
-      userId = #{record.userId,jdbcType=BIGINT}
+      userId = #{record.userId,jdbcType=BIGINT},
+      receiveFlag = #{record.receiveFlag,jdbcType=TINYINT},
+      receiveTime = #{record.receiveTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +313,12 @@
       <if test="userId != null">
         userId = #{userId,jdbcType=BIGINT},
       </if>
+      <if test="receiveFlag != null">
+        receiveFlag = #{receiveFlag,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null">
+        receiveTime = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -300,7 +333,9 @@
       endTime = #{endTime,jdbcType=TIMESTAMP},
       type = #{type,jdbcType=TINYINT},
       orderNumber = #{orderNumber,jdbcType=INTEGER},
-      userId = #{userId,jdbcType=BIGINT}
+      userId = #{userId,jdbcType=BIGINT},
+      receiveFlag = #{receiveFlag,jdbcType=TINYINT},
+      receiveTime = #{receiveTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectExistOrderNumber" parameterType="long" resultType="int">
@@ -310,5 +345,15 @@
     select <include refid="Base_Column_List" />
     from t_lock_key
     where lockId = #{lockId} and userId = #{userId}
+  </select>
+  <select id="selectByLimitPage" resultMap="DetailResultMap">
+    select <include refid="Base_Column_List" /> from t_lock_key
+    <if test="_parameter != null">
+        <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null and example.orderByClause != ''">
+        order by ${example.orderByClause}
+    </if>
+    limit #{offset},#{limit}
   </select>
 </mapper>
