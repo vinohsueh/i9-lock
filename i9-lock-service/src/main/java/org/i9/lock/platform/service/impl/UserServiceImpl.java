@@ -37,7 +37,13 @@ public class UserServiceImpl implements UserService{
     @Override
     public void addUser(User user) throws BusinessException {
         try {
+            User existUser = userDao.getUserByPhone(user.getPhone());
+            if (existUser != null) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"该手机号已经注册");
+            }
             userDao.addUser(user);
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorCode(),e.getErrorMessage());
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

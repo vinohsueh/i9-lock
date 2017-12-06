@@ -51,7 +51,21 @@ public class LockKey {
      */
     private Integer orderNumber;
     
+    /**
+     * 租户(用户)编号
+     */
+    private Long userId;
     
+    
+    
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public Integer getOrderNumber() {
         return orderNumber;
     }

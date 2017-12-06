@@ -58,4 +58,12 @@ public interface LockKeyDao {
      * @return
      */
     List<Integer> selectExistOrderNumber(Long lockId) throws Exception;
+    
+    /**
+     * 通过锁id和用户id查询锁钥匙
+     * @param lockId
+     * @param id
+     * @return
+     */
+    LockKey selectLockKeyByLockIdAndUserId(Long lockId, Long userId)throws Exception;
 }

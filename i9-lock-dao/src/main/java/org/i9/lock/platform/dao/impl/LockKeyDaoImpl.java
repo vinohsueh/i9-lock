@@ -57,4 +57,10 @@ public class LockKeyDaoImpl implements LockKeyDao{
         return lockKeyMapper.selectExistOrderNumber(lockId);
     }
 
+    @Override
+    public LockKey selectLockKeyByLockIdAndUserId(Long lockId, Long userId)
+            throws Exception {
+        return lockKeyMapper.selectLockKeyByLockIdAndUserId(lockId,userId);
+    }
+
 }

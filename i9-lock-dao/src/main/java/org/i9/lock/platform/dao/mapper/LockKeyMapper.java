@@ -32,4 +32,11 @@ public interface LockKeyMapper {
     List<LockKey> selectByLimitPage(@Param("example") LockKeyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
 
     List<Integer> selectExistOrderNumber(Long lockId);
+    /**
+     * 通过锁id和用户id查询锁钥匙
+     * @param lockId
+     * @param id
+     * @return
+     */
+    LockKey selectLockKeyByLockIdAndUserId(@Param("lockId")Long lockId,@Param("userId") Long userId);
 }
