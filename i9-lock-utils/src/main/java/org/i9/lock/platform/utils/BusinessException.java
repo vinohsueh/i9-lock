@@ -22,7 +22,13 @@ public class BusinessException extends RuntimeException {
         this.errorMessage = errorMessage;
         this.exceptionMessage = exceptionMessage;
     }
+    
+    public BusinessException(String errorMessage,String exceptionMessage) {
+        this.errorMessage = errorMessage;
+        this.exceptionMessage = exceptionMessage;
+    }
 
+    
     public int getErrorCode() {
         return errorCode;
     }

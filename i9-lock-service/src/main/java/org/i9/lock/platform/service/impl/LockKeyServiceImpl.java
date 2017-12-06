@@ -48,7 +48,7 @@ public class LockKeyServiceImpl implements LockKeyService{
         try {
             //查询1-9的编号 最小未使用编号
             List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto.getLockId());
-            if (list.size() == 9) {
+            if (list.size() >= 9) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该锁租户已满,不能再添加了");
             }
             Integer orderNumber = selectOrderNumber(list);

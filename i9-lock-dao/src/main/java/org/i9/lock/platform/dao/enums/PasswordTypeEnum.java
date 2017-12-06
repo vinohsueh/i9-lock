@@ -9,18 +9,18 @@ import java.util.List;
  * @version  
  * 
  */
-public enum HireTypeEnum {
-    DAY((byte)0,"日"),MONTH((byte)1,"月"),HOUR((byte)2,"时");
+public enum PasswordTypeEnum {
+    PWD((byte)0,"密码"),LOOPS((byte)1,"指纹"),ALL((byte)2,"密码和指纹");
     
-    private static final List<HireTypeEnum> TYPES = new ArrayList<HireTypeEnum>();
+    private static final List<PasswordTypeEnum> TYPES = new ArrayList<PasswordTypeEnum>();
     
     static{
-        TYPES.add(MONTH);
-        TYPES.add(DAY);
-        TYPES.add(HOUR);
+        TYPES.add(PWD);
+        TYPES.add(LOOPS);
+        TYPES.add(ALL);
     }
     
-    private HireTypeEnum(byte id,String name){
+    private PasswordTypeEnum(byte id,String name){
         this.id = id;
         this.name = name;
     } 
@@ -45,22 +45,22 @@ public enum HireTypeEnum {
         this.name = name;
     }
 
-    public static List<HireTypeEnum> getTypes() {
+    public static List<PasswordTypeEnum> getTypes() {
         return TYPES;
     }
     
     public static String getNameById(short id){
-        for (HireTypeEnum hireTypeEnum : HireTypeEnum.values()) {
-            if (hireTypeEnum.getId() == id) {
-                return hireTypeEnum.getName();
+        for (PasswordTypeEnum passwordTypeEnum : PasswordTypeEnum.values()) {
+            if (passwordTypeEnum.getId() == id) {
+                return passwordTypeEnum.getName();
             }
         }
         return "";
     }
     public static Byte getIdByName(String name){
-        for (HireTypeEnum hireTypeEnum : HireTypeEnum.values()) {
-            if (hireTypeEnum.getName().equals(name)) {
-                return hireTypeEnum.getId();
+        for (PasswordTypeEnum passwordTypeEnum : PasswordTypeEnum.values()) {
+            if (passwordTypeEnum.getName().equals(name)) {
+                return passwordTypeEnum.getId();
             }
         }
         return null;
