@@ -30,4 +30,6 @@ public interface LockKeyMapper {
     int updateByPrimaryKey(LockKey record);
     
     List<LockKey> selectByLimitPage(@Param("example") LockKeyExample example, @Param("offset") int offset, @Param("limit") int pageSize);
+
+    List<Integer> selectExistOrderNumber(Long lockId);
 }

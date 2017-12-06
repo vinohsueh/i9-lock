@@ -45,6 +45,20 @@ public class LockKey {
      * 钥匙类型 0:租户钥匙   1:临时钥匙
      */
     private Byte type;
+    
+    /**
+     * 用户组编号
+     */
+    private Integer orderNumber;
+    
+    
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
     public Integer getId() {
         return id;

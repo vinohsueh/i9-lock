@@ -1,5 +1,7 @@
 package org.i9.lock.platform.dao;
 
+import java.util.List;
+
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.utils.PageBounds;
@@ -50,4 +52,10 @@ public interface LockKeyDao {
     PageBounds<LockKey> selectByLimitPage(LockKeyExample example,
             int currectPage, int pageSize) throws Exception;
     
+    /**
+     * 查询已经有的用户组编号
+     * @param lockId
+     * @return
+     */
+    List<Integer> selectExistOrderNumber(Long lockId) throws Exception;
 }

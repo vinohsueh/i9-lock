@@ -52,4 +52,9 @@ public class LockKeyDaoImpl implements LockKeyDao{
         return pageBounds;
     }
 
+    @Override
+    public List<Integer> selectExistOrderNumber(Long lockId) throws Exception {
+        return lockKeyMapper.selectExistOrderNumber(lockId);
+    }
+
 }

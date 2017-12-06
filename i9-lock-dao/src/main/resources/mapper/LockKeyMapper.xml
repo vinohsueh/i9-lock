@@ -11,6 +11,7 @@
     <result column="startTime" property="startTime" jdbcType="TIMESTAMP" />
     <result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
     <result column="type" property="type" jdbcType="TINYINT" />
+    <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -109,10 +110,12 @@
     </selectKey>
     insert into t_lock_key (lockId, hirerPhone, password, 
       hireType, hirePrice, startTime, 
-      endTime, type)
+      endTime, type, orderNumber
+      )
     values (#{lockId,jdbcType=BIGINT}, #{hirerPhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{hireType,jdbcType=TINYINT}, #{hirePrice,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT})
+      #{endTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT}, #{orderNumber,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.LockKey" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -144,6 +147,9 @@
       <if test="type != null" >
         type,
       </if>
+      <if test="orderNumber != null">
+        orderNumber,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="lockId != null" >
@@ -169,6 +175,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=TINYINT},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -208,6 +217,9 @@
       <if test="record.type != null" >
         type = #{record.type,jdbcType=TINYINT},
       </if>
+      <if test="record.orderNumber != null">
+        orderNumber = #{record.orderNumber,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -223,7 +235,8 @@
       hirePrice = #{record.hirePrice,jdbcType=DECIMAL},
       startTime = #{record.startTime,jdbcType=TIMESTAMP},
       endTime = #{record.endTime,jdbcType=TIMESTAMP},
-      type = #{record.type,jdbcType=TINYINT}
+      type = #{record.type,jdbcType=TINYINT},
+      orderNumber = #{record.orderNumber,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -255,11 +268,14 @@
       <if test="type != null" >
         type = #{type,jdbcType=TINYINT},
       </if>
+      <if test="orderNumber != null">
+        orderNumber = #{orderNumber,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.LockKey" >
-    update t_lock_key
+     update t_lock_key
     set lockId = #{lockId,jdbcType=BIGINT},
       hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -267,7 +283,11 @@
       hirePrice = #{hirePrice,jdbcType=DECIMAL},
       startTime = #{startTime,jdbcType=TIMESTAMP},
       endTime = #{endTime,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=TINYINT}
+      type = #{type,jdbcType=TINYINT},
+      orderNumber = #{orderNumber,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectExistOrderNumber" parameterType="long" resultType="int">
+    select orderNumber from t_lock_key where lockId = #{lockId}
+  </select>
 </mapper>

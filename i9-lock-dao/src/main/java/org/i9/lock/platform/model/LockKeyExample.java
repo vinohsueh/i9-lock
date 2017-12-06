@@ -92,16 +92,20 @@ public class LockKeyExample {
             criteria.add(new Criterion(condition));
         }
 
-        protected void addCriterion(String condition, Object value, String property) {
+        protected void addCriterion(String condition, Object value,
+                String property) {
             if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
+                throw new RuntimeException("Value for " + property
+                        + " cannot be null");
             }
             criteria.add(new Criterion(condition, value));
         }
 
-        protected void addCriterion(String condition, Object value1, Object value2, String property) {
+        protected void addCriterion(String condition, Object value1,
+                Object value2, String property) {
             if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
+                throw new RuntimeException("Between values for " + property
+                        + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
         }
@@ -481,7 +485,8 @@ public class LockKeyExample {
             return (Criteria) this;
         }
 
-        public Criteria andHirePriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andHirePriceNotBetween(BigDecimal value1,
+                BigDecimal value2) {
             addCriterion("hirePrice not between", value1, value2, "hirePrice");
             return (Criteria) this;
         }
@@ -665,10 +670,70 @@ public class LockKeyExample {
             addCriterion("type not between", value1, value2, "type");
             return (Criteria) this;
         }
+
+        public Criteria andOrderNumberIsNull() {
+            addCriterion("orderNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIsNotNull() {
+            addCriterion("orderNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberEqualTo(Integer value) {
+            addCriterion("orderNumber =", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotEqualTo(Integer value) {
+            addCriterion("orderNumber <>", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberGreaterThan(Integer value) {
+            addCriterion("orderNumber >", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberGreaterThanOrEqualTo(Integer value) {
+            addCriterion("orderNumber >=", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLessThan(Integer value) {
+            addCriterion("orderNumber <", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberLessThanOrEqualTo(Integer value) {
+            addCriterion("orderNumber <=", value, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberIn(List<Integer> values) {
+            addCriterion("orderNumber in", values, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotIn(List<Integer> values) {
+            addCriterion("orderNumber not in", values, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberBetween(Integer value1, Integer value2) {
+            addCriterion("orderNumber between", value1, value2, "orderNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderNumberNotBetween(Integer value1, Integer value2) {
+            addCriterion("orderNumber not between", value1, value2,
+                    "orderNumber");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
-
         protected Criteria() {
             super();
         }
@@ -676,19 +741,12 @@ public class LockKeyExample {
 
     public static class Criterion {
         private String condition;
-
         private Object value;
-
         private Object secondValue;
-
         private boolean noValue;
-
         private boolean singleValue;
-
         private boolean betweenValue;
-
         private boolean listValue;
-
         private String typeHandler;
 
         public String getCondition() {
@@ -746,7 +804,8 @@ public class LockKeyExample {
             this(condition, value, null);
         }
 
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+        protected Criterion(String condition, Object value, Object secondValue,
+                String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;

@@ -1,6 +1,9 @@
 package org.i9.lock.platform.service.impl;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
@@ -33,10 +36,18 @@ public class LockKeyServiceImpl implements LockKeyService{
     @Autowired
     private LockDao lockDao;
     
+    private static final Integer [] ARRAY = {1,2,3,4,5,6,7,8,9};
     @Override
     public void addLockKey(LockKeyDto lockKeyDto) throws BusinessException {
         try {
-            lockKeyDao.addLockKey(lockKeyDto.getLockKey());
+            //查询1-9的编号 最小未使用编号
+            List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto.getLockId());
+            Integer orderNumber = selectOrderNumber(list);
+            LockKey lockKey = lockKeyDto.getLockKey();
+            //将最小编号赋给钥匙
+            lockKey.setOrderNumber(orderNumber);
+            lockKeyDao.addLockKey(lockKey);
+            //更新锁的合租状态和安全模式
             Lock lock = lockDao.getLockById(lockKeyDto.getLockId());
             lock.setIfShared(lockKeyDto.getIfShare());
             lock.setSafeMode(lockKeyDto.getSafeMode());
@@ -45,7 +56,23 @@ public class LockKeyServiceImpl implements LockKeyService{
            throw new BusinessException(e.getMessage());
         }
     }
-
+    
+    /**
+     * 查询1-9的编号 最小未使用编号
+     * @param list
+     * @return
+     */
+    private static Integer selectOrderNumber(List<Integer> list) {
+        List<Integer> array = new ArrayList<Integer>();
+        for (int i = 0; i < ARRAY.length; i++) {
+            if (!array.contains(ARRAY[i]) && !list.contains(ARRAY[i])) {
+                array.add(ARRAY[i]);
+            }
+        }
+        Integer orderNumber = Collections.min(array);
+        return orderNumber;
+    }
+    
     @Override
     public void updateLockKey(LockKey lockKey) throws BusinessException {
         try {
