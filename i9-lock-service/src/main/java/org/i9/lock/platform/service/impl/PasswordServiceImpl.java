@@ -37,6 +37,10 @@ public class PasswordServiceImpl implements PasswordService{
             if (lockKey == null) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户非本房屋租户,不能设密码");
             }
+            List<Integer> existNumbers = passwordDao.selectExistOrderNumber(password.getLockId(), password.getUserId());
+            if(existNumbers.contains(password.getOrderNumber())) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"该密码顺序编号已存在");
+            }
             passwordDao.addPassword(password);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(),e.getErrorMessage());

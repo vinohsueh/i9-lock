@@ -1,5 +1,7 @@
 package org.i9.lock.platform.model;
 
+import javax.validation.constraints.NotNull;
+
 public class Password {
     /**
      * 
@@ -9,6 +11,7 @@ public class Password {
     /**
      * 锁id
      */
+    @NotNull(message="锁号不能为空")
     private Long lockId;
     
     /**
@@ -29,6 +32,7 @@ public class Password {
     /**
      * 密码序号
      */
+    @NotNull(message="密码序号不能为空")
     private Integer orderNumber;
 
     public Integer getId() {
