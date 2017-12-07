@@ -72,6 +72,7 @@ public class LockKeyController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         LockKeyExample example = new LockKeyExample();
         example.createCriteria().andLockIdEqualTo(lockId);
+        example.setOrderByClause("creatTime desc");
         PageBounds<LockKey> list = lockKeyService.selectByLimitPage(example, currectPage, pageSize);
         List<LockKey> keys = list.getPageList();
         JSONArray jsonArray = new JSONArray();

@@ -15,6 +15,7 @@
     <result column="userId" jdbcType="BIGINT" property="userId" />
     <result column="receiveFlag" jdbcType="TINYINT" property="receiveFlag" />
     <result column="receiveTime" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <resultMap type="org.i9.lock.platform.model.LockKey" id="DetailResultMap" extends="BaseResultMap">
     <association property="user" column="userId" javaType="org.i9.lock.platform.model.User" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"></association>
@@ -79,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, lockId, hirerPhone, password, hireType, hirePrice, startTime, endTime, type, 
-    orderNumber, userId, receiveFlag, receiveTime
+    orderNumber, userId, receiveFlag, receiveTime, createTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockKeyExample" >
     select
@@ -118,13 +119,13 @@
     insert into t_lock_key (lockId, hirerPhone, password, 
       hireType, hirePrice, startTime, 
       endTime, type, orderNumber, 
-      userId, receiveFlag, receiveTime
-      )
+      userId, receiveFlag, receiveTime, 
+      createTime)
     values (#{lockId,jdbcType=BIGINT}, #{hirerPhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{hireType,jdbcType=TINYINT}, #{hirePrice,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT}, #{orderNumber,jdbcType=INTEGER}, 
-      #{userId,jdbcType=BIGINT}, #{receiveFlag,jdbcType=TINYINT}, #{receiveTime,jdbcType=TIMESTAMP}
-      )
+      #{userId,jdbcType=BIGINT}, #{receiveFlag,jdbcType=TINYINT}, #{receiveTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.LockKey" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -168,6 +169,9 @@
       <if test="receiveTime != null">
         receiveTime,
       </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="lockId != null" >
@@ -205,6 +209,9 @@
       </if>
       <if test="receiveTime != null">
         #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -256,6 +263,9 @@
       <if test="record.receiveTime != null">
         receiveTime = #{record.receiveTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.createTime != null">
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -275,7 +285,8 @@
       orderNumber = #{record.orderNumber,jdbcType=INTEGER},
       userId = #{record.userId,jdbcType=BIGINT},
       receiveFlag = #{record.receiveFlag,jdbcType=TINYINT},
-      receiveTime = #{record.receiveTime,jdbcType=TIMESTAMP}
+      receiveTime = #{record.receiveTime,jdbcType=TIMESTAMP},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -319,6 +330,9 @@
       <if test="receiveTime != null">
         receiveTime = #{receiveTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -335,7 +349,8 @@
       orderNumber = #{orderNumber,jdbcType=INTEGER},
       userId = #{userId,jdbcType=BIGINT},
       receiveFlag = #{receiveFlag,jdbcType=TINYINT},
-      receiveTime = #{receiveTime,jdbcType=TIMESTAMP}
+      receiveTime = #{receiveTime,jdbcType=TIMESTAMP},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectExistOrderNumber" parameterType="long" resultType="int">

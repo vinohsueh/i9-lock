@@ -40,7 +40,8 @@ public class LockController {
     
     /**
      * 添加锁
-     * @param keyDev
+     * @param lockAddDto
+     * @param bindingResult
      * @return
      */
     @RequestMapping(value={"/save"},method = {RequestMethod.POST})
@@ -77,6 +78,7 @@ public class LockController {
     @RequestMapping(value={"/list"},method = {RequestMethod.POST})
     public HashMap<String, Object> list(LockSearchDto lockSearchDto,int currectPage, int pageSize){
         HashMap<String, Object> result = new HashMap<String, Object>();
+        lockSearchDto.setOrderByClause("createTime desc");
         PageBounds<Lock> pageBounds = lockService.selectByLimitPage(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
