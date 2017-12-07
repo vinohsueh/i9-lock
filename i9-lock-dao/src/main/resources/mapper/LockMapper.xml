@@ -17,6 +17,8 @@
     <result column="safeMode" jdbcType="TINYINT" property="safeMode" />
     <result column="ifShared" jdbcType="TINYINT" property="ifShared" />
     <result column="alertMinute" jdbcType="INTEGER" property="alertMinute" />
+    <result column="keyUser" jdbcType="BIGINT" property="keyUser" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -85,7 +87,7 @@
   </sql>
   <sql id="Base_Column_List" >
      id, keyAdmin, effective, userId, name, battery, eleNumber, elePrice, gasNumber, gasPrice, 
-    waterNumber, waterPrice, safeMode, ifShared, alertMinute
+    waterNumber, waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
     select
@@ -121,16 +123,18 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-   insert into t_lock (keyAdmin, effective, userId, 
+    insert into t_lock (keyAdmin, effective, userId, 
       name, battery, eleNumber, 
       elePrice, gasNumber, gasPrice, 
       waterNumber, waterPrice, safeMode, 
-      ifShared, alertMinute)
+      ifShared, alertMinute, keyUser, 
+      createTime)
     values (#{keyAdmin,jdbcType=BIGINT}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, 
       #{elePrice,jdbcType=DOUBLE}, #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, 
       #{waterNumber,jdbcType=DOUBLE}, #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, 
-      #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER})
+      #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Lock" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -180,6 +184,12 @@
       <if test="alertMinute != null">
         alertMinute,
       </if>
+      <if test="keyUser != null">
+        keyUser,
+      </if>
+      <if test="createTime != null">
+        createTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="keyAdmin != null">
@@ -223,6 +233,12 @@
       </if>
       <if test="alertMinute != null">
         #{alertMinute,jdbcType=INTEGER},
+      </if>
+      <if test="keyUser != null">
+        #{keyUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -280,6 +296,12 @@
       <if test="record.alertMinute != null">
         alertMinute = #{record.alertMinute,jdbcType=INTEGER},
       </if>
+      <if test="record.keyUser != null">
+        keyUser = #{record.keyUser,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -301,7 +323,9 @@
       waterPrice = #{record.waterPrice,jdbcType=DOUBLE},
       safeMode = #{record.safeMode,jdbcType=TINYINT},
       ifShared = #{record.ifShared,jdbcType=TINYINT},
-      alertMinute = #{record.alertMinute,jdbcType=INTEGER}
+      alertMinute = #{record.alertMinute,jdbcType=INTEGER},
+      keyUser = #{record.keyUser,jdbcType=BIGINT},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -351,11 +375,17 @@
       <if test="alertMinute != null">
         alertMinute = #{alertMinute,jdbcType=INTEGER},
       </if>
+      <if test="keyUser != null">
+        keyUser = #{keyUser,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Lock" >
-    update t_lock
+     update t_lock
     set keyAdmin = #{keyAdmin,jdbcType=BIGINT},
       effective = #{effective,jdbcType=TINYINT},
       userId = #{userId,jdbcType=BIGINT},
@@ -369,7 +399,9 @@
       waterPrice = #{waterPrice,jdbcType=DOUBLE},
       safeMode = #{safeMode,jdbcType=TINYINT},
       ifShared = #{ifShared,jdbcType=TINYINT},
-      alertMinute = #{alertMinute,jdbcType=INTEGER}
+      alertMinute = #{alertMinute,jdbcType=INTEGER},
+      keyUser = #{keyUser,jdbcType=BIGINT},
+      createTime = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">

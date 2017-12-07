@@ -1,5 +1,7 @@
 package org.i9.lock.platform.model;
 
+import java.util.Date;
+
 public class Lock {
     private Long id;
     
@@ -73,7 +75,15 @@ public class Lock {
      */
     private Integer alertMinute;
     
+    /**
+     * 
+     */
+    private Long keyUser;
     
+    /**
+     * 创建时间
+     */
+    private Date createTime;
     
     public Byte getIfShared() {
         return ifShared;
@@ -196,4 +206,22 @@ public class Lock {
     public void setBattery(Byte battery) {
         this.battery = battery;
     }
+
+    public Long getKeyUser() {
+        return keyUser;
+    }
+
+    public void setKeyUser(Long keyUser) {
+        this.keyUser = keyUser;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+    
+    
 }

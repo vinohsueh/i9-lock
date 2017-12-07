@@ -2,6 +2,7 @@ package org.i9.lock.platform.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class LockExample {
     protected String orderByClause;
@@ -1017,6 +1018,126 @@ public class LockExample {
         public Criteria andAlertMinuteNotBetween(Integer value1, Integer value2) {
             addCriterion("alertMinute not between", value1, value2,
                     "alertMinute");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserIsNull() {
+            addCriterion("keyUser is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserIsNotNull() {
+            addCriterion("keyUser is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserEqualTo(Long value) {
+            addCriterion("keyUser =", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserNotEqualTo(Long value) {
+            addCriterion("keyUser <>", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserGreaterThan(Long value) {
+            addCriterion("keyUser >", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserGreaterThanOrEqualTo(Long value) {
+            addCriterion("keyUser >=", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserLessThan(Long value) {
+            addCriterion("keyUser <", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserLessThanOrEqualTo(Long value) {
+            addCriterion("keyUser <=", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserIn(List<Long> values) {
+            addCriterion("keyUser in", values, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserNotIn(List<Long> values) {
+            addCriterion("keyUser not in", values, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserBetween(Long value1, Long value2) {
+            addCriterion("keyUser between", value1, value2, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserNotBetween(Long value1, Long value2) {
+            addCriterion("keyUser not between", value1, value2, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("createTime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("createTime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("createTime =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("createTime <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("createTime >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("createTime >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("createTime <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("createTime <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("createTime in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("createTime not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("createTime between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("createTime not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }
