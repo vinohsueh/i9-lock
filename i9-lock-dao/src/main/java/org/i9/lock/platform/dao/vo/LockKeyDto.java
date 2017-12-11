@@ -87,7 +87,7 @@ public class LockKeyDto {
     private byte safeMode;
     
     @NotBlank(message="确认密码不能为空")
-    @Pattern(regexp="^[0-9]{9}$",message="密码请输入9个数字")
+    @Pattern(regexp="^[0-9]{8}$",message="密码请输入8个数字")
     private String confirmPwd;
     
 
