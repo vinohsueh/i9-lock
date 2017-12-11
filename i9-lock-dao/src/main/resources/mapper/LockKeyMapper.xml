@@ -371,4 +371,9 @@
     </if>
     limit #{offset},#{limit}
   </select>
+  <select id="getLockKeyByLockId" parameterType="long" resultMap="DetailResultMap">
+     select <include refid="Base_Column_List" />
+    from t_lock_key
+    where lockId = #{lockId}
+  </select>
 </mapper>

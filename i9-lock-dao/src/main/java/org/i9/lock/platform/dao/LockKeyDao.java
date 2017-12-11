@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
+import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.PageBounds;
 
 /** 
@@ -66,4 +67,12 @@ public interface LockKeyDao {
      * @return
      */
     LockKey selectLockKeyByLockIdAndUserId(Long lockId, Long userId)throws Exception;
+    
+    /**
+     * 通过锁id查询钥匙
+     * @param lockId
+     * @return
+     * @throws BusinessException
+     */
+    List<LockKey> getLockKeyByLockId(Long lockId) throws Exception;
 }

@@ -1,5 +1,7 @@
 package org.i9.lock.platform.service;
 
+import java.util.List;
+
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
@@ -52,5 +54,13 @@ public interface LockKeyService {
      */
     PageBounds<LockKey> selectByLimitPage(LockKeyExample example,
             int currectPage, int pageSize) throws BusinessException;
+    
+    /**
+     * 通过锁id查询钥匙
+     * @param lockId
+     * @return
+     * @throws BusinessException
+     */
+    List<LockKey> getLockKeyByLockId(Long lockId) throws BusinessException;
     
 }

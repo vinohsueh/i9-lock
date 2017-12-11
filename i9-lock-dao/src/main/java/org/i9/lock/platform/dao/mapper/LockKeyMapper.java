@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
+import org.i9.lock.platform.utils.BusinessException;
 
 public interface LockKeyMapper {
     int countByExample(@Param("example") LockKeyExample example);
@@ -39,4 +40,11 @@ public interface LockKeyMapper {
      * @return
      */
     LockKey selectLockKeyByLockIdAndUserId(@Param("lockId")Long lockId,@Param("userId") Long userId);
+    /**
+     * 通过锁id查询钥匙
+     * @param lockId
+     * @return
+     * @throws BusinessException
+     */
+    List<LockKey> getLockKeyByLockId(Long lockId);
 }

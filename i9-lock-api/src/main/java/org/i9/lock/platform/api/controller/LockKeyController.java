@@ -53,7 +53,7 @@ public class LockKeyController {
     
     /**
      * 临时密码
-     * @param applyPwd
+     * @param lockId
      * @return
      */
     @RequestMapping(value={"/temporary"},method = {RequestMethod.POST})

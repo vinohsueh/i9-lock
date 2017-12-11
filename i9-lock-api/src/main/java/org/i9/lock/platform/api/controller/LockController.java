@@ -1,16 +1,20 @@
 package org.i9.lock.platform.api.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.i9.lock.platform.api.component.LockKeyPriceComponent;
 import org.i9.lock.platform.api.component.LockListInfoComponent;
 import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.dao.vo.LockAddDto;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
+import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.PageBounds;
@@ -37,7 +41,8 @@ public class LockController {
     private LockService lockService;
     @Autowired
     private UserService userService;
-    
+    @Autowired
+    private LockKeyService lockKeyService;
     /**
      * 添加锁
      * @param lockAddDto
@@ -95,13 +100,20 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/price"},method = {RequestMethod.POST})
-    public HashMap<String, Object> price(long lockId){
+    public HashMap<String, Object> price(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         Lock lock = lockService.getLockById(lockId);
         if (lock != null) {
             JSONObject jsonObject = new LockPriceComponent().setLock(lock).build();
             result.put("lock", jsonObject);
         }
+        List<LockKey> lockKeys = lockKeyService.getLockKeyByLockId(lockId);
+        JSONArray jsonArray = new JSONArray();
+        for (LockKey lockKey : lockKeys) {
+            JSONObject jsonObject = new LockKeyPriceComponent().setLockKey(lockKey).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("keys", jsonArray);
         return result;
     }
     

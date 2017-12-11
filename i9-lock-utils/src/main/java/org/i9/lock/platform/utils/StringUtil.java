@@ -50,4 +50,19 @@ public class StringUtil {
             return "";
         }
     }
+    
+    /**
+     * 日期转换
+     * @param date
+     * @param rep
+     * @return
+     */
+    public static String dateToStringByRep(Date date,String rep) {
+        if (null != date) {
+            SimpleDateFormat sdm = new SimpleDateFormat(rep);
+            return sdm.format(date);
+        } else {
+            return "";
+        }
+    }
 }
