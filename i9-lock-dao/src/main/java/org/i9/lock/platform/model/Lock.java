@@ -85,6 +85,21 @@ public class Lock {
      */
     private Date createTime;
     
+    /**
+     * 锁号
+     */
+    private Long keyNumber;
+    
+    
+    
+    public Long getKeyNumber() {
+        return keyNumber;
+    }
+
+    public void setKeyNumber(Long keyNumber) {
+        this.keyNumber = keyNumber;
+    }
+
     public Byte getIfShared() {
         return ifShared;
     }

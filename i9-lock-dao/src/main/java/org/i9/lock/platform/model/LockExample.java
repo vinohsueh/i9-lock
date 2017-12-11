@@ -1140,6 +1140,66 @@ public class LockExample {
             addCriterion("createTime not between", value1, value2, "createTime");
             return (Criteria) this;
         }
+
+        public Criteria andKeyNumberIsNull() {
+            addCriterion("keyNumber is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberIsNotNull() {
+            addCriterion("keyNumber is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberEqualTo(Long value) {
+            addCriterion("keyNumber =", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberNotEqualTo(Long value) {
+            addCriterion("keyNumber <>", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberGreaterThan(Long value) {
+            addCriterion("keyNumber >", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberGreaterThanOrEqualTo(Long value) {
+            addCriterion("keyNumber >=", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberLessThan(Long value) {
+            addCriterion("keyNumber <", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberLessThanOrEqualTo(Long value) {
+            addCriterion("keyNumber <=", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberIn(List<Long> values) {
+            addCriterion("keyNumber in", values, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberNotIn(List<Long> values) {
+            addCriterion("keyNumber not in", values, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberBetween(Long value1, Long value2) {
+            addCriterion("keyNumber between", value1, value2, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberNotBetween(Long value1, Long value2) {
+            addCriterion("keyNumber not between", value1, value2, "keyNumber");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -1227,5 +1287,4 @@ public class LockExample {
             this(condition, value, secondValue, null);
         }
     }
-
 }
