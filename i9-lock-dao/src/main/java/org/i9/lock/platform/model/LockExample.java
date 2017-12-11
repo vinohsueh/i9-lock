@@ -1151,53 +1151,133 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberEqualTo(Long value) {
+        public Criteria andKeyNumberEqualTo(String value) {
             addCriterion("keyNumber =", value, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberNotEqualTo(Long value) {
+        public Criteria andKeyNumberNotEqualTo(String value) {
             addCriterion("keyNumber <>", value, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberGreaterThan(Long value) {
+        public Criteria andKeyNumberGreaterThan(String value) {
             addCriterion("keyNumber >", value, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberGreaterThanOrEqualTo(Long value) {
+        public Criteria andKeyNumberGreaterThanOrEqualTo(String value) {
             addCriterion("keyNumber >=", value, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberLessThan(Long value) {
+        public Criteria andKeyNumberLessThan(String value) {
             addCriterion("keyNumber <", value, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberLessThanOrEqualTo(Long value) {
+        public Criteria andKeyNumberLessThanOrEqualTo(String value) {
             addCriterion("keyNumber <=", value, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberIn(List<Long> values) {
+        public Criteria andKeyNumberLike(String value) {
+            addCriterion("keyNumber like", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberNotLike(String value) {
+            addCriterion("keyNumber not like", value, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyNumberIn(List<String> values) {
             addCriterion("keyNumber in", values, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberNotIn(List<Long> values) {
+        public Criteria andKeyNumberNotIn(List<String> values) {
             addCriterion("keyNumber not in", values, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberBetween(Long value1, Long value2) {
+        public Criteria andKeyNumberBetween(String value1, String value2) {
             addCriterion("keyNumber between", value1, value2, "keyNumber");
             return (Criteria) this;
         }
 
-        public Criteria andKeyNumberNotBetween(Long value1, Long value2) {
+        public Criteria andKeyNumberNotBetween(String value1, String value2) {
             addCriterion("keyNumber not between", value1, value2, "keyNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevIsNull() {
+            addCriterion("keyDev is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevIsNotNull() {
+            addCriterion("keyDev is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevEqualTo(String value) {
+            addCriterion("keyDev =", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevNotEqualTo(String value) {
+            addCriterion("keyDev <>", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevGreaterThan(String value) {
+            addCriterion("keyDev >", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevGreaterThanOrEqualTo(String value) {
+            addCriterion("keyDev >=", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevLessThan(String value) {
+            addCriterion("keyDev <", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevLessThanOrEqualTo(String value) {
+            addCriterion("keyDev <=", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevLike(String value) {
+            addCriterion("keyDev like", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevNotLike(String value) {
+            addCriterion("keyDev not like", value, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevIn(List<String> values) {
+            addCriterion("keyDev in", values, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevNotIn(List<String> values) {
+            addCriterion("keyDev not in", values, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevBetween(String value1, String value2) {
+            addCriterion("keyDev between", value1, value2, "keyDev");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyDevNotBetween(String value1, String value2) {
+            addCriterion("keyDev not between", value1, value2, "keyDev");
             return (Criteria) this;
         }
     }

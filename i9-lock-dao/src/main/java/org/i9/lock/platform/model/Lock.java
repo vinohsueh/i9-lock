@@ -88,15 +88,23 @@ public class Lock {
     /**
      * 锁号
      */
-    private Long keyNumber;
+    private String keyNumber;
+
+    private String keyDev;
     
-    
-    
-    public Long getKeyNumber() {
+    public String getKeyDev() {
+        return keyDev;
+    }
+
+    public void setKeyDev(String keyDev) {
+        this.keyDev = keyDev;
+    }
+
+    public String getKeyNumber() {
         return keyNumber;
     }
 
-    public void setKeyNumber(Long keyNumber) {
+    public void setKeyNumber(String keyNumber) {
         this.keyNumber = keyNumber;
     }
 

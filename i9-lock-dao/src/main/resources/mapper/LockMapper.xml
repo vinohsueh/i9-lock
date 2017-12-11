@@ -19,7 +19,8 @@
     <result column="alertMinute" jdbcType="INTEGER" property="alertMinute" />
     <result column="keyUser" jdbcType="BIGINT" property="keyUser" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="keyNumber" jdbcType="BIGINT" property="keyNumber" />
+    <result column="keyNumber" jdbcType="VARCHAR" property="keyNumber" />
+    <result column="keyDev" jdbcType="VARCHAR" property="keyDev" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -88,7 +89,8 @@
   </sql>
   <sql id="Base_Column_List" >
      id, keyAdmin, effective, userId, name, battery, eleNumber, elePrice, gasNumber, gasPrice, 
-    waterNumber, waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber
+    waterNumber, waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
+    keyDev
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
     select
@@ -124,18 +126,20 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_lock (keyAdmin, effective, userId, 
+     insert into t_lock (keyAdmin, effective, userId, 
       name, battery, eleNumber, 
       elePrice, gasNumber, gasPrice, 
       waterNumber, waterPrice, safeMode, 
       ifShared, alertMinute, keyUser, 
-      createTime, keyNumber)
+      createTime, keyNumber, keyDev
+      )
     values (#{keyAdmin,jdbcType=BIGINT}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, 
       #{elePrice,jdbcType=DOUBLE}, #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, 
       #{waterNumber,jdbcType=DOUBLE}, #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, 
       #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=BIGINT}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=BIGINT})
+      #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=VARCHAR}, #{keyDev,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Lock" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -191,8 +195,11 @@
       <if test="createTime != null">
         createTime,
       </if>
-      <if test="keyNumber != null">
+      <if test="keyNumber != null and keyNumber != ''">
         keyNumber,
+      </if>
+      <if test="keyDev != null and keyDev != ''">
+        keyDev,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -244,8 +251,11 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="keyNumber != null">
-        #{keyNumber,jdbcType=BIGINT},
+      <if test="keyNumber != null and keyNumber != ''">
+        #{keyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="keyDev != null and keyDev != ''">
+        #{keyDev,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -309,8 +319,11 @@
       <if test="record.createTime != null">
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.keyNumber != null">
-        keyNumber = #{record.keyNumber,jdbcType=BIGINT},
+      <if test="record.keyNumber != null and record.keyNumber != ''">
+        keyNumber = #{record.keyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyDev != null and record.keyDev != ''">
+        keyDev = #{record.keyDev,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -336,7 +349,8 @@
       alertMinute = #{record.alertMinute,jdbcType=INTEGER},
       keyUser = #{record.keyUser,jdbcType=BIGINT},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
-      keyNumber = #{record.keyNumber,jdbcType=BIGINT}
+      keyNumber = #{record.keyNumber,jdbcType=VARCHAR},
+      keyDev = #{record.keyDev,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -392,8 +406,11 @@
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="keyNumber != null">
-        keyNumber = #{keyNumber,jdbcType=BIGINT},
+      <if test="keyNumber != null and keyNumber != ''">
+        keyNumber = #{keyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="keyDev != null and keyDev != ''">
+        keyDev = #{keyDev,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -416,7 +433,8 @@
       alertMinute = #{alertMinute,jdbcType=INTEGER},
       keyUser = #{keyUser,jdbcType=BIGINT},
       createTime = #{createTime,jdbcType=TIMESTAMP},
-      keyNumber = #{keyNumber,jdbcType=BIGINT}
+      keyNumber = #{keyNumber,jdbcType=VARCHAR},
+      keyDev = #{keyDev,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">

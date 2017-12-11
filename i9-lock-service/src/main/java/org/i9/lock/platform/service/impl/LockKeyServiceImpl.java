@@ -1,6 +1,5 @@
 package org.i9.lock.platform.service.impl;
 
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,14 +8,12 @@ import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
-import org.i9.lock.platform.dao.vo.TemporaryKeyDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.utils.BusinessException;
-import org.i9.lock.platform.utils.EncryptUtils;
 import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,19 +130,4 @@ public class LockKeyServiceImpl implements LockKeyService{
             throw new BusinessException(e.getMessage());
         }
     }
-
-    @Override
-    public void addTemporaryKey(TemporaryKeyDto temporaryKeyDto) {
-        byte [] a = EncryptUtils.longToBytes(temporaryKeyDto.getLockId());
-        byte [] b = new byte[2];
-        System.arraycopy(a, 6, b, 0, b.length);
-        ByteBuffer byteBuffer = ByteBuffer.allocate(8);
-        byteBuffer.put(b);
-        byte[] pwd = EncryptUtils.numberStringToByte(temporaryKeyDto.getApplyPwd());
-        byteBuffer.put(pwd);
-        byte[] temporaryKey = EncryptUtils.encrypt(byteBuffer.array(), temporaryKeyDto.getRandomNumber());
-        LockKey lockKey = new LockKey();
-        lockKey.setLockId(temporaryKeyDto.getLockId());
-    }
-
 }

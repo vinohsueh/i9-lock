@@ -7,10 +7,10 @@ import javax.validation.Valid;
 
 import org.i9.lock.platform.api.component.LockKeyListComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
-import org.i9.lock.platform.dao.vo.TemporaryKeyDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.service.LockKeyService;
+import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -35,6 +35,9 @@ public class LockKeyController {
     @Autowired
     private LockKeyService lockKeyService;
     
+    @Autowired
+    private LockService lockService;
+    
     /**
      * 添加租户钥匙
      * @param lockKeyDto
@@ -54,9 +57,10 @@ public class LockKeyController {
      * @return
      */
     @RequestMapping(value={"/temporary"},method = {RequestMethod.POST})
-    public HashMap<String, Object> addTemporaryKey(@Valid TemporaryKeyDto temporaryKeyDto,BindingResult bindingResult){
+    public HashMap<String, Object> addTemporaryKey(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        lockKeyService.addTemporaryKey(temporaryKeyDto);
+        String keyDev = lockService.getLockById(lockId).getKeyDev();
+        result.put("keyDev", keyDev);
         return result;
     }
     
@@ -81,6 +85,18 @@ public class LockKeyController {
             jsonArray.add(jsonObject);
         }
         result.put("keys", jsonArray);
+        return result;
+    }
+    
+    /**
+     * 删除钥匙
+     * @param lockKeyId
+     * @return
+     */
+    @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
+    public HashMap<String, Object> delete(Integer lockKeyId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockKeyService.deleteLockKey(lockKeyId);
         return result;
     }
 }
