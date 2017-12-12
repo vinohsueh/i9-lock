@@ -118,15 +118,27 @@ public class LockController {
     }
     
     /**
-     * 移交锁
+     * 移交锁验证
      * @param lockReleaseDto
      * @param bindingResult
      * @return
      */
-    @RequestMapping(value={"/release"},method = {RequestMethod.POST})
-    public HashMap<String, Object> release(@Valid LockReleaseDto lockReleaseDto,BindingResult bindingResult){
+    @RequestMapping(value={"/releaseValidate"},method = {RequestMethod.POST})
+    public HashMap<String, Object> releaseValidate(@Valid LockReleaseDto lockReleaseDto,BindingResult bindingResult){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        lockService.releaseLock(lockReleaseDto);
+        lockService.releaseLockValidate(lockReleaseDto);
+        return result;
+    }
+    
+    /**
+     * 移交锁
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/release"},method = {RequestMethod.POST})
+    public HashMap<String, Object> release(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockService.releaseLock(lockId);
         return result;
     }
     

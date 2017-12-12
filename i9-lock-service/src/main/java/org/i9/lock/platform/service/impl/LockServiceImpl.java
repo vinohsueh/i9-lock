@@ -92,7 +92,7 @@ public class LockServiceImpl implements LockService{
     }
 
     @Override
-    public void releaseLock(LockReleaseDto lockReleaseDto)
+    public void releaseLockValidate(LockReleaseDto lockReleaseDto)
             throws BusinessException {
         try {
             Lock lock = lockDao.getLockById(lockReleaseDto.getLockId());
@@ -114,17 +114,26 @@ public class LockServiceImpl implements LockService{
                     throw new BusinessException(ErrorCode.RELEASE_LOCK_ERROR,"锁具码错误");
                 }
             }else {
-                throw new BusinessException(ErrorCode.RELEASE_LOCK_ERROR,"门锁移交错误");
+                throw new BusinessException(ErrorCode.RELEASE_LOCK_ERROR,"该门锁已被移交");
             }
             
             //清空锁的绑定信息
-            lockDao.releaseLock(lock.getId());
+           // lockDao.releaseLock(lock.getId());
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(),e.getErrorMessage());
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"查询锁和用户失败",e.getMessage());
         }
         
+    }
+
+    @Override
+    public void releaseLock(Long lockId) throws BusinessException {
+        try {
+            lockDao.releaseLock(lockId);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"移交锁具失败",e.getMessage());
+        }
     }
     
 

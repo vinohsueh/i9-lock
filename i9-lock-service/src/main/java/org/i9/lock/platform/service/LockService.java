@@ -61,8 +61,14 @@ public interface LockService {
             int currectPage, int pageSize) throws BusinessException;
     
     /**
-     * 锁具移交管理
+     * 锁具移交验证
      * @param lockReleaseDto
      */
-    void releaseLock(LockReleaseDto lockReleaseDto) throws BusinessException;
+    void releaseLockValidate(LockReleaseDto lockReleaseDto) throws BusinessException;
+    
+    /**
+     * 锁具移交
+     * @param lockId
+     */
+    void releaseLock(Long lockId) throws BusinessException;
 }
