@@ -8,7 +8,7 @@ public class Lock {
     /**
      *  密钥
      */
-    private Long keyAdmin;
+    private String keyAdmin;
     
     /**
      * 是否有效 1：有效   0：无效
@@ -78,7 +78,7 @@ public class Lock {
     /**
      * 
      */
-    private Long keyUser;
+    private String keyUser;
     
     /**
      * 创建时间
@@ -150,11 +150,11 @@ public class Lock {
 
     
     
-    public Long getKeyAdmin() {
+    public String getKeyAdmin() {
         return keyAdmin;
     }
 
-    public void setKeyAdmin(Long keyAdmin) {
+    public void setKeyAdmin(String keyAdmin) {
         this.keyAdmin = keyAdmin;
     }
 
@@ -230,11 +230,11 @@ public class Lock {
         this.battery = battery;
     }
 
-    public Long getKeyUser() {
+    public String getKeyUser() {
         return keyUser;
     }
 
-    public void setKeyUser(Long keyUser) {
+    public void setKeyUser(String keyUser) {
         this.keyUser = keyUser;
     }
 

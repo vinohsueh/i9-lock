@@ -1,5 +1,7 @@
 package org.i9.lock.platform.service.impl;
 
+import java.util.Date;
+
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
@@ -35,6 +37,7 @@ public class LockServiceImpl implements LockService{
     @Override
     public void addLock(Lock lock) throws BusinessException {
         try {
+            lock.setCreateTime(new Date());
             lockDao.addLock(lock);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"添加锁失败",e.getMessage());

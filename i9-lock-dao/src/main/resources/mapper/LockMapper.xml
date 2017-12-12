@@ -3,7 +3,7 @@
 <mapper namespace="org.i9.lock.platform.dao.mapper.LockMapper" >
   <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.Lock" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="keyAdmin" jdbcType="BIGINT" property="keyAdmin" />
+    <result column="keyAdmin" jdbcType="VARCHAR" property="keyAdmin" />
     <result column="effective" jdbcType="TINYINT" property="effective" />
     <result column="userId" property="userId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -17,7 +17,7 @@
     <result column="safeMode" jdbcType="TINYINT" property="safeMode" />
     <result column="ifShared" jdbcType="TINYINT" property="ifShared" />
     <result column="alertMinute" jdbcType="INTEGER" property="alertMinute" />
-    <result column="keyUser" jdbcType="BIGINT" property="keyUser" />
+    <result column="keyUser" jdbcType="VARCHAR" property="keyUser" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="keyNumber" jdbcType="VARCHAR" property="keyNumber" />
     <result column="keyDev" jdbcType="VARCHAR" property="keyDev" />
@@ -133,11 +133,11 @@
       ifShared, alertMinute, keyUser, 
       createTime, keyNumber, keyDev
       )
-    values (#{keyAdmin,jdbcType=BIGINT}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
+    values (#{keyAdmin,jdbcType=VARCHAR}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, 
       #{elePrice,jdbcType=DOUBLE}, #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, 
       #{waterNumber,jdbcType=DOUBLE}, #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, 
-      #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=BIGINT}, 
+      #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=VARCHAR}, #{keyDev,jdbcType=VARCHAR}
       )
   </insert>
@@ -204,7 +204,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="keyAdmin != null">
-        #{keyAdmin,jdbcType=BIGINT},
+        #{keyAdmin,jdbcType=VARCHAR},
       </if>
       <if test="effective != null">
         #{effective,jdbcType=TINYINT},
@@ -246,7 +246,7 @@
         #{alertMinute,jdbcType=INTEGER},
       </if>
       <if test="keyUser != null">
-        #{keyUser,jdbcType=BIGINT},
+        #{keyUser,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -272,7 +272,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
        <if test="record.keyAdmin != null">
-        keyAdmin = #{record.keyAdmin,jdbcType=BIGINT},
+        keyAdmin = #{record.keyAdmin,jdbcType=VARCHAR},
       </if>
       <if test="record.effective != null">
         effective = #{record.effective,jdbcType=TINYINT},
@@ -314,7 +314,7 @@
         alertMinute = #{record.alertMinute,jdbcType=INTEGER},
       </if>
       <if test="record.keyUser != null">
-        keyUser = #{record.keyUser,jdbcType=BIGINT},
+        keyUser = #{record.keyUser,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         createTime = #{record.createTime,jdbcType=TIMESTAMP},
@@ -333,7 +333,7 @@
   <update id="updateByExample" parameterType="map" >
      update t_lock
     set id = #{record.id,jdbcType=BIGINT},
-      keyAdmin = #{record.keyAdmin,jdbcType=BIGINT},
+      keyAdmin = #{record.keyAdmin,jdbcType=VARCHAR},
       effective = #{record.effective,jdbcType=TINYINT},
       userId = #{record.userId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
@@ -347,7 +347,7 @@
       safeMode = #{record.safeMode,jdbcType=TINYINT},
       ifShared = #{record.ifShared,jdbcType=TINYINT},
       alertMinute = #{record.alertMinute,jdbcType=INTEGER},
-      keyUser = #{record.keyUser,jdbcType=BIGINT},
+      keyUser = #{record.keyUser,jdbcType=VARCHAR},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       keyNumber = #{record.keyNumber,jdbcType=VARCHAR},
       keyDev = #{record.keyDev,jdbcType=VARCHAR}
@@ -359,7 +359,7 @@
     update t_lock
     <set >
       <if test="keyAdmin != null">
-        keyAdmin = #{keyAdmin,jdbcType=BIGINT},
+        keyAdmin = #{keyAdmin,jdbcType=VARCHAR},
       </if>
       <if test="effective != null">
         effective = #{effective,jdbcType=TINYINT},
@@ -401,7 +401,7 @@
         alertMinute = #{alertMinute,jdbcType=INTEGER},
       </if>
       <if test="keyUser != null">
-        keyUser = #{keyUser,jdbcType=BIGINT},
+        keyUser = #{keyUser,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
@@ -417,7 +417,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Lock" >
      update t_lock
-    set keyAdmin = #{keyAdmin,jdbcType=BIGINT},
+    set keyAdmin = #{keyAdmin,jdbcType=VARCHAR},
       effective = #{effective,jdbcType=TINYINT},
       userId = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
@@ -431,7 +431,7 @@
       safeMode = #{safeMode,jdbcType=TINYINT},
       ifShared = #{ifShared,jdbcType=TINYINT},
       alertMinute = #{alertMinute,jdbcType=INTEGER},
-      keyUser = #{keyUser,jdbcType=BIGINT},
+      keyUser = #{keyUser,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       keyNumber = #{keyNumber,jdbcType=VARCHAR},
       keyDev = #{keyDev,jdbcType=VARCHAR}

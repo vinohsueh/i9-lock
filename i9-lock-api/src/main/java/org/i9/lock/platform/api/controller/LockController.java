@@ -54,7 +54,7 @@ public class LockController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         Lock lock = new Lock();
-        lock.setKeyAdmin(Long.valueOf(lockAddDto.getKeyAdmin()));
+        lock.setKeyAdmin(lockAddDto.getKeyAdmin());
         lock.setName(lockAddDto.getName());
         lock.setUserId(user.getId());
         lockService.addLock(lock);
@@ -117,7 +117,12 @@ public class LockController {
         return result;
     }
     
-    
+    /**
+     * 移交锁
+     * @param lockReleaseDto
+     * @param bindingResult
+     * @return
+     */
     @RequestMapping(value={"/release"},method = {RequestMethod.POST})
     public HashMap<String, Object> release(@Valid LockReleaseDto lockReleaseDto,BindingResult bindingResult){
         HashMap<String, Object> result = new HashMap<String, Object>();

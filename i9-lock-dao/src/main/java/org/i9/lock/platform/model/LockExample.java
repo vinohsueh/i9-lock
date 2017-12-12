@@ -179,52 +179,62 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminEqualTo(Long value) {
+        public Criteria andKeyAdminEqualTo(String value) {
             addCriterion("keyAdmin =", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminNotEqualTo(Long value) {
+        public Criteria andKeyAdminNotEqualTo(String value) {
             addCriterion("keyAdmin <>", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminGreaterThan(Long value) {
+        public Criteria andKeyAdminGreaterThan(String value) {
             addCriterion("keyAdmin >", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminGreaterThanOrEqualTo(Long value) {
+        public Criteria andKeyAdminGreaterThanOrEqualTo(String value) {
             addCriterion("keyAdmin >=", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminLessThan(Long value) {
+        public Criteria andKeyAdminLessThan(String value) {
             addCriterion("keyAdmin <", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminLessThanOrEqualTo(Long value) {
+        public Criteria andKeyAdminLessThanOrEqualTo(String value) {
             addCriterion("keyAdmin <=", value, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminIn(List<Long> values) {
+        public Criteria andKeyAdminLike(String value) {
+            addCriterion("keyAdmin like", value, "keyAdmin");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyAdminNotLike(String value) {
+            addCriterion("keyAdmin not like", value, "keyAdmin");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyAdminIn(List<String> values) {
             addCriterion("keyAdmin in", values, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminNotIn(List<Long> values) {
+        public Criteria andKeyAdminNotIn(List<String> values) {
             addCriterion("keyAdmin not in", values, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminBetween(Long value1, Long value2) {
+        public Criteria andKeyAdminBetween(String value1, String value2) {
             addCriterion("keyAdmin between", value1, value2, "keyAdmin");
             return (Criteria) this;
         }
 
-        public Criteria andKeyAdminNotBetween(Long value1, Long value2) {
+        public Criteria andKeyAdminNotBetween(String value1, String value2) {
             addCriterion("keyAdmin not between", value1, value2, "keyAdmin");
             return (Criteria) this;
         }
@@ -1031,52 +1041,62 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserEqualTo(Long value) {
+        public Criteria andKeyUserEqualTo(String value) {
             addCriterion("keyUser =", value, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserNotEqualTo(Long value) {
+        public Criteria andKeyUserNotEqualTo(String value) {
             addCriterion("keyUser <>", value, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserGreaterThan(Long value) {
+        public Criteria andKeyUserGreaterThan(String value) {
             addCriterion("keyUser >", value, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserGreaterThanOrEqualTo(Long value) {
+        public Criteria andKeyUserGreaterThanOrEqualTo(String value) {
             addCriterion("keyUser >=", value, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserLessThan(Long value) {
+        public Criteria andKeyUserLessThan(String value) {
             addCriterion("keyUser <", value, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserLessThanOrEqualTo(Long value) {
+        public Criteria andKeyUserLessThanOrEqualTo(String value) {
             addCriterion("keyUser <=", value, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserIn(List<Long> values) {
+        public Criteria andKeyUserLike(String value) {
+            addCriterion("keyUser like", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserNotLike(String value) {
+            addCriterion("keyUser not like", value, "keyUser");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyUserIn(List<String> values) {
             addCriterion("keyUser in", values, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserNotIn(List<Long> values) {
+        public Criteria andKeyUserNotIn(List<String> values) {
             addCriterion("keyUser not in", values, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserBetween(Long value1, Long value2) {
+        public Criteria andKeyUserBetween(String value1, String value2) {
             addCriterion("keyUser between", value1, value2, "keyUser");
             return (Criteria) this;
         }
 
-        public Criteria andKeyUserNotBetween(Long value1, Long value2) {
+        public Criteria andKeyUserNotBetween(String value1, String value2) {
             addCriterion("keyUser not between", value1, value2, "keyUser");
             return (Criteria) this;
         }
