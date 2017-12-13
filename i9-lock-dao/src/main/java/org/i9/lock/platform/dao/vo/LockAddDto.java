@@ -21,7 +21,19 @@ public class LockAddDto {
     @NotBlank(message="keyDev不能为空")
     private String keyDev;
     
+    @NotBlank(message="keyUser不能为空")
+    private String keyUser;
     
+    
+    
+    public String getKeyUser() {
+        return keyUser;
+    }
+
+    public void setKeyUser(String keyUser) {
+        this.keyUser = keyUser;
+    }
+
     public String getKeyNumber() {
         return keyNumber;
     }

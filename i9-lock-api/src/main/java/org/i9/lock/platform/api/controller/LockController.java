@@ -57,6 +57,7 @@ public class LockController {
         lock.setKeyAdmin(lockAddDto.getKeyAdmin());
         lock.setName(lockAddDto.getName());
         lock.setKeyNumber(lockAddDto.getKeyNumber());
+        lock.setKeyUser(lockAddDto.getKeyUser());
         lock.setKeyDev(lockAddDto.getKeyDev());
         lock.setUserId(user.getId());
         lockService.addLock(lock);
