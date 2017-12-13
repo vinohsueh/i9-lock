@@ -451,8 +451,13 @@
   <update id="releaseLock" parameterType="long">
     update t_lock set keyAdmin = null,userId = null where id = #{id}
   </update>
-  <select id="selectAuthorizeLocks" parameterType="long" resultType="org.i9.lock.platform.model.Lock">
+  <select id="selectAuthorizeLocks" resultType="org.i9.lock.platform.model.Lock">
     select l.*,k.receiveFlag from t_lock l left join 
-    t_lock_key k on l.id = k.lockId where k.userId = #{userId} order by k.createTime
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} order by k.createTime
+    limit #{offset},#{limit}
+  </select>
+  <select id="countAuthorizeLocks" resultType="int">
+    select count(*) from t_lock l left join 
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId}
   </select>
 </mapper>

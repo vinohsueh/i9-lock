@@ -72,7 +72,8 @@ public interface LockDao {
      * @param userId
      * @return
      */
-    List<Lock> selectAuthorizeLocks(Long userId) throws Exception;
+    PageBounds<Lock> selectAuthorizeLocks(LockSearchDto lockSearchDto,
+            int currectPage, int pageSize);
     
     /**
      * 条件查询锁
@@ -81,4 +82,6 @@ public interface LockDao {
      * @throws Exception
      */
     List<Lock> selectByExample(LockExample example) throws Exception;
+
+    
 }

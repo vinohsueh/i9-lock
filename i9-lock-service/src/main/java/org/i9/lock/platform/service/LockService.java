@@ -79,7 +79,8 @@ public interface LockService {
      * 选择租户已授权的锁具
      * @return
      */
-    List<Lock> selectAuthorizeLocks(Long userId) throws BusinessException;
+    PageBounds<Lock> selectAuthorizeLocks(LockSearchDto lockSearchDto,
+            int currectPage, int pageSize)throws BusinessException;
     
     /**
      * 条件查询锁
@@ -88,4 +89,6 @@ public interface LockService {
      * @throws BusinessException
      */
     List<Lock> selectByExample(LockExample example) throws BusinessException;
+
+    
 }

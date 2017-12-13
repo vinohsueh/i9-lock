@@ -12,7 +12,6 @@ import org.i9.lock.platform.dao.vo.LockAddDto;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
-import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
@@ -150,12 +149,13 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/authorizeList"},method = {RequestMethod.POST})
-    public HashMap<String, Object> authorizeList(){
+    public HashMap<String, Object> authorizeList(LockSearchDto lockSearchDto,int currectPage, int pageSize){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
-        List<Lock> locks = lockService.selectAuthorizeLocks(user.getId());
+        lockSearchDto.setUserId(user.getId());
+        PageBounds<Lock> pageBounds = lockService.selectAuthorizeLocks(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
-        for (Lock lock : locks) {
+        for (Lock lock : pageBounds.getPageList()) {
             JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
             jsonArray.add(jsonObject);
         }
@@ -168,15 +168,14 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/landlordKey"},method = {RequestMethod.POST})
-    public HashMap<String, Object> landlordKey(){
+    public HashMap<String, Object> landlordKey(LockSearchDto lockSearchDto,int currectPage, int pageSize){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
-        LockExample example = new LockExample();
-        example.createCriteria().andUserIdEqualTo(user.getId());
-        example.setOrderByClause("createTime desc");
-        List<Lock> locks = lockService.selectByExample(example);
+        lockSearchDto.setOrderByClause("createTime desc");
+        lockSearchDto.setUserId(user.getId());
+        PageBounds<Lock> pageBounds = lockService.selectByLimitPage(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
-        for (Lock lock : locks) {
+        for (Lock lock : pageBounds.getPageList()) {
             JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
             jsonArray.add(jsonObject);
         }

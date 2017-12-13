@@ -70,13 +70,20 @@ public class LockDaoImpl implements LockDao{
     }
 
     @Override
-    public List<Lock> selectAuthorizeLocks(Long userId) throws Exception {
-        return lockMapper.selectAuthorizeLocks(userId);
+    public PageBounds<Lock> selectAuthorizeLocks(LockSearchDto lockSearchDto,
+            int currectPage, int pageSize) {
+        final int totalSize = lockMapper.countAuthorizeLocks(lockSearchDto);
+        PageBounds<Lock> pageBounds = new PageBounds<Lock>(currectPage, totalSize, pageSize);
+        List<Lock> list = lockMapper.selectAuthorizeLocks(lockSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
+        pageBounds.setPageList(list);
+        return pageBounds;
     }
 
     @Override
     public List<Lock> selectByExample(LockExample example) throws Exception {
         return lockMapper.selectByExample(example);
     }
+
+   
 
 }

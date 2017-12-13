@@ -139,9 +139,10 @@ public class LockServiceImpl implements LockService{
     }
 
     @Override
-    public List<Lock> selectAuthorizeLocks(Long userId) throws BusinessException {
+    public PageBounds<Lock> selectAuthorizeLocks(LockSearchDto lockSearchDto,
+            int currectPage, int pageSize) throws BusinessException {
         try {
-            return lockDao.selectAuthorizeLocks(userId);
+            return lockDao.selectAuthorizeLocks(lockSearchDto,currectPage,pageSize);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"查询租户已授权的锁具失败",e.getMessage());
         }

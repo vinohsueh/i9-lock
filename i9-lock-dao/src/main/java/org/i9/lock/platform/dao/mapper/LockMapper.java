@@ -42,5 +42,10 @@ public interface LockMapper {
      * @param userId
      * @return
      */
-    List<Lock> selectAuthorizeLocks(Long userId);
+    List<Lock> selectAuthorizeLocks(@Param("example") LockSearchDto lockSearchDto,@Param("offset") int offset,
+            @Param("limit")int pageSize);
+    
+    int countAuthorizeLocks(@Param("example") LockSearchDto lockSearchDto);
+
+    
 }
