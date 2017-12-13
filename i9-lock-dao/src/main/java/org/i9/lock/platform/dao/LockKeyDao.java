@@ -75,4 +75,10 @@ public interface LockKeyDao {
      * @throws BusinessException
      */
     List<LockKey> getLockKeyByLockId(Long lockId) throws Exception;
+    
+    /**
+     * 通过锁id和用户id更新钥匙
+     * @param lockKey
+     */
+    void updateLockKeyByTwoId(LockKey lockKey) throws Exception;
 }

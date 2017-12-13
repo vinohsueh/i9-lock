@@ -56,6 +56,8 @@ public class LockController {
         Lock lock = new Lock();
         lock.setKeyAdmin(lockAddDto.getKeyAdmin());
         lock.setName(lockAddDto.getName());
+        lock.setKeyNumber(lockAddDto.getKeyNumber());
+        lock.setKeyDev(lockAddDto.getKeyDev());
         lock.setUserId(user.getId());
         lockService.addLock(lock);
         return result;
@@ -142,4 +144,24 @@ public class LockController {
         return result;
     }
     
+    /**
+     * 设备列表
+     * @param lockSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping(value={"/authorizeList"},method = {RequestMethod.POST})
+    public HashMap<String, Object> authorizeList(){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        List<Lock> locks = lockService.selectAuthorizeLocks(user.getId());
+        JSONArray jsonArray = new JSONArray();
+        for (Lock lock : locks) {
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("locks", jsonArray);
+        return result;
+    }
 }

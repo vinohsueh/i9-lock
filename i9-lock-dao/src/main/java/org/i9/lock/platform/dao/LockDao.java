@@ -1,5 +1,7 @@
 package org.i9.lock.platform.dao;
 
+import java.util.List;
+
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.utils.PageBounds;
@@ -63,5 +65,12 @@ public interface LockDao {
      * @param id
      */
     void releaseLock(Long id) throws Exception;
+    
+    /**
+     * 选择租户已授权的锁具
+     * @param userId
+     * @return
+     */
+    List<Lock> selectAuthorizeLocks(Long userId) throws Exception;
     
 }

@@ -1,6 +1,7 @@
 package org.i9.lock.platform.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.UserDao;
@@ -133,6 +134,15 @@ public class LockServiceImpl implements LockService{
             lockDao.releaseLock(lockId);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"移交锁具失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Lock> selectAuthorizeLocks(Long userId) throws BusinessException {
+        try {
+            return lockDao.selectAuthorizeLocks(userId);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"查询租户已授权的锁具失败",e.getMessage());
         }
     }
     

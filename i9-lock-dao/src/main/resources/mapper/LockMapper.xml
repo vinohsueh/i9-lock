@@ -147,7 +147,7 @@
     </selectKey>
     insert into t_lock
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="keyAdmin != null">
+      <if test="keyAdmin != null and keyAdmin !=''">
         keyAdmin,
       </if>
       <if test="effective != null">
@@ -189,7 +189,7 @@
       <if test="alertMinute != null">
         alertMinute,
       </if>
-      <if test="keyUser != null">
+      <if test="keyUser != null and keyUser != ''">
         keyUser,
       </if>
       <if test="createTime != null">
@@ -203,7 +203,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="keyAdmin != null">
+      <if test="keyAdmin != null and keyAdmin != ''">
         #{keyAdmin,jdbcType=VARCHAR},
       </if>
       <if test="effective != null">
@@ -245,7 +245,7 @@
       <if test="alertMinute != null">
         #{alertMinute,jdbcType=INTEGER},
       </if>
-      <if test="keyUser != null">
+      <if test="keyUser != null and keyUser != ''">
         #{keyUser,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
@@ -271,7 +271,7 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-       <if test="record.keyAdmin != null">
+       <if test="record.keyAdmin != null and record.keyAdmin != ''">
         keyAdmin = #{record.keyAdmin,jdbcType=VARCHAR},
       </if>
       <if test="record.effective != null">
@@ -313,7 +313,7 @@
       <if test="record.alertMinute != null">
         alertMinute = #{record.alertMinute,jdbcType=INTEGER},
       </if>
-      <if test="record.keyUser != null">
+      <if test="record.keyUser != null and record.keyUser != ''">
         keyUser = #{record.keyUser,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
@@ -358,7 +358,7 @@
   <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.Lock" >
     update t_lock
     <set >
-      <if test="keyAdmin != null">
+      <if test="keyAdmin != null and keyAdmin != ''">
         keyAdmin = #{keyAdmin,jdbcType=VARCHAR},
       </if>
       <if test="effective != null">
@@ -400,7 +400,7 @@
       <if test="alertMinute != null">
         alertMinute = #{alertMinute,jdbcType=INTEGER},
       </if>
-      <if test="keyUser != null">
+      <if test="keyUser != null and keyUser != ''">
         keyUser = #{keyUser,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
@@ -451,4 +451,8 @@
   <update id="releaseLock" parameterType="long">
     update t_lock set keyAdmin = null,userId = null where id = #{id}
   </update>
+  <select id="selectAuthorizeLocks" parameterType="long" resultType="org.i9.lock.platform.model.Lock">
+    select l.*,k.receiveFlag from t_lock l left join 
+    t_lock_key k on l.id = k.lockId where k.userId = #{userId} order by k.createTime
+  </select>
 </mapper>

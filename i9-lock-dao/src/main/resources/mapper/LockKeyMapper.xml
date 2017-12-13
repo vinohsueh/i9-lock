@@ -136,10 +136,10 @@
       <if test="lockId != null" >
         lockId,
       </if>
-      <if test="hirerPhone != null" >
+      <if test="hirerPhone != null and hirerPhone != ''" >
         hirerPhone,
       </if>
-      <if test="password != null" >
+      <if test="password != null and password != ''" >
         password,
       </if>
       <if test="hireType != null" >
@@ -177,10 +177,10 @@
       <if test="lockId != null" >
         #{lockId,jdbcType=BIGINT},
       </if>
-      <if test="hirerPhone != null" >
+      <if test="hirerPhone != null and hirerPhone != ''" >
         #{hirerPhone,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null and password != ''" >
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="hireType != null" >
@@ -230,10 +230,10 @@
       <if test="record.lockId != null" >
         lockId = #{record.lockId,jdbcType=BIGINT},
       </if>
-      <if test="record.hirerPhone != null" >
+      <if test="record.hirerPhone != null and record.hirerPhone != ''" >
         hirerPhone = #{record.hirerPhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null" >
+      <if test="record.password != null and record.password != ''" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.hireType != null" >
@@ -291,16 +291,55 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+  <update id="updateLockKeyByTwoId" parameterType="org.i9.lock.platform.model.LockKey" >
+    update t_lock_key
+    <set >
+      <if test="hirerPhone != null and hirerPhone != ''" >
+        hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null and password != ''" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="hireType != null" >
+        hireType = #{hireType,jdbcType=TINYINT},
+      </if>
+      <if test="hirePrice != null" >
+        hirePrice = #{hirePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="startTime != null" >
+        startTime = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="orderNumber != null">
+        orderNumber = #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="receiveFlag != null">
+        receiveFlag = #{receiveFlag,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null">
+        receiveTime = #{receiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where userId = #{userId} and lockId = #{lockId}
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.LockKey" >
     update t_lock_key
     <set >
       <if test="lockId != null" >
         lockId = #{lockId,jdbcType=BIGINT},
       </if>
-      <if test="hirerPhone != null" >
+      <if test="hirerPhone != null and hirerPhone != ''" >
         hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null and password != ''" >
         password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="hireType != null" >

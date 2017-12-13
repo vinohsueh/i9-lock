@@ -9,8 +9,10 @@ import org.i9.lock.platform.api.component.LockKeyListComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
+import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
+import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -37,7 +39,8 @@ public class LockKeyController {
     
     @Autowired
     private LockService lockService;
-    
+    @Autowired
+    private UserService userService;
     /**
      * 添加租户钥匙
      * @param lockKeyDto
@@ -97,6 +100,21 @@ public class LockKeyController {
     public HashMap<String, Object> delete(Integer lockKeyId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         lockKeyService.deleteLockKey(lockKeyId);
+        return result;
+    }
+    
+    /**
+     * 更新租户钥匙
+     * @param lockKeyDto
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value={"/update"},method = {RequestMethod.POST})
+    public HashMap<String, Object> updateKey(LockKey lockKey){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        lockKey.setUserId(user.getId());
+        lockKeyService.updateLockKeyByTwoId(lockKey);
         return result;
     }
 }

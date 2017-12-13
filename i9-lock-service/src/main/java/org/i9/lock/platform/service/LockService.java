@@ -1,5 +1,7 @@
 package org.i9.lock.platform.service;
 
+import java.util.List;
+
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
@@ -71,4 +73,10 @@ public interface LockService {
      * @param lockId
      */
     void releaseLock(Long lockId) throws BusinessException;
+    
+    /**
+     * 选择租户已授权的锁具
+     * @return
+     */
+    List<Lock> selectAuthorizeLocks(Long userId) throws BusinessException;
 }

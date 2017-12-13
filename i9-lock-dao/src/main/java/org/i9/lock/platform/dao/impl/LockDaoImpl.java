@@ -69,4 +69,9 @@ public class LockDaoImpl implements LockDao{
         lockMapper.releaseLock(id);
     }
 
+    @Override
+    public List<Lock> selectAuthorizeLocks(Long userId) throws Exception {
+        return lockMapper.selectAuthorizeLocks(userId);
+    }
+
 }

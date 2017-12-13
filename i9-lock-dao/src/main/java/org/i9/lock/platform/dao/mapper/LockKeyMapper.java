@@ -47,4 +47,6 @@ public interface LockKeyMapper {
      * @throws BusinessException
      */
     List<LockKey> getLockKeyByLockId(Long lockId);
+
+    void updateLockKeyByTwoId(LockKey lockKey);
 }

@@ -1,7 +1,5 @@
 package org.i9.lock.platform.dao.vo;
 
-import javax.validation.constraints.Pattern;
-
 import org.hibernate.validator.constraints.NotBlank;
 
 /** 
@@ -11,13 +9,34 @@ import org.hibernate.validator.constraints.NotBlank;
  * 
  */
 public class LockAddDto {
-    
-    @NotBlank(message="锁具码不能为空") 
-    @Pattern(regexp="^[0-9]{8}$",message="请输入8个数字")
+    @NotBlank(message="keyAdmin不能为空")
     private String keyAdmin;
     
     @NotBlank(message="名字不能为空") 
     private String name;
+    
+    @NotBlank(message="keyNumber不能为空")
+    private String keyNumber;
+    
+    @NotBlank(message="keyDev不能为空")
+    private String keyDev;
+    
+    
+    public String getKeyNumber() {
+        return keyNumber;
+    }
+
+    public void setKeyNumber(String keyNumber) {
+        this.keyNumber = keyNumber;
+    }
+
+    public String getKeyDev() {
+        return keyDev;
+    }
+
+    public void setKeyDev(String keyDev) {
+        this.keyDev = keyDev;
+    }
 
     public String getKeyAdmin() {
         return keyAdmin;

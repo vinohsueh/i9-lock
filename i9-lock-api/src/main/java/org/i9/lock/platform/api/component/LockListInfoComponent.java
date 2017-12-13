@@ -24,6 +24,8 @@ public class LockListInfoComponent {
         jsonObject.put("id", lock.getId());
         jsonObject.put("name", lock.getName());
         jsonObject.put("battery", lock.getBattery());
+        jsonObject.put("keyUser", lock.getKeyUser());
+        jsonObject.put("receiveFlag", lock.getReceiveFlag());
         return jsonObject;
     }
 }

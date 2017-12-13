@@ -35,7 +35,9 @@ public class StringUtil {
         }
         return md5StrBuff.toString();
     }
-    
+    public static void main(String[] args) {
+        System.out.println(MD5("12345678"));
+    }
     /**
      * 日期转换
      * 

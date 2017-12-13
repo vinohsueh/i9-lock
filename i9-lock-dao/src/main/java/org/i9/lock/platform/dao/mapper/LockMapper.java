@@ -37,4 +37,10 @@ public interface LockMapper {
      * @param id
      */
     void releaseLock(Long id);
+    /**
+     * 选择租户已授权的锁具
+     * @param userId
+     * @return
+     */
+    List<Lock> selectAuthorizeLocks(Long userId);
 }

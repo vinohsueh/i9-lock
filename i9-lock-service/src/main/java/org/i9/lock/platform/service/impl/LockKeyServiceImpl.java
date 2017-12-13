@@ -2,6 +2,7 @@ package org.i9.lock.platform.service.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.i9.lock.platform.dao.LockDao;
@@ -64,7 +65,7 @@ public class LockKeyServiceImpl implements LockKeyService{
             if (existLockKey != null) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
             }
-            
+            lockKey.setCreateTime(new Date());
             lockKeyDao.addLockKey(lockKey);
             //更新锁的合租状态和安全模式
             Lock lock = lockDao.getLockById(lockKeyDto.getLockId());
@@ -136,6 +137,15 @@ public class LockKeyServiceImpl implements LockKeyService{
             throws BusinessException {
         try {
             return lockKeyDao.getLockKeyByLockId(lockId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateLockKeyByTwoId(LockKey lockKey) throws BusinessException {
+        try {
+            lockKeyDao.updateLockKeyByTwoId(lockKey);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

@@ -68,4 +68,9 @@ public class LockKeyDaoImpl implements LockKeyDao{
         return lockKeyMapper.getLockKeyByLockId(lockId);
     }
 
+    @Override
+    public void updateLockKeyByTwoId(LockKey lockKey) throws Exception {
+        lockKeyMapper.updateLockKeyByTwoId(lockKey);
+    }
+
 }

@@ -92,6 +92,17 @@ public class Lock {
 
     private String keyDev;
     
+    
+    private byte receiveFlag;
+    
+    public byte getReceiveFlag() {
+        return receiveFlag;
+    }
+
+    public void setReceiveFlag(byte receiveFlag) {
+        this.receiveFlag = receiveFlag;
+    }
+
     public String getKeyDev() {
         return keyDev;
     }
