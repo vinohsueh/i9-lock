@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.utils.PageBounds;
 
 /** 
@@ -73,4 +74,11 @@ public interface LockDao {
      */
     List<Lock> selectAuthorizeLocks(Long userId) throws Exception;
     
+    /**
+     * 条件查询锁
+     * @param example
+     * @return
+     * @throws Exception
+     */
+    List<Lock> selectByExample(LockExample example) throws Exception;
 }

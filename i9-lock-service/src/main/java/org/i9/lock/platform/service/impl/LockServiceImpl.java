@@ -8,6 +8,7 @@ import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.utils.BusinessException;
@@ -143,6 +144,16 @@ public class LockServiceImpl implements LockService{
             return lockDao.selectAuthorizeLocks(userId);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"查询租户已授权的锁具失败",e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Lock> selectByExample(LockExample example)
+            throws BusinessException {
+        try {
+            return lockDao.selectByExample(example);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"条件查询锁具失败",e.getMessage());
         }
     }
     

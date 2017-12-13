@@ -12,6 +12,7 @@ import org.i9.lock.platform.dao.vo.LockAddDto;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
@@ -145,10 +146,7 @@ public class LockController {
     }
     
     /**
-     * 设备列表
-     * @param lockSearchDto
-     * @param currectPage
-     * @param pageSize
+     * 租户设备列表
      * @return
      */
     @RequestMapping(value={"/authorizeList"},method = {RequestMethod.POST})
@@ -156,6 +154,27 @@ public class LockController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         List<Lock> locks = lockService.selectAuthorizeLocks(user.getId());
+        JSONArray jsonArray = new JSONArray();
+        for (Lock lock : locks) {
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("locks", jsonArray);
+        return result;
+    }
+    
+    /**
+     * 房东设备列表
+     * @return
+     */
+    @RequestMapping(value={"/landlordKey"},method = {RequestMethod.POST})
+    public HashMap<String, Object> landlordKey(){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        LockExample example = new LockExample();
+        example.createCriteria().andUserIdEqualTo(user.getId());
+        example.setOrderByClause("createTime desc");
+        List<Lock> locks = lockService.selectByExample(example);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : locks) {
             JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();

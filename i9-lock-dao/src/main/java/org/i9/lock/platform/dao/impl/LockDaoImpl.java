@@ -74,4 +74,9 @@ public class LockDaoImpl implements LockDao{
         return lockMapper.selectAuthorizeLocks(userId);
     }
 
+    @Override
+    public List<Lock> selectByExample(LockExample example) throws Exception {
+        return lockMapper.selectByExample(example);
+    }
+
 }
