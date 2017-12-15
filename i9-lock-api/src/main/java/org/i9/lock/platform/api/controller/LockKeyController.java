@@ -117,4 +117,18 @@ public class LockKeyController {
         lockKeyService.updateLockKeyByTwoId(lockKey);
         return result;
     }
+    
+    /**
+     * 获取用户组编号
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/getUserOrderNumber"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getUserOrderNumber(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
+        result.put("userOrder", lockKey.getOrderNumber());
+        return result;
+    }
 }

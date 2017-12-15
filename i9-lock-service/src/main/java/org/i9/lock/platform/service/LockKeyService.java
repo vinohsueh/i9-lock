@@ -69,4 +69,13 @@ public interface LockKeyService {
      */
     void updateLockKeyByTwoId(LockKey lockKey) throws BusinessException;
     
+    /**
+     * 根据用户id和锁id查询
+     * @param lockId
+     * @param userId
+     * @return
+     * @throws Exception
+     */
+    LockKey selectLockKeyByLockIdAndUserId(Long lockId, Long userId)throws BusinessException;
+    
 }
