@@ -93,8 +93,32 @@ public class Lock {
     private String keyDev;
     
     
+    
+    
+    
+    
+    private Date startTime;
+    
+    private Date endTime;
+    
     private byte receiveFlag;
     
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
     public byte getReceiveFlag() {
         return receiveFlag;
     }

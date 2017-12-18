@@ -81,4 +81,15 @@ public class UserController {
         userService.updateFamilyPhone(phone);
         return result;
     }
+    
+    /**
+     * 个人中心
+     * @return
+     */
+    @RequestMapping("/inedx")
+    public HashMap<String, Object> index() {
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        return result;
+    }
 }
