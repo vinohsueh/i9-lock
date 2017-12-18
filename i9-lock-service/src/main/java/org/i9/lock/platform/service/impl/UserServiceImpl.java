@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.i9.lock.platform.dao.UserDao;
+import org.i9.lock.platform.dao.vo.PwdDto;
 import org.i9.lock.platform.dao.vo.UserSearchDto;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.UserService;
@@ -182,6 +183,20 @@ public class UserServiceImpl implements UserService{
             } catch (Exception e) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"修改亲情号失败",e.getMessage());
             }
+        }
+    }
+
+    @Override
+    public void updatePwd(PwdDto pwdDto) throws BusinessException {
+        if(!pwdDto.getPassword().equals(pwdDto.getConfirmPwd())){
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"前后密码不一致");
+        }
+        User user = this.getCurrentUser();
+        user.setPassword(StringUtil.MD5(pwdDto.getPassword()));
+        try {
+            userDao.updateUser(user);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"修改密码失败",e.getMessage());
         }
     }
 }

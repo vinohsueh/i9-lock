@@ -2,6 +2,7 @@ package org.i9.lock.platform.service;
 
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.PwdDto;
 import org.i9.lock.platform.dao.vo.UserSearchDto;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.utils.BusinessException;
@@ -96,4 +97,10 @@ public interface UserService {
      * @param phone
      */
     void updateFamilyPhone(String phone) throws BusinessException;
+    
+    /**
+     * 更新密码
+     * @param pwdDto
+     */
+    void updatePwd(PwdDto pwdDto) throws BusinessException;
 }   

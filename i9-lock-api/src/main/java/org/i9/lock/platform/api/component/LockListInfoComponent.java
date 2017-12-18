@@ -1,6 +1,7 @@
 package org.i9.lock.platform.api.component;
 
 import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.utils.StringUtil;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -29,6 +30,12 @@ public class LockListInfoComponent {
         jsonObject.put("keyNumber", lock.getKeyNumber());
         jsonObject.put("keyDev", lock.getKeyDev());
         jsonObject.put("receiveFlag", lock.getReceiveFlag());
+        if (lock.getStartTime() != null) {
+            jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
+        if (lock.getEndTime() != null) {
+            jsonObject.put("endTime", StringUtil.dateToStringByRep(lock.getEndTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
         return jsonObject;
     }
 }

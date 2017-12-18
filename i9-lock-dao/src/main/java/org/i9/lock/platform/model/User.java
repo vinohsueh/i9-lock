@@ -16,6 +16,10 @@ public class User {
     private String username;
     
     /**
+     * 名字
+     */
+    private String name;
+    /**
      * 密码
      */
     @NotBlank(message = "密码不能为空") 
@@ -63,6 +67,15 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+    
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
