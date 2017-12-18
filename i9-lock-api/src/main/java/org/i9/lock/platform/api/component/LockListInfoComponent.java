@@ -30,6 +30,7 @@ public class LockListInfoComponent {
         jsonObject.put("keyNumber", lock.getKeyNumber());
         jsonObject.put("keyDev", lock.getKeyDev());
         jsonObject.put("receiveFlag", lock.getReceiveFlag());
+        jsonObject.put("remark", lock.getRemark());
         if (lock.getStartTime() != null) {
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
         }

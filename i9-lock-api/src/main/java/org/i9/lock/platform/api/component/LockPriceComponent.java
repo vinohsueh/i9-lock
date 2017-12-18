@@ -30,6 +30,7 @@ public class LockPriceComponent {
         jsonObject.put("gasPrice", lock.getGasPrice());
         jsonObject.put("waterNumber", lock.getWaterNumber());
         jsonObject.put("waterPrice", lock.getWaterPrice());
+        jsonObject.put("remark", lock.getRemark());
         return jsonObject;
     }
 }
