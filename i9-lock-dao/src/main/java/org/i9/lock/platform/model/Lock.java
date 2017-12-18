@@ -92,7 +92,10 @@ public class Lock {
 
     private String keyDev;
     
-    
+    /**
+     * 其他备注
+     */
+    private String remark;
     
     
     
@@ -103,6 +106,16 @@ public class Lock {
     
     private byte receiveFlag;
     
+    
+    
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
