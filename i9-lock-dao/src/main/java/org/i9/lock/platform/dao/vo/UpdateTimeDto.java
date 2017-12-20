@@ -19,7 +19,7 @@ public class UpdateTimeDto {
     
     private Integer id;
     
-    @NotNull(message="结束时间不能为空")
+    @NotNull(message="租类型")
     private Byte hireType;
     
     @NotBlank(message="开始时间不能为空")

@@ -134,8 +134,8 @@ public class LockKeyController {
     }
     
     /**
-     * 
-     * @param lockId
+     * 更新租期
+     * @param updateTimeDto
      * @return
      */
     @RequestMapping(value={"/updateEndTime"},method = {RequestMethod.POST})
