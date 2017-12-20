@@ -59,7 +59,7 @@ public class LockKeyDto {
      */
     private Date startTime;
     
-    @NotNull(message="开始时间不能为空")
+    @NotBlank(message="开始时间不能为空")
     private String startTimeString;
     
     /**
@@ -68,7 +68,7 @@ public class LockKeyDto {
     
     private Date endTime;
     
-    @NotNull(message="结束时间不能为空")
+    @NotBlank(message="结束时间不能为空")
     private String endTimeString;
     
     /**

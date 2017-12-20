@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.i9.lock.platform.api.component.LockKeyListComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
+import org.i9.lock.platform.dao.vo.UpdateTimeDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.model.User;
@@ -129,6 +130,19 @@ public class LockKeyController {
         User user = userService.getCurrentUser();
         LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
         result.put("userOrder", lockKey.getOrderNumber());
+        return result;
+    }
+    
+    /**
+     * 
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/updateEndTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getUserOrderNumber(UpdateTimeDto updateTimeDto){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        LockKey lockKey = updateTimeDto.getLockKey(); 
+        lockKeyService.updateLockKey(lockKey);
         return result;
     }
 }
