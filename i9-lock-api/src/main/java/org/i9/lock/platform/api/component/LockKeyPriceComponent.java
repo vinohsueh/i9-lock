@@ -29,8 +29,14 @@ public class LockKeyPriceComponent {
         }
         jsonObject.put("hireType", HireTypeEnum.getNameById(lockKey.getHireType()));
         jsonObject.put("hirePrice", lockKey.getHirePrice());
-        jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy/MM/dd"));
-        jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy/MM/dd"));
+        if (2 == lockKey.getHireType()){
+            jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy/MM/dd HH:00:00"));
+            jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy/MM/dd HH:00:00"));
+        }else{
+            jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy/MM/dd"));
+            jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy/MM/dd"));
+        }
+        
         return jsonObject;
     }
 }

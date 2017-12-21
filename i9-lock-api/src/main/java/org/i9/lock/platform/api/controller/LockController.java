@@ -154,6 +154,7 @@ public class LockController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         lockSearchDto.setUserId(user.getId());
+        lockSearchDto.setOrderByClause("createTime desc");
         PageBounds<Lock> pageBounds = lockService.selectAuthorizeLocks(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
