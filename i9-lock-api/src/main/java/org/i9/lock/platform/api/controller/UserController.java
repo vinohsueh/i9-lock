@@ -47,6 +47,7 @@ public class UserController {
         System.arraycopy(a, 1, b, 0, b.length);
         String keyAdmin = EncryptUtils.bytesToHexString(b);
         result.put("account", keyAdmin);
+        result.put("id", currentUser.getId());
         return result;
     }
     
