@@ -91,6 +91,7 @@ public class LockKeyServiceImpl implements LockKeyService {
             info.setContent(infoContent);
             info.setCreateTime(new Date());
             info.setUserId(user.getId());
+            infoDao.addInfo(info);
             //给输入的房客发送推送  开门密码
             PushUtils.sendPush(String.valueOf(user.getId()), infoContent);
         } catch (BusinessException e) {
