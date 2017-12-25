@@ -2,6 +2,7 @@ package org.i9.lock.platform.api.controller;
 
 import java.util.HashMap;
 
+import org.i9.lock.platform.api.component.InfoComponent;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.InfoExample;
 import org.i9.lock.platform.model.User;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /** 
  * 创建时间：2017年12月25日 下午4:24:51
@@ -37,7 +41,12 @@ public class InfoController {
         example.createCriteria().andUserIdEqualTo(user.getId());
         example.setOrderByClause("createTime asc");
         PageBounds<Info> infos = infoService.selectByLimitPage(example, currectPage, pageSize);
-        result.put("infos", infos);
+        JSONArray jsonArray = new JSONArray();
+        for (Info info : infos.getPageList()) {
+            JSONObject jsonObject = new InfoComponent().setInfo(info).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("infos",jsonArray);
         return result;
     }
 }
