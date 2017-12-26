@@ -68,8 +68,7 @@ public class PushUtils {
         extras.put("test", "https://community.jiguang.cn/push");
         return PushPayload.newBuilder()
                 .setPlatform(Platform.android_ios())
-                .setAudience(Audience.all())
-                //.setAudience(Audience.tag(id))
+                .setAudience(Audience.tag(id))
                 .setNotification(Notification.newBuilder()
                         .setAlert(info)
                         .addPlatformNotification(AndroidNotification.newBuilder()
