@@ -29,6 +29,7 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
+				usename : $scope.searchText
 			};
 		
 		httpService.post({url:'../manager/pageManager',data:pageParam,showSuccessMsg:false}).then(function(data) {  
