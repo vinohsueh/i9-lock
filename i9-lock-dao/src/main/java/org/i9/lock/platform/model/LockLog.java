@@ -91,14 +91,4 @@ public class LockLog {
     public String getTimeString() {
         return DateUtils.dateToString(createTime);
     } 
-    
-    public String getOperationString() {
-        if (operation == 0) {
-            return "进门";
-        } else if (operation == 1){
-            return "出门";
-        } else {
-            return "";
-        }
-    }
 }
