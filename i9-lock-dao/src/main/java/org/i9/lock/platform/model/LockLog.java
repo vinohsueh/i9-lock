@@ -31,15 +31,24 @@ public class LockLog {
      */
     private Date createTime;
     
-    /**
-     * 操作内容 0 进门 1出门
-     */
     private Short operation;
     
+    /**
+     * 操作内容
+     */
+    private String content;
     
     private String username;
     
     
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getUsername() {
         return username;
     }

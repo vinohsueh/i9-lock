@@ -22,8 +22,8 @@ public class LockLogInfoComponent {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", lockLog.getId());
         jsonObject.put("username", lockLog.getUsername());
-        jsonObject.put("operation", lockLog.getOperationString());
         jsonObject.put("time", lockLog.getTimeString());
+        jsonObject.put("content", lockLog.getContent());
         return jsonObject;
     }
 }
