@@ -12,6 +12,7 @@
 		<module>./i9-lock-service</module>
 		<module>./i9-lock-api</module>
 		<module>./i9-lock-utils</module>
+		<module>./i9-lock-core</module>
 		<!-- <module>./jpush-client</module> -->
 	</modules>
 
