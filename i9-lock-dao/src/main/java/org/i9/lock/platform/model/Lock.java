@@ -2,6 +2,15 @@ package org.i9.lock.platform.model;
 
 import java.util.Date;
 
+/**
+ * 锁实体类
+ * 
+ * 
+ * @author lby
+ *
+ * @create 2017年12月26日
+ *
+ */
 public class Lock {
     private Long id;
     

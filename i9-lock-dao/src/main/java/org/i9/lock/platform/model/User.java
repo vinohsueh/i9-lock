@@ -7,6 +7,15 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * 用户实体类
+ * 
+ * 
+ * @author lby
+ *
+ * @create 2017年12月26日
+ *
+ */
 public class User {
     private Long id;
     

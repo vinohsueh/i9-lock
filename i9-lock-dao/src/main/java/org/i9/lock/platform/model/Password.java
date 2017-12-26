@@ -2,6 +2,15 @@ package org.i9.lock.platform.model;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 开门密码实体类
+ * 
+ * 
+ * @author lby
+ *
+ * @create 2017年12月26日
+ *
+ */
 public class Password {
     /**
      * 

@@ -5,6 +5,15 @@ import java.util.Date;
 
 import org.i9.lock.platform.utils.StringUtil;
 
+/**
+ * 钥匙实体类
+ * 
+ * 
+ * @author lby
+ *
+ * @create 2017年12月26日
+ *
+ */
 public class LockKey {
     private Integer id;
     

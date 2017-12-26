@@ -4,6 +4,15 @@ import java.util.Date;
 
 import org.i9.lock.platform.utils.DateUtils;
 
+/**
+ * 锁日志实体类
+ * 
+ * 
+ * @author lby
+ *
+ * @create 2017年12月26日
+ *
+ */
 public class LockLog {
     private Integer id;
     
