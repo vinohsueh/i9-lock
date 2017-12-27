@@ -42,6 +42,24 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.lock', {
+                  url: '/lock',
+                  templateUrl: '/proj/lock/lock.html',
+                  data : {pageTitle : '智能锁'},
+              	  controller : "lockNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'lockNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/lock/lock.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.user', {
                   url: '/user',
                   templateUrl: '/proj/user/user.html',
