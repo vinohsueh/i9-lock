@@ -14,7 +14,12 @@ import java.util.Date;
  *
  */
 public class StringUtil {
-
+    
+    private static final String LOG_1 = "领取了";
+    
+    private static final String LOG_2 = "的钥匙";
+    
+    
     public static String MD5(String str) {
         MessageDigest messageDigest = null;
         try {
@@ -67,4 +72,12 @@ public class StringUtil {
             return "";
         }
     }
+    
+    /**
+     * 生成领取钥匙的锁日志
+     */
+    public static String getLockLog(String username, String name) {
+        return username+LOG_1+name+LOG_2;
+    }
+    
 }

@@ -78,4 +78,10 @@ public interface LockKeyService {
      */
     LockKey selectLockKeyByLockIdAndUserId(Long lockId, Long userId)throws BusinessException;
     
+    /**
+     * 更新租期
+     * @param lockKey
+     */
+    void updateEndTime(LockKey lockKey) throws BusinessException;
+    
 }

@@ -142,7 +142,7 @@ public class LockKeyController {
     public HashMap<String, Object> getUserOrderNumber(UpdateTimeDto updateTimeDto){
         HashMap<String, Object> result = new HashMap<String, Object>();
         LockKey lockKey = updateTimeDto.getLockKey(); 
-        lockKeyService.updateLockKey(lockKey);
+        lockKeyService.updateEndTime(lockKey);
         return result;
     }
 }

@@ -9,5 +9,14 @@ import org.i9.lock.platform.dao.vo.PageListDto;
  * 
  */
 public class ManagerPageDto extends PageListDto{
+    private String usename;
+
+    public String getUsename() {
+        return usename;
+    }
+
+    public void setUsename(String usename) {
+        this.usename = usename;
+    }
     
 }

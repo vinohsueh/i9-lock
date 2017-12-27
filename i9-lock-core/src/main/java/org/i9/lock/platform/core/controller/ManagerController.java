@@ -2,6 +2,7 @@ package org.i9.lock.platform.core.controller;
 
 import java.util.HashMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.i9.lock.platform.dao.pageQueryDto.ManagerPageDto;
 import org.i9.lock.platform.model.Manager;
 import org.i9.lock.platform.model.ManagerExample;
@@ -34,6 +35,9 @@ public class ManagerController {
     public HashMap<String, Object> pageManager(@RequestBody ManagerPageDto managerPageDto){
         HashMap<String, Object> result = new HashMap<String, Object>();
         ManagerExample example = new ManagerExample();
+        if(StringUtils.isNotBlank(managerPageDto.getUsename())){
+            example.createCriteria().andUsenameLike("%"+managerPageDto.getUsename()+"%");
+        }
         PageBounds<Manager> pageBounds = managerService.selectByLimitPage(example, managerPageDto.getCurrentPage(), managerPageDto.getPageSize());
         result.put("data", pageBounds);
         return result;
