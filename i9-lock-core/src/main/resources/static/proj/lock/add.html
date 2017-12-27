@@ -1,0 +1,104 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal"
+		ng-click="closeBtn()" aria-hidden="true">&times;</button>
+	<h4 class="modal-title" id="myModalLabel">修改智能锁</h4>
+</div>
+<div class="modal-body">
+	<form class="form-horizontal" role="form">
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>自定义名称</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="name" ng-model="lock.name" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>密钥</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="keyAdmin" ng-model="lock.keyAdmin" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>房东手机号</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="phone" ng-model="lock.user.phone" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>电量</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="battery" ng-model="lock.battery" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>电表数</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="eleNumber" ng-model="lock.eleNumber" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>电费</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="elePrice" ng-model="lock.elePrice" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>燃气数</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="gasNumber" ng-model="lock.gasNumber" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>燃气价格</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="gasPrice" ng-model="lock.gasPrice" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>水表数</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="waterNumber" ng-model="lock.waterNumber" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>水费</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="waterPrice" ng-model="lock.waterPrice" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>房客安全模式</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="safeMode" ng-if="lock.safeMode==1" value="是" readonly="readonly" placeholder="">
+				<input type="text" class="form-control" id="safeMode" ng-if="lock.safeMode==0" value="否" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>是否合租</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="ifShared" ng-if="lock.ifShared==1" value="是" readonly="readonly" placeholder="">
+				<input type="text" class="form-control" id="ifShared" ng-if="lock.ifShared==0" value="否" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>锁号</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="keyNumber" ng-model="lock.keyNumber" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-md-2 control-label"><span class="required">*</span>其他备注</label>
+			<div class="col-md-8">
+				<input type="text" class="form-control" id="remark" ng-model="lock.remark" readonly="readonly" placeholder="">
+			</div>
+		</div>
+		<div class="form-group" style="display: none;">
+            <label class="col-md-2 control-label">id</label>
+            <div class="col-md-8">
+                <input type="text" class="form-control" id="id" ng-model="lock.id" placeholder="">
+            </div>
+        </div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" ng-click="closeBtn()" data-dismiss="modal">关闭</button>
+</div>
