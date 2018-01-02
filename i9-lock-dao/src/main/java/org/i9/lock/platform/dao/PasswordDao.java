@@ -2,7 +2,9 @@ package org.i9.lock.platform.dao;
 
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Password;
+import org.i9.lock.platform.utils.PageBounds;
 
 /** 
  * 创建时间：2017年12月6日 下午2:02:15
@@ -33,6 +35,16 @@ public interface PasswordDao {
     void deletePassword(Integer id) throws Exception;
     
     /**
+     * 分页查询密码
+     * @param ManagerSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<Password> selectByLimitPage(PasswordSearchDto passwordSearchDto,
+            int currectPage, int pageSize) throws Exception;
+    
+    /**
      * 根据ID获取锁密码
      * @param kid
      * @return
@@ -56,4 +68,6 @@ public interface PasswordDao {
      * @throws Exception 
      */
     List<Integer> selectExistOrderNumber(Long lockId,Long userId) throws Exception;
+
+	
 }

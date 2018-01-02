@@ -3,11 +3,12 @@ package org.i9.lock.platform.dao.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.model.PasswordExample;
 
 public interface PasswordMapper {
-    int countByExample(@Param("example") PasswordExample example);
+    int countByExample(@Param("example") PasswordSearchDto passwordSearchDto);
 
     int deleteByExample(PasswordExample example);
 
@@ -36,4 +37,6 @@ public interface PasswordMapper {
      * @return
      */
     List<Integer> selectExistOrderNumber(@Param("lockId") Long lockId,@Param("userId") Long userId);
+    
+    List<Password> selectByLimitPage(@Param("example") PasswordSearchDto passwordSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 }

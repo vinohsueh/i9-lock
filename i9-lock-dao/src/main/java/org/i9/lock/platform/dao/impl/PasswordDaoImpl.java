@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.PasswordDao;
 import org.i9.lock.platform.dao.mapper.PasswordMapper;
+import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.model.PasswordExample;
+import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -57,5 +59,15 @@ public class PasswordDaoImpl implements PasswordDao{
             throws Exception {
         return passwordMapper.selectExistOrderNumber(lockId,userId);
     }
+
+	@Override
+	public PageBounds<Password> selectByLimitPage(PasswordSearchDto passwordSearchDto, int currectPage, int pageSize)
+			throws Exception {
+		 	final int totalSize = passwordMapper.countByExample(passwordSearchDto);
+	        PageBounds<Password> pageBounds = new PageBounds<Password>(currectPage, totalSize, pageSize);
+	        List<Password> list = passwordMapper.selectByLimitPage(passwordSearchDto, pageBounds.getOffset(), pageBounds.getPageSize());
+	        pageBounds.setPageList(list);
+	        return pageBounds;
+	}
 
 }
