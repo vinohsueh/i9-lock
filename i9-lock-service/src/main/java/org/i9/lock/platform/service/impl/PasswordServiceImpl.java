@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
+import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.service.PasswordService;
 import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.ErrorCode;
+import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -118,4 +120,14 @@ public class PasswordServiceImpl implements PasswordService{
         Integer orderNumber = Collections.min(array);
         return orderNumber;
     }
+
+	@Override
+	public PageBounds<Password> selectByLimitPage(PasswordSearchDto passwordSearchDto, int currectPage, int pageSize)
+			throws BusinessException {
+		 try {
+	            return passwordDao.selectByLimitPage(passwordSearchDto, currectPage, pageSize);
+	        } catch (Exception e) {
+	            throw new BusinessException(e.getMessage());
+	        }
+	}
 }

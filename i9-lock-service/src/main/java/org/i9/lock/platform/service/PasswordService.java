@@ -2,8 +2,10 @@ package org.i9.lock.platform.service;
 
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.utils.BusinessException;
+import org.i9.lock.platform.utils.PageBounds;
 
 /** 
  * 创建时间：2017年12月6日 下午2:02:15
@@ -32,6 +34,16 @@ public interface PasswordService {
      * @throws BusinessException
      */
     void deletePassword(Integer id) throws BusinessException;
+    
+    /**
+     * 分页查询密码
+     * @param ManagerSearchDto
+     * @param currectPage
+     * @param pageSize
+     * @return
+     */
+    PageBounds<Password> selectByLimitPage(PasswordSearchDto passwordSearchDto,
+            int currectPage, int pageSize) throws BusinessException;
     
     /**
      * 根据ID获取锁密码
