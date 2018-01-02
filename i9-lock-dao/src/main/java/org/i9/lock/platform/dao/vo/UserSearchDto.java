@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @version  
  * 
  */
-public class UserSearchDto implements Serializable{
+public class UserSearchDto extends PageListDto implements Serializable{
     
     /**
      * <code>serialVersionUID</code> - 
@@ -17,7 +17,11 @@ public class UserSearchDto implements Serializable{
 
     
     private String username;
+    
+    private String phone;
 
+    private String familyPhone;
+    
     private String orderByClause;
     
     
@@ -40,6 +44,27 @@ public class UserSearchDto implements Serializable{
     public void setUsername(String username) {
         this.username = username;
     }
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getFamilyPhone() {
+		return familyPhone;
+	}
+
+
+	public void setFamilyPhone(String familyPhone) {
+		this.familyPhone = familyPhone;
+	}
+    
     
     
 }
