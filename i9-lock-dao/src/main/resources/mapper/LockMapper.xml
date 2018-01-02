@@ -22,6 +22,7 @@
     <result column="keyNumber" jdbcType="VARCHAR" property="keyNumber" />
     <result column="keyDev" jdbcType="VARCHAR" property="keyDev" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,9 +84,21 @@
   </sql>
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE" prefixOverrides="AND|OR">
-        <if test="example.userId != null">
-            and userId = #{example.userId} 
+ 	  <if test="example.name != null and example.name != ''">
+           OR (name like CONCAT('%',CONCAT('${example.name}','%'))
+       </if>
+       <if test="example.phone != null and example.phone != ''">
+           OR userId in (select id from t_user where phone like CONCAT('%',CONCAT('${example.phone}','%')))
         </if>
+       <if test="example.keyUser != null and example.keyUser != ''">
+           OR keyUser LIKE CONCAT('%',CONCAT('${example.keyUser}','%'))
+       </if>
+       <if test="example.keyNumber != null and example.keyNumber != ''">
+           OR keyNumber LIKE CONCAT('%',CONCAT('${example.keyNumber}','%')))
+       </if>
+       <if test="example.userId != null">
+           and userId = #{example.userId} 
+       </if>
     </trim>
   </sql>
   <sql id="Base_Column_List" >
@@ -266,7 +279,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.i9.lock.platform.model.LockExample" resultType="java.lang.Integer" >
+  <select id="countByExample" resultType="java.lang.Integer" >
     select count(*) from t_lock
     <if test="_parameter != null" >
       <include refid="Query_By_Dto_Where_Clause" />

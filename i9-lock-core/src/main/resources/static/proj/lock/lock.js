@@ -1,5 +1,5 @@
-var managerNgModule=angular.module('managerNgModule',['ngAnimate','ui.bootstrap','app']);
-var managerService = managerNgModule.factory('managerService',
+var lockNgModule=angular.module('lockNgModule',['ngAnimate','ui.bootstrap','app']);
+var lockService = lockNgModule.factory('lockService',
 		['$resource', function($resource){
 			//指定url格式:../模块名/服务名/方法名?参数
 			var path = '../rest/:moduleName/:serviceName/:methodName?rnd=:random';
@@ -19,27 +19,31 @@ var managerService = managerNgModule.factory('managerService',
 			});
 			return resource;
 	}]);
-var managerNgControl=managerNgModule.controller('managerNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,managerService,httpService){
+var lockNgControl=lockNgModule.controller('lockNgControl',function($rootScope, $scope,$stateParams,  $log, $http, $window, $state,$modal, toaster,lockService,httpService){
 	//分页条件
 	$scope.pageSize = 10;
 	$scope.currentPage = 1;
 	
 	//初始化
 	$scope.initTable = function (){
+		var searchText = $scope.searchText;
 		var pageParam = {
 				pageSize:$scope.pageSize,
 				currentPage:$scope.currentPage,
-				usename : $scope.searchText
+				orderByClause:"createTime desc",
+				name: searchText,
+				keyUser: searchText,
+				keyNumber: searchText,
+				phone: searchText,
 			};
-		
-		httpService.post({url:'../manager/pageManager',data:pageParam,showSuccessMsg:false}).then(function(data) {  
-			$scope.managers = data.data.data.pageList;
+		httpService.post({url:'../lock/pageLock',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+			$scope.locks = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
 			$scope.hasNext = data.data.data.hasNext;
 			$scope.total = data.data.data.totalSize;
 			$scope.start = data.data.data.offset+1;
-			$scope.end = data.data.data.offset+$scope.managers.length;
+			$scope.end = data.data.data.offset+$scope.locks.length;
 			$scope.pages = data.data.data.loopPageNum;
 			$scope.currentPage = pageParam.currentPage;
 		})
@@ -72,23 +76,25 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
 	$scope.search = function(){
 		$scope.initTable();
 	}
-	
+	$scope.search = function () { 
+		$scope.initTable();
+	}
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
-            templateUrl: '/proj/manager/add.html',  
-            controller: 'managerEditCtrl', 
+            templateUrl: '/proj/lock/add.html',  
+            controller: 'lockEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
             	deps : ['$ocLazyLoad',function($ocLazyLoad) {
         			return $ocLazyLoad.load({
-        				name : 'managerEditNgModule',
+        				name : 'lockEditNgModule',
         				insertBefore : '#ng_load_plugins_before',
         				files : [
-        				         'proj/manager/add.js',
+        				         'proj/lock/add.js',
         				]
         			});
         		}],
-        		manager: function () {  
+        		lock: function () {  
                     return {};  
                 },
             }  
@@ -102,24 +108,24 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
     };  
     //编辑
     $scope.edit = function (id) { 
-    	httpService.post({url:'../manager/getManager',data:id,showSuccessMsg:false}).then(function(data) {  
-    		$scope.manager = data.data.data;
+    	httpService.post({url:'../lock/getLock',data:id,showSuccessMsg:false}).then(function(data) {  
+    		$scope.lock = data.data.data;
 			var modalInstance = $modal.open({  
-	            templateUrl: '/proj/manager/add.html',  
-	            controller: 'managerEditCtrl', 
+	            templateUrl: '/proj/lock/add.html',  
+	            controller: 'lockEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
 	            	deps : ['$ocLazyLoad',function($ocLazyLoad) {
 	        			return $ocLazyLoad.load({
-	        				name : 'managerEditNgModule',
+	        				name : 'lockEditNgModule',
 	        				insertBefore : '#ng_load_plugins_before',
 	        				files : [
-	        				         'proj/manager/add.js',
+	        				         'proj/lock/add.js',
 	        				]
 	        			});
 	        		}],
-	            	manager: function () {  
-	                    return $scope.manager;  
+	            	lock: function () {  
+	                    return $scope.lock;  
 	                },
 	            }  
 	        });
@@ -130,33 +136,4 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
 	        });
     	})
     };  
-    $scope.del = function(id){
-    	confirm("确定删除吗?", "", function (isConfirm) {
-            if (isConfirm) {
-            	$http.post('../manager/delManager',id).success(function(data){
-        			if (data.result == 1) {
-        				$.toaster({
-        					title : "Success",
-        					priority : "success",
-        					message : "成功！"
-        				});
-        				$scope.initTable();
-        			}else{
-        				$.toaster({
-        					title : "Error",
-        					priority : "danger",
-        					message : data.errorMsg
-        				});
-        			}
-        		}).error(function(data){
-        			$.toaster({
-        				title : "Error",
-        				priority : "danger",
-        				message : "请求错误！"
-        			});
-        		});
-            } else {
-            }
-        }, {confirmButtonText: '确定', cancelButtonText: '取消', width: 400});
-    }
 })

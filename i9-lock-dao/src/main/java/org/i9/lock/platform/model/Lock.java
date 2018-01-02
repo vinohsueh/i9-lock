@@ -115,9 +115,17 @@ public class Lock {
     
     private byte receiveFlag;
     
+    private User user;
     
-    
-    public String getRemark() {
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getRemark() {
         return remark;
     }
 

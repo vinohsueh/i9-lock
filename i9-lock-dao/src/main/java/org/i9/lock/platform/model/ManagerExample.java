@@ -206,7 +206,7 @@ public class ManagerExample {
         }
 
         public Criteria andUsenameLike(String value) {
-            addCriterion("usename like", value, "usename");
+            addCriterion("usename like ", value, "usename");
             return (Criteria) this;
         }
 

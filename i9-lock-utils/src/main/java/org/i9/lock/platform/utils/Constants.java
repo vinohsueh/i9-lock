@@ -12,6 +12,13 @@ package org.i9.lock.platform.utils;
  *
  */
 public class Constants {
+
+    public static final String LOG_3 = "已更新租期为";
+    
+    public static final String LOG_4 = "租,从";
+    
+    public static final String LOG_5 = "到";
+    
     
     
 }
