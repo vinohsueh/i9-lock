@@ -18,6 +18,8 @@ angular.module('app')
           
           $urlRouterProvider
               .otherwise('/app/manager');
+          $urlRouterProvider
+          	  .otherwise('/app/user');
           $stateProvider
               .state('app', {
                   abstract: true,
