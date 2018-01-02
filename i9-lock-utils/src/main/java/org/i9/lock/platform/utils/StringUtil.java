@@ -80,6 +80,6 @@ public class StringUtil {
         return username+LOG_1+name+LOG_2;
     }
     /*
-     * 
+     * 测试
      */
 }
