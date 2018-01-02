@@ -42,6 +42,24 @@ angular.module('app')
                     }]
                   }
               })
+               .state('app.password', {
+                  url: '/password',
+                  templateUrl: '/proj/password/password.html',
+                  data : {pageTitle : '密码'},
+              	  controller : "passwordNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'passwordNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/password/password.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.user', {
                   url: '/user',
                   templateUrl: '/proj/user/user.html',
