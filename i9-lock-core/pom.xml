@@ -4,6 +4,7 @@
 
 	<groupId>i9.lock.parent</groupId>
 	<artifactId>i9-lock-core</artifactId>
+	<packaging>war</packaging>
 	<parent>
 		<groupId>org.i9.lock.platform</groupId>
 		<artifactId>i9-lock-parent</artifactId>
