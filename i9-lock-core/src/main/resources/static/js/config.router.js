@@ -18,6 +18,8 @@ angular.module('app')
           
           $urlRouterProvider
               .otherwise('/app/manager');
+          $urlRouterProvider
+          	  .otherwise('/app/user');
           $stateProvider
               .state('app', {
                   abstract: true,
@@ -55,6 +57,19 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/password/password.js',
+              .state('app.lock', {
+                  url: '/lock',
+                  templateUrl: '/proj/lock/lock.html',
+                  data : {pageTitle : '智能锁'},
+              	  controller : "lockNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'lockNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/lock/lock.js',
             				]
             			})
                     }]

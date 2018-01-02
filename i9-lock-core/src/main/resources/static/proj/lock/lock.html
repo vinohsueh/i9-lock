@@ -1,11 +1,8 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">管理员</h1>
+  <h1 class="m-n font-thin h3">智能锁管理</h1>
 </div>
 <div class="wrapper-md">  
   <div class="panel panel-default">
-    <div class="panel-heading">
-        <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="add()"><i class="fa fa-plus"></i>新增</button>
-    </div>
     <div class="row wrapper">
       <div class="col-sm-5 m-b-xs">
         <select class="input-sm form-control w-sm inline v-middle" ng-change="changePageSize()" ng-model="pageSize" style="width: 65px">
@@ -15,16 +12,12 @@
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
-        <!-- <button class="btn btn-sm btn-default">Apply</button>       -->          
       </div>
       <div class="col-sm-4">
       </div>
       <div class="col-sm-3">
         <div class="input-group">
-          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="Search">
-          <!-- <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span> -->
+          <input type="text" class="input-sm form-control" ng-change="search()" ng-model="searchText" placeholder="模糊查询">
         </div>
       </div>
     </div>
@@ -32,18 +25,33 @@
       <table class="table table-striped b-t b-light" style="table-layout:fixed">
         <thead>
           <tr>
-            <th width="70%">用户名</th>
+            <th>自定义名称</th>
+            <th>密钥</th>
+            <th>房东手机号</th>
+            <th>电量</th>
+            <th>房客安全模式</th>
+            <th>是否合租</th>
+            <th>keyUser</th>
+            <th>keyNumber</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="manager in managers">
-            <td>{{manager.usename}}</td>
+          <tr ng-repeat="lock in locks">
+            <td>{{lock.name}}</td>
+            <td>{{lock.keyAdmin}}</td>
+            <td>{{lock.user.phone}}</td>
+            <td>{{lock.battery}}</td>
+            <td ng-if="lock.safeMode == 0">否</td>
+            <td ng-if="lock.safeMode == 1">是</td>
+            <td ng-if="lock.ifShared == 0">否</td>
+            <td ng-if="lock.ifShared == 1">是</td>
+            <td style="white-space:nowrap;overflow:hidden;text-overflow: ellipsis;">{{lock.keyUser}}</td>
+            <td>{{lock.keyNumber}}</td>
             <td>
               <div class="btn-group">
-					<button type="button" ng-click="edit({{manager.id}})" class="btn btn-info">编辑</button>
-					<button type="button" ng-click="del({{manager.id}})" class="btn btn-danger">删除</button>
-				</div>
+					<button type="button" ng-click="edit({{lock.id}})" class="btn btn-info">编辑</button>
+			  </div>
 			</td>
           </tr>
         </tbody>
@@ -51,15 +59,6 @@
     </div>
     <footer class="panel-footer">
       <div class="row">
-        <!-- <div class="col-sm-4 hidden-xs">
-          <select class="input-sm form-control w-sm inline v-middle">
-            <option value="0">Bulk action</option>
-            <option value="1">Delete selected</option>
-            <option value="2">Bulk edit</option>
-            <option value="3">Export</option>
-          </select>
-          <button class="btn btn-sm btn-default">Apply</button>                  
-        </div> -->
         <div class="col-sm-4">
           <small class="text-muted inline m-t-sm m-b-sm">showing {{start}}-{{end}} of {{total}} items</small>
         </div>

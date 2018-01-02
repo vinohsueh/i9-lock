@@ -1,5 +1,6 @@
 package org.i9.lock.platform.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -8,18 +9,23 @@ import java.util.List;
 import org.i9.lock.platform.dao.InfoDao;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
+import org.i9.lock.platform.dao.LockLogDao;
 import org.i9.lock.platform.dao.UserDao;
+import org.i9.lock.platform.dao.enums.HireTypeEnum;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
+import org.i9.lock.platform.model.LockLog;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.utils.BusinessException;
+import org.i9.lock.platform.utils.Constants;
 import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
 import org.i9.lock.platform.utils.PushUtils;
+import org.i9.lock.platform.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +52,9 @@ public class LockKeyServiceImpl implements LockKeyService {
     
     @Autowired
     private InfoDao infoDao;
+    
+    @Autowired
+    private LockLogDao lockLogDao;
 
     private static final Integer[] ARRAY = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     
@@ -94,6 +103,14 @@ public class LockKeyServiceImpl implements LockKeyService {
             infoDao.addInfo(info);
             //给输入的房客发送推送  开门密码
             PushUtils.sendPush(String.valueOf(user.getId()), infoContent);
+            
+            //生成锁日志
+            LockLog lockLog = new LockLog();
+            lockLog.setCreateTime(new Date());
+            lockLog.setLockId(lock.getId());
+            lockLog.setUserId(user.getId());
+            lockLog.setContent(StringUtil.getLockLog(user.getUsername(),lock.getName()));
+            lockLogDao.addLockLog(lockLog);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(), e.getErrorMessage());
         } catch (Exception e) {
@@ -182,5 +199,37 @@ public class LockKeyServiceImpl implements LockKeyService {
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
+    }
+
+    @Override
+    public void updateEndTime(LockKey lockKey) throws BusinessException {
+        try {
+            lockKeyDao.updateLockKey(lockKey);
+            LockKey lockKey2 = lockKeyDao.getLockKeyById(lockKey.getId());
+            Lock lock = lockDao.getLockById(lockKey2.getLockId());
+            //生成锁日志
+            LockLog lockLog = new LockLog();
+            lockLog.setCreateTime(new Date());
+            lockLog.setLockId(lockKey2.getLockId());
+            SimpleDateFormat sdf = null;
+            //设置日志内容
+            String startDateString = null;
+            String endDateString = null;
+            if (lockKey.getHireType() == 2) {
+                sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                startDateString = sdf.format(lockKey.getStartTime());
+                endDateString = sdf.format(lockKey.getEndTime());
+            }else{
+                sdf = new SimpleDateFormat("yyyy-MM-dd");
+                startDateString = sdf.format(lockKey.getStartTime());
+                endDateString = sdf.format(lockKey.getEndTime());
+            }
+            String content = lock.getName()+Constants.LOG_3+HireTypeEnum.getNameById(lockKey.getHireType())+Constants.LOG_4+startDateString+Constants.LOG_5+endDateString;
+            lockLog.setContent(content);
+            lockLogDao.addLockLog(lockLog);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+        
     }
 }
