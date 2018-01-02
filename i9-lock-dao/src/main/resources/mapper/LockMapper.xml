@@ -279,7 +279,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.i9.lock.platform.model.LockExample" resultType="java.lang.Integer" >
+  <select id="countByExample" resultType="java.lang.Integer" >
     select count(*) from t_lock
     <if test="_parameter != null" >
       <include refid="Query_By_Dto_Where_Clause" />
