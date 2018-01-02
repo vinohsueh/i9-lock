@@ -79,5 +79,7 @@ public class StringUtil {
     public static String getLockLog(String username, String name) {
         return username+LOG_1+name+LOG_2;
     }
-    
+    /*
+     * 测试2018年1月2日 10:52:05
+     */
 }
