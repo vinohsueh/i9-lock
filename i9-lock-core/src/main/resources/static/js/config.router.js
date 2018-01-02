@@ -57,6 +57,11 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/password/password.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
               .state('app.lock', {
                   url: '/lock',
                   templateUrl: '/proj/lock/lock.html',
