@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.i9.lock.platform.dao.ConfigDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.service.PasswordService;
@@ -31,7 +33,8 @@ public class PasswordServiceImpl implements PasswordService{
     @Autowired
     private LockKeyDao lockKeyDao;
     
-    private static final Integer [] ARRAY = {0,1,2,3,4,5,6,7,8,9};
+    @Autowired
+    private ConfigDao configDao;
     @Override
     public void addPassword(Password password) throws BusinessException {
         try {
@@ -95,10 +98,13 @@ public class PasswordServiceImpl implements PasswordService{
             throws BusinessException {
         try {
             List<Integer> list = passwordDao.selectExistOrderNumber(lockId, userId);
-            if (list.size() >= 10) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,"密码最多不能超过10组");
+          //查询最大可用编号数
+            Config config = configDao.selectMaxPassword();
+            int max = config.getConfigValue();
+            if (list.size() >= max) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"密码最多不能超过"+max+"组");
             }
-            return selectOrderNumber(list);
+            return selectOrderNumber(list,max);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(),e.getErrorMessage());
         } catch (Exception e) {
@@ -110,17 +116,23 @@ public class PasswordServiceImpl implements PasswordService{
      * @param list
      * @return
      */
-    private static Integer selectOrderNumber(List<Integer> list) {
+    private static Integer selectOrderNumber(List<Integer> list,int max) {
+        //最大可用编号数集合
+        List<Integer> maxArray = new ArrayList<Integer>();
+        for (int i = 0; i < max; i++) {
+            maxArray.add(i);
+        }
+        
         List<Integer> array = new ArrayList<Integer>();
-        for (int i = 0; i < ARRAY.length; i++) {
-            if (!array.contains(ARRAY[i]) && !list.contains(ARRAY[i])) {
-                array.add(ARRAY[i]);
+        for (Integer integer : maxArray) {
+            if (!array.contains(integer) && !list.contains(integer)) {
+                array.add(integer);
             }
         }
         Integer orderNumber = Collections.min(array);
         return orderNumber;
     }
-
+    
 	@Override
 	public PageBounds<Password> selectByLimitPage(PasswordSearchDto passwordSearchDto, int currectPage, int pageSize)
 			throws BusinessException {

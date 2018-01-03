@@ -40,7 +40,7 @@
             <property name="methodNameCalculator" value="extended" />
         </javaClientGenerator>
         
-        <table schema="lock" tableName="t_lock_log" domainObjectName="LockLog">
+        <table schema="lock" tableName="t_config" domainObjectName="Config">
             <property name="useActualColumnNames" value="true" />
             <generatedKey column="id" sqlStatement="mysql" identity="true" />
         </table>

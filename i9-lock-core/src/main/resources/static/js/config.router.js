@@ -97,6 +97,23 @@ angular.module('app')
                     }]
                   }
               })
+              .state('app.config', {
+                  url: '/config',
+                  templateUrl: 'proj/config/config.html',
+              	  controller : "configNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'configNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/config/config.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.dashboard-v1', {
                   url: '/dashboard-v1',
                   templateUrl: '/tpl/app_dashboard_v1.html',
