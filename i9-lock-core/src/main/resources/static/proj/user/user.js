@@ -36,7 +36,7 @@ var userNgControl=userNgModule.controller('userNgControl',function($rootScope, $
 				familyPhone:searchText				
 			};
 		
-		httpService.post({url:'../user/pageUser',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./user/pageUser',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.users = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;

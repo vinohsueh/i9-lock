@@ -24,11 +24,11 @@ angular.module('app')
               .state('app', {
                   abstract: true,
                   url: '/app',
-                  templateUrl: '/tpl/app.html'
+                  templateUrl: 'tpl/app.html'
               })
               .state('app.manager', {
                   url: '/manager',
-                  templateUrl: '/proj/manager/manager.html',
+                  templateUrl: 'proj/manager/manager.html',
                   data : {pageTitle : '管理员'},
               	  controller : "managerNgControl",
                   resolve: {
@@ -46,7 +46,7 @@ angular.module('app')
               })
                .state('app.password', {
                   url: '/password',
-                  templateUrl: '/proj/password/password.html',
+                  templateUrl: 'proj/password/password.html',
                   data : {pageTitle : '密码'},
               	  controller : "passwordNgControl",
                   resolve: {
@@ -64,7 +64,7 @@ angular.module('app')
               }) 
               .state('app.lock', {
                   url: '/lock',
-                  templateUrl: '/proj/lock/lock.html',
+                  templateUrl: 'proj/lock/lock.html',
                   data : {pageTitle : '智能锁'},
               	  controller : "lockNgControl",
                   resolve: {
@@ -82,7 +82,7 @@ angular.module('app')
               })
               .state('app.user', {
                   url: '/user',
-                  templateUrl: '/proj/user/user.html',
+                  templateUrl: 'proj/user/user.html',
               	  controller : "userNgControl",
                   resolve: {
                     deps: ['$ocLazyLoad',

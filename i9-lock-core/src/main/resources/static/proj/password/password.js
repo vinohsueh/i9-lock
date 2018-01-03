@@ -37,7 +37,7 @@ var passwordNgControl=passwordNgModule.controller('passwordNgControl',function($
 				userPhone:searchText,
 			};
 		
-		httpService.post({url:'../password/pagePassword',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./password/pagePassword',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.passwords= data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
@@ -108,10 +108,10 @@ var passwordNgControl=passwordNgModule.controller('passwordNgControl',function($
 //    };  
     //编辑
     $scope.edit = function (id) { 
-    	httpService.post({url:'../password/getPassword',data:id,showSuccessMsg:false}).then(function(data) {  
+    	httpService.post({url:'./password/getPassword',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.password = data.data.data;
 			var modalInstance = $modal.open({  
-	            templateUrl: '/proj/password/passwordUpdate.html',  
+	            templateUrl: 'proj/password/passwordUpdate.html',  
 	            controller: 'passwordEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  

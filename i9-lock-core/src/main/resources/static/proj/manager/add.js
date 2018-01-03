@@ -27,7 +27,7 @@ var managerEditCtrl = managerEditNgModule.controller('managerEditCtrl', function
 			});
 			return false;
 		}
-		httpService.post({url:'../manager/addManager',data:$scope.manager,showSuccessMsg:true}).then(function(data) {  
+		httpService.post({url:'./manager/addManager',data:$scope.manager,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};

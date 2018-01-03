@@ -39,7 +39,7 @@ angular.module('app')
         }
       }
       
-      $.get('../currentUser', function(data) {  
+      $.get('./currentUser', function(data) {  
     	var user = data.data.data;
 		user.showname = user.usename;
     	

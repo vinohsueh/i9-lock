@@ -27,7 +27,7 @@ var userEditCtrl = userEditNgModule.controller('userEditCtrl', function($scope,
 			});
 			return false;
 		}
-		httpService.post({url:'../user/addUser',data:$scope.user,showSuccessMsg:true}).then(function(data) {  
+		httpService.post({url:'./user/addUser',data:$scope.user,showSuccessMsg:true}).then(function(data) {  
 			$modalInstance.dismiss('cancel')
 		})
 	};

@@ -32,7 +32,7 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
 				usename : $scope.searchText
 			};
 		
-		httpService.post({url:'../manager/pageManager',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./manager/pageManager',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.managers = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
@@ -75,7 +75,7 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
 	
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
-            templateUrl: '/proj/manager/add.html',  
+            templateUrl: 'proj/manager/add.html',  
             controller: 'managerEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
@@ -102,10 +102,10 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
     };  
     //编辑
     $scope.edit = function (id) { 
-    	httpService.post({url:'../manager/getManager',data:id,showSuccessMsg:false}).then(function(data) {  
+    	httpService.post({url:'./manager/getManager',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.manager = data.data.data;
 			var modalInstance = $modal.open({  
-	            templateUrl: '/proj/manager/add.html',  
+	            templateUrl: 'proj/manager/add.html',  
 	            controller: 'managerEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
@@ -133,7 +133,7 @@ var managerNgControl=managerNgModule.controller('managerNgControl',function($roo
     $scope.del = function(id){
     	confirm("确定删除吗?", "", function (isConfirm) {
             if (isConfirm) {
-            	$http.post('../manager/delManager',id).success(function(data){
+            	$http.post('./manager/delManager',id).success(function(data){
         			if (data.result == 1) {
         				$.toaster({
         					title : "Success",

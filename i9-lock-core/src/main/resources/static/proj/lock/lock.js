@@ -36,7 +36,7 @@ var lockNgControl=lockNgModule.controller('lockNgControl',function($rootScope, $
 				keyNumber: searchText,
 				phone: searchText,
 			};
-		httpService.post({url:'../lock/pageLock',data:pageParam,showSuccessMsg:false}).then(function(data) {  
+		httpService.post({url:'./lock/pageLock',data:pageParam,showSuccessMsg:false}).then(function(data) {  
 			$scope.locks = data.data.data.pageList;
 			$scope.hasPrevious = data.data.data.hasPrevious;
 			$scope.currentPage = data.data.data.currentPage;
@@ -81,7 +81,7 @@ var lockNgControl=lockNgModule.controller('lockNgControl',function($rootScope, $
 	}
 	$scope.add = function () {  
         var modalInstance = $modal.open({  
-            templateUrl: '/proj/lock/add.html',  
+            templateUrl: 'proj/lock/add.html',  
             controller: 'lockEditCtrl', 
             backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
             resolve: {  
@@ -108,10 +108,10 @@ var lockNgControl=lockNgModule.controller('lockNgControl',function($rootScope, $
     };  
     //编辑
     $scope.edit = function (id) { 
-    	httpService.post({url:'../lock/getLock',data:id,showSuccessMsg:false}).then(function(data) {  
+    	httpService.post({url:'./lock/getLock',data:id,showSuccessMsg:false}).then(function(data) {  
     		$scope.lock = data.data.data;
 			var modalInstance = $modal.open({  
-	            templateUrl: '/proj/lock/add.html',  
+	            templateUrl: 'proj/lock/add.html',  
 	            controller: 'lockEditCtrl', 
 	            backdrop:"static",//但点击模态窗口之外时，模态窗口不关闭
 	            resolve: {  
