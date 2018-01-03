@@ -145,4 +145,16 @@ public class LockKeyController {
         lockKeyService.updateEndTime(lockKey);
         return result;
     }
+    
+    /**
+     * 根据锁号删除全部钥匙
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/deleteAll"},method = {RequestMethod.POST})
+    public HashMap<String, Object> deleteAll(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockKeyService.deleteAll(lockId);
+        return result;
+    }
 }

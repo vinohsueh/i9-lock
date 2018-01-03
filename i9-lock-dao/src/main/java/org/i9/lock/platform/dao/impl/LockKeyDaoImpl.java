@@ -73,4 +73,9 @@ public class LockKeyDaoImpl implements LockKeyDao{
         lockKeyMapper.updateLockKeyByTwoId(lockKey);
     }
 
+    @Override
+    public void deleteAll(Long lockId) throws Exception {
+        lockKeyMapper.deleteAll(lockId);
+    }
+
 }

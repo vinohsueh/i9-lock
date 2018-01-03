@@ -26,6 +26,7 @@ public class LockKeyListComponent {
         if (lockKey.getUser() != null) {
             jsonObject.put("username", lockKey.getUser().getUsername());
         }
+        jsonObject.put("orderNumber", lockKey.getOrderNumber());
         return jsonObject;
     }
 }

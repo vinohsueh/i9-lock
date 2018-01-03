@@ -84,4 +84,11 @@ public interface LockKeyService {
      */
     void updateEndTime(LockKey lockKey) throws BusinessException;
     
+    /**
+     * 根据锁号删除全部钥匙
+     * @param lockId
+     * @throws BusinessException
+     */
+    void deleteAll(Long lockId) throws BusinessException;
+    
 }

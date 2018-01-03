@@ -49,4 +49,10 @@ public interface LockKeyMapper {
     List<LockKey> getLockKeyByLockId(Long lockId);
 
     void updateLockKeyByTwoId(LockKey lockKey);
+    
+    /**
+     * 根据锁号删除全部钥匙
+     * @param lockId
+     */
+    void deleteAll(Long lockId);
 }

@@ -415,4 +415,7 @@
     from t_lock_key
     where lockId = #{lockId}
   </select>
+  <delete id="deleteAll" parameterType="long">
+    delete from t_lock_key where lockId  = #{lockId}
+  </delete>
 </mapper>

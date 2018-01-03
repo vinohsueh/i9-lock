@@ -81,4 +81,11 @@ public interface LockKeyDao {
      * @param lockKey
      */
     void updateLockKeyByTwoId(LockKey lockKey) throws Exception;
+    
+    /**
+     * 根据锁号删除全部钥匙
+     * @param lockId
+     * @throws Exception
+     */
+    void deleteAll(Long lockId) throws Exception;
 }

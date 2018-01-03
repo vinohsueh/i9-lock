@@ -232,4 +232,14 @@ public class LockKeyServiceImpl implements LockKeyService {
         }
         
     }
+
+    @Override
+    public void deleteAll(Long lockId) throws BusinessException {
+        try {
+            lockKeyDao.deleteAll(lockId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+        
+    }
 }
