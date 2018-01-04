@@ -84,6 +84,12 @@ public class LockDaoImpl implements LockDao{
         return lockMapper.selectByExample(example);
     }
 
+    @Override
+    public Integer selectCount() throws Exception {
+        LockSearchDto lockSearchDto = new LockSearchDto();
+        return lockMapper.countByExample(lockSearchDto);
+    }
+
    
 
 }

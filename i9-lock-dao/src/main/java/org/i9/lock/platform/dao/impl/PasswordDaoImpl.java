@@ -48,8 +48,7 @@ public class PasswordDaoImpl implements PasswordDao{
     public List<Password> selectAllPasswords(Long lockId, Long userId)
             throws Exception {
         PasswordExample example = new PasswordExample();
-        example.createCriteria().andLockIdEqualTo(lockId);
-        example.createCriteria().andUserIdEqualTo(userId);
+        example.createCriteria().andLockIdEqualTo(lockId).andUserIdEqualTo(userId);
         List<Password> list = passwordMapper.selectByExample(example);
         return list;
     }

@@ -41,8 +41,8 @@ angular.module('app')
       
       $.get('./currentUser', function(data) {  
     	var user = data.data.data;
-		user.showname = user.usename;
-    	
+    	$scope.app.userNumber = data.data.userNumber;
+    	$scope.app.lockNumber = data.data.lockNumber;
       	$scope.app.user = user; 
       }); 
       

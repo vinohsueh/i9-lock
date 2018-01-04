@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.InfoDao;
 import org.i9.lock.platform.dao.mapper.InfoMapper;
+import org.i9.lock.platform.dao.vo.InfoSearchDto;
 import org.i9.lock.platform.model.Info;
-import org.i9.lock.platform.model.InfoExample;
 import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -43,7 +43,7 @@ public class InfoDaoImpl implements InfoDao{
     }
 
     @Override
-    public PageBounds<Info> selectByLimitPage(InfoExample example,
+    public PageBounds<Info> selectByLimitPage(InfoSearchDto example,
             int currectPage, int pageSize) throws Exception {
         final int totalSize = infoMapper.countByExample(example);
         PageBounds<Info> pageBounds = new PageBounds<Info>(currectPage, totalSize, pageSize);

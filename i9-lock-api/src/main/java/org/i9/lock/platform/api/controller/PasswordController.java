@@ -1,9 +1,11 @@
 package org.i9.lock.platform.api.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
+import org.i9.lock.platform.api.component.PasswordComponent;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.PasswordService;
@@ -13,6 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /** 
  * 创建时间：2017年12月7日 下午3:26:25
@@ -58,4 +63,17 @@ public class PasswordController {
         return result;
     }
     
+    @RequestMapping(value={"/list"},method = {RequestMethod.POST})
+    public HashMap<String, Object> list(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        List<Password> list = passwordService.listAllPasswords(lockId, user.getId());
+        JSONArray jsonArray = new JSONArray();
+        for (Password password : list) {
+            JSONObject jsonObject = new PasswordComponent().setPassword(password).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("passwords", jsonArray);
+        return result;
+    }
 }

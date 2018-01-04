@@ -27,6 +27,7 @@
           <tr>
             <th>自定义名称</th>
             <th>密钥</th>
+            <th>房东</th>
             <th>房东手机号</th>
             <th>电量</th>
             <th>房客安全模式</th>
@@ -40,6 +41,7 @@
           <tr ng-repeat="lock in locks">
             <td>{{lock.name}}</td>
             <td>{{lock.keyAdmin}}</td>
+            <td>{{lock.user.username}}</td>
             <td>{{lock.user.phone}}</td>
             <td>{{lock.battery}}</td>
             <td ng-if="lock.safeMode == 0">否</td>

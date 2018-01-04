@@ -7,6 +7,7 @@ import java.util.List;
 import org.i9.lock.platform.dao.ConfigDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
+import org.i9.lock.platform.dao.vo.PasswordComparator;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.LockKey;
@@ -142,4 +143,37 @@ public class PasswordServiceImpl implements PasswordService{
 	            throw new BusinessException(e.getMessage());
 	        }
 	}
+
+    @Override
+    public List<Password> listAllPasswords(Long lockId, Long userId)
+            throws BusinessException {
+        try {
+            List<Password> passwords = passwordDao.selectAllPasswords(lockId,userId);
+            //查询最大可用编号数
+            Config config = configDao.selectMaxPassword();
+            int max = config.getConfigValue();
+            //最大可用编号数集合
+            List<Integer> maxArray = new ArrayList<Integer>();
+            for (int i = 0; i < max; i++) {
+                maxArray.add(i);
+            }
+            
+            List<Integer> array = new ArrayList<Integer>();
+            for (Password password : passwords) {
+                array.add(password.getOrderNumber());
+            }
+            //将密码填充满 
+            maxArray.removeAll(array);
+            for (Integer integer : maxArray) {
+                Password password = new Password();
+                password.setName("未设置");
+                password.setOrderNumber(integer);
+                passwords.add(password);
+            }
+            Collections.sort(passwords, new PasswordComparator());
+            return passwords;
+        } catch (Exception e) {
+            throw new BusinessException("查询用户全部密码失败",e.getMessage());
+        }
+    }
 }

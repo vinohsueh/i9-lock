@@ -17,9 +17,7 @@ angular.module('app')
       function ($stateProvider,   $urlRouterProvider) {
           
           $urlRouterProvider
-              .otherwise('/app/manager');
-          $urlRouterProvider
-          	  .otherwise('/app/user');
+              .otherwise('/app/lock');
           $stateProvider
               .state('app', {
                   abstract: true,
@@ -109,6 +107,23 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/config/config.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.info', {
+                  url: '/info',
+                  templateUrl: 'proj/info/info.html',
+              	  controller : "infoNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'infoNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/info/info.js',
             				]
             			})
                     }]

@@ -70,4 +70,6 @@ public interface PasswordService {
      * @throws BusinessException 
      */
     Integer selectUsefulOrderNumber(Long lockId,Long userId) throws BusinessException;
+
+    List<Password> listAllPasswords(Long lockId, Long id) throws BusinessException;
 }

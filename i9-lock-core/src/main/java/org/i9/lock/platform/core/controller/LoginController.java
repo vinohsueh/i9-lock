@@ -3,7 +3,9 @@ package org.i9.lock.platform.core.controller;
 import java.util.HashMap;
 
 import org.i9.lock.platform.model.Manager;
+import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.ManagerService;
+import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,10 @@ public class LoginController {
     
     @Autowired
     private ManagerService managerService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private LockService lockService;
     
     @RequestMapping("/index.html")
     public String index() {
@@ -58,7 +64,11 @@ public class LoginController {
     public HashMap<String, Object> current() {
         HashMap<String, Object> result = new HashMap<String, Object>();
         Manager manager = managerService.getLoginUser();
+        Integer userNumber = userService.selectCount();
+        Integer lockNumber = lockService.selectCount();
         result.put("data", manager);
+        result.put("userNumber", userNumber);
+        result.put("lockNumber", lockNumber);
         return result;
     }
 }
