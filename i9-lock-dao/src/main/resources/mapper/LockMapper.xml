@@ -481,7 +481,7 @@
   </update>
   <select id="selectAuthorizeLocks" resultType="org.i9.lock.platform.model.Lock">
     select l.*,k.receiveFlag,k.startTime,k.endTime from t_lock l left join 
-    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} order by k.createTime
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} order by k.createTime desc
     limit #{offset},#{limit}
   </select>
   <select id="countAuthorizeLocks" resultType="int">
