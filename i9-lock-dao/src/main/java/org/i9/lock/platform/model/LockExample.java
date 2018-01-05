@@ -439,52 +439,62 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andBatteryEqualTo(Byte value) {
+        public Criteria andBatteryEqualTo(String value) {
             addCriterion("battery =", value, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryNotEqualTo(Byte value) {
+        public Criteria andBatteryNotEqualTo(String value) {
             addCriterion("battery <>", value, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryGreaterThan(Byte value) {
+        public Criteria andBatteryGreaterThan(String value) {
             addCriterion("battery >", value, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryGreaterThanOrEqualTo(Byte value) {
+        public Criteria andBatteryGreaterThanOrEqualTo(String value) {
             addCriterion("battery >=", value, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryLessThan(Byte value) {
+        public Criteria andBatteryLessThan(String value) {
             addCriterion("battery <", value, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryLessThanOrEqualTo(Byte value) {
+        public Criteria andBatteryLessThanOrEqualTo(String value) {
             addCriterion("battery <=", value, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryIn(List<Byte> values) {
+        public Criteria andBatteryLike(String value) {
+            addCriterion("battery like", value, "battery");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatteryNotLike(String value) {
+            addCriterion("battery not like", value, "battery");
+            return (Criteria) this;
+        }
+
+        public Criteria andBatteryIn(List<String> values) {
             addCriterion("battery in", values, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryNotIn(List<Byte> values) {
+        public Criteria andBatteryNotIn(List<String> values) {
             addCriterion("battery not in", values, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryBetween(Byte value1, Byte value2) {
+        public Criteria andBatteryBetween(String value1, String value2) {
             addCriterion("battery between", value1, value2, "battery");
             return (Criteria) this;
         }
 
-        public Criteria andBatteryNotBetween(Byte value1, Byte value2) {
+        public Criteria andBatteryNotBetween(String value1, String value2) {
             addCriterion("battery not between", value1, value2, "battery");
             return (Criteria) this;
         }

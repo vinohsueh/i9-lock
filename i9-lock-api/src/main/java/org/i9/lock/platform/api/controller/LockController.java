@@ -60,9 +60,7 @@ public class LockController {
         lock.setKeyUser(lockAddDto.getKeyUser());
         lock.setKeyDev(lockAddDto.getKeyDev());
         lock.setUserId(user.getId());
-        int battery = Integer.valueOf(lockAddDto.getBattery());
-        byte a = (byte)battery;
-        lock.setBattery(a);
+        lock.setBattery(lockAddDto.getBattery());
         lockService.addLock(lock);
         return result;
     }

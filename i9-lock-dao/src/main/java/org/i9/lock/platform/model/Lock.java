@@ -37,7 +37,7 @@ public class Lock {
     /**
      * 电量
      */
-    private Byte battery;
+    private String battery;
     
     /**
      * 电表数
@@ -287,11 +287,11 @@ public class Lock {
         this.name = name == null ? null : name.trim();
     }
 
-    public Byte getBattery() {
+    public String getBattery() {
         return battery;
     }
 
-    public void setBattery(Byte battery) {
+    public void setBattery(String battery) {
         this.battery = battery;
     }
 
