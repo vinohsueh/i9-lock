@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.i9.lock.platform.dao.ConfigDao;
+import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
 import org.i9.lock.platform.dao.vo.PasswordComparator;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Config;
+import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.service.PasswordService;
@@ -36,12 +38,16 @@ public class PasswordServiceImpl implements PasswordService{
     
     @Autowired
     private ConfigDao configDao;
+    
+    @Autowired
+    private LockDao lockDao;
     @Override
     public void addPassword(Password password) throws BusinessException {
         try {
             LockKey lockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(password.getLockId(),password.getUserId());
-            if (lockKey == null) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户非本房屋租户,不能设密码");
+            Lock lock = lockDao.getLockById(password.getLockId());
+            if (lockKey == null && lock.getUserId() != password.getUserId()) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户非本房屋租户或房主,不能设密码");
             }
             List<Integer> existNumbers = passwordDao.selectExistOrderNumber(password.getLockId(), password.getUserId());
             if(existNumbers.contains(password.getOrderNumber())) {
