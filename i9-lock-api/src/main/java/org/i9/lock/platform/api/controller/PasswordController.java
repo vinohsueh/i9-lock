@@ -6,8 +6,12 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.i9.lock.platform.api.component.PasswordComponent;
+import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.model.User;
+import org.i9.lock.platform.service.LockKeyService;
+import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.PasswordService;
 import org.i9.lock.platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,10 @@ public class PasswordController {
     @Autowired
     private PasswordService passwordService;
     
+    @Autowired
+    private LockKeyService lockKeyService;
+    @Autowired
+    private LockService lockService;
     /**
      * 获取锁的可用顺序编号
      * @param lockId
@@ -68,9 +76,19 @@ public class PasswordController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         List<Password> list = passwordService.listAllPasswords(lockId, user.getId());
+        Lock lock = lockService.getLockById(lockId);
+        Integer userNumber = null;
+        if (lock.getUserId() == user.getId()){
+            userNumber = 0;
+        }else{
+          //查询用户组编号
+            LockKey existLockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
+            userNumber = existLockKey.getOrderNumber();
+        }
+        
         JSONArray jsonArray = new JSONArray();
         for (Password password : list) {
-            JSONObject jsonObject = new PasswordComponent().setPassword(password).build();
+            JSONObject jsonObject = new PasswordComponent().setPassword(password).setNumber(userNumber).build();
             jsonArray.add(jsonObject);
         }
         result.put("passwords", jsonArray);

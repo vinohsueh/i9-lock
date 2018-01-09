@@ -99,7 +99,11 @@ public class Password {
     }
     
     public String getTypeName() {
-    	return PasswordTypeEnum.getNameById(type);
+        if (type != null) {
+            return PasswordTypeEnum.getNameById(type);
+        }else{
+            return "";
+        }
     }
 
 	/**

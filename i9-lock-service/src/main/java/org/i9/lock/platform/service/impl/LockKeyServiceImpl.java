@@ -88,7 +88,7 @@ public class LockKeyServiceImpl implements LockKeyService {
 
             LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
                     lockKeyDto.getLockId(), user.getId());
-            if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
+            if (existLockKey != null) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
             }
             lockKey.setCreateTime(new Date());
