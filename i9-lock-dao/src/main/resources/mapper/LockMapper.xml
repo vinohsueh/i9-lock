@@ -24,6 +24,10 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
+  
+  <resultMap id="DetailResultMap" extends="BaseResultMap" type="org.i9.lock.platform.model.Lock" >
+    <collection property="keys" column="id" ofType="org.i9.lock.platform.model.LockKey" select="selectKeys"></collection>  
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -465,7 +469,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByLimitPage" resultMap="BaseResultMap">
+  <select id="selectByLimitPage" resultMap="DetailResultMap">
     select <include refid="Base_Column_List" /> from t_lock
     <if test="_parameter != null">
         <include refid="Query_By_Dto_Where_Clause" />
@@ -480,12 +484,15 @@
     update t_lock set keyAdmin = null,userId = null where id = #{id}
   </update>
   <select id="selectAuthorizeLocks" resultType="org.i9.lock.platform.model.Lock">
-    select l.*,k.receiveFlag,k.startTime,k.endTime from t_lock l left join 
-    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} order by k.createTime desc
+    select l.*,k.receiveFlag,k.startTime,k.endTime,k.hireType from t_lock l left join 
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} and k.endTime &gt;= NOW() order by k.createTime desc
     limit #{offset},#{limit}
   </select>
   <select id="countAuthorizeLocks" resultType="int">
     select count(*) from t_lock l left join 
-    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId}
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} and k.endTime &gt;= NOW()
+  </select>
+  <select id="selectKeys" parameterType="long" resultType="org.i9.lock.platform.model.LockKey">
+    select * from t_lock_key where lockId = #{lockId} and endTime &gt;= NOW()
   </select>
 </mapper>

@@ -1,6 +1,7 @@
 package org.i9.lock.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 锁实体类
@@ -113,10 +114,36 @@ public class Lock {
     
     private Date endTime;
     
+    private Byte hireType; 
+    
     private byte receiveFlag;
     
     private User user;
     
+    
+    
+    public Byte getHireType() {
+        return hireType;
+    }
+
+    public void setHireType(Byte hireType) {
+        this.hireType = hireType;
+    }
+
+    /**
+     * 钥匙
+     */
+    private List<LockKey> keys;
+    
+    
+    public List<LockKey> getKeys() {
+        return keys;
+    }
+
+    public void setKeys(List<LockKey> keys) {
+        this.keys = keys;
+    }
+
     public User getUser() {
 		return user;
 	}

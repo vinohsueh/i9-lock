@@ -159,7 +159,7 @@ public class LockController {
         PageBounds<Lock> pageBounds = lockService.selectAuthorizeLocks(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
-            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build1();
             jsonArray.add(jsonObject);
         }
         result.put("locks", jsonArray);
@@ -179,7 +179,7 @@ public class LockController {
         PageBounds<Lock> pageBounds = lockService.selectByLimitPage(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
-            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build2();
             jsonArray.add(jsonObject);
         }
         result.put("locks", jsonArray);

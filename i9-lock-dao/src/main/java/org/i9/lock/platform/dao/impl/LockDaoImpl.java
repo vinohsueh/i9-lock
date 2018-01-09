@@ -89,7 +89,4 @@ public class LockDaoImpl implements LockDao{
         LockSearchDto lockSearchDto = new LockSearchDto();
         return lockMapper.countByExample(lockSearchDto);
     }
-
-   
-
 }

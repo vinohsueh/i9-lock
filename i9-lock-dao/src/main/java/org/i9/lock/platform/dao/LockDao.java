@@ -89,6 +89,4 @@ public interface LockDao {
      * @throws Exception
      */
     Integer selectCount() throws Exception;
-
-    
 }

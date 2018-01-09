@@ -95,7 +95,5 @@ public interface LockService {
      * @return
      * @throws BusinessException
      */
-    Integer selectCount() throws BusinessException; 
-
-    
+    Integer selectCount() throws BusinessException;
 }
