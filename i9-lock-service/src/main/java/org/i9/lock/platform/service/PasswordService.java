@@ -31,9 +31,10 @@ public interface PasswordService {
     /**
      * 删除锁密码
      * @param id
+     * @param userId 
      * @throws BusinessException
      */
-    void deletePassword(Integer id) throws BusinessException;
+    void deletePassword(Integer id, Long userId) throws BusinessException;
     
     /**
      * 分页查询密码

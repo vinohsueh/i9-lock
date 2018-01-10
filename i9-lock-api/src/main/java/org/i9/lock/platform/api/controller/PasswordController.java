@@ -71,6 +71,19 @@ public class PasswordController {
         return result;
     }
     
+    /**
+     * 删除密码
+     * @param password
+     * @return
+     */
+    @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
+    public HashMap<String, Object> delete(Integer passwordId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        passwordService.deletePassword(passwordId,user.getId());
+        return result;
+    }
+    
     @RequestMapping(value={"/list"},method = {RequestMethod.POST})
     public HashMap<String, Object> list(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();

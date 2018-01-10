@@ -71,9 +71,15 @@ public class PasswordServiceImpl implements PasswordService{
     }
 
     @Override
-    public void deletePassword(Integer id) throws BusinessException {
+    public void deletePassword(Integer id, Long userId) throws BusinessException {
         try {
+            Password password = passwordDao.getPasswordById(id);
+            if (password.getUserId() != userId){
+                throw new BusinessException("不能删除别人的密码!");
+            }
             passwordDao.deletePassword(id);
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
         } catch (Exception e) {
             throw new BusinessException("删除密码失败",e.getMessage());
         }

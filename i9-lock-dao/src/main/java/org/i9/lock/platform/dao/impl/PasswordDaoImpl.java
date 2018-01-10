@@ -40,8 +40,7 @@ public class PasswordDaoImpl implements PasswordDao{
 
     @Override
     public Password getPasswordById(Integer id) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        return passwordMapper.selectByPrimaryKey(id);
     }
 
     @Override

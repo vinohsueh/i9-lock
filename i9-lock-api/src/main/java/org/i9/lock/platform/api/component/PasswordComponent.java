@@ -26,6 +26,7 @@ public class PasswordComponent {
     
     public JSONObject build() {
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", password.getId());
         jsonObject.put("name", password.getName());
         jsonObject.put("orderNumber", password.getOrderNumber());
         jsonObject.put("userNumber", number);
