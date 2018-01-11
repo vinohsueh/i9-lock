@@ -199,4 +199,13 @@ public class UserServiceImpl implements UserService{
             throw new BusinessException(ErrorCode.CRUD_ERROR,"修改密码失败",e.getMessage());
         }
     }
+
+    @Override
+    public Integer selectCount() throws BusinessException {
+        try {
+            return userDao.selectCount();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }

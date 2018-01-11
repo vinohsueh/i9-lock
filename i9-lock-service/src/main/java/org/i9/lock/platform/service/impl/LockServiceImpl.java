@@ -154,6 +154,13 @@ public class LockServiceImpl implements LockService{
             throw new BusinessException(ErrorCode.CRUD_ERROR,"条件查询锁具失败",e.getMessage());
         }
     }
-    
 
+    @Override
+    public Integer selectCount() throws BusinessException {
+        try {
+            return lockDao.selectCount();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }

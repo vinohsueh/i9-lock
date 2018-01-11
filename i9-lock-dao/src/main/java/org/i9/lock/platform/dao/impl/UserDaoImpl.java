@@ -79,5 +79,11 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
+
+    @Override
+    public Integer selectCount() throws Exception {
+        UserSearchDto userSearchDto = new UserSearchDto();
+        return userMapper.countByExample(userSearchDto);
+    }
     
 }

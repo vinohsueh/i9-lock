@@ -32,4 +32,5 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
     
     List<User> selectByLimitPage(@Param("example") UserSearchDto userSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+
 }

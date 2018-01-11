@@ -17,16 +17,16 @@ angular.module('app')
       function ($stateProvider,   $urlRouterProvider) {
           
           $urlRouterProvider
-              .otherwise('/app/manager');
+              .otherwise('/app/lock');
           $stateProvider
               .state('app', {
                   abstract: true,
                   url: '/app',
-                  templateUrl: '/tpl/app.html'
+                  templateUrl: 'tpl/app.html'
               })
               .state('app.manager', {
                   url: '/manager',
-                  templateUrl: '/proj/manager/manager.html',
+                  templateUrl: 'proj/manager/manager.html',
                   data : {pageTitle : '管理员'},
               	  controller : "managerNgControl",
                   resolve: {
@@ -42,9 +42,45 @@ angular.module('app')
                     }]
                   }
               })
+               .state('app.password', {
+                  url: '/password',
+                  templateUrl: 'proj/password/password.html',
+                  data : {pageTitle : '密码'},
+              	  controller : "passwordNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'passwordNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/password/password.js',
+            				    ]
+            			})
+                    }]
+                  }
+              }) 
+              .state('app.lock', {
+                  url: '/lock',
+                  templateUrl: 'proj/lock/lock.html',
+                  data : {pageTitle : '智能锁'},
+              	  controller : "lockNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'lockNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/lock/lock.js',
+            				]
+            			})
+                    }]
+                  }
+              })
               .state('app.user', {
                   url: '/user',
-                  templateUrl: '/proj/user/user.html',
+                  templateUrl: 'proj/user/user.html',
               	  controller : "userNgControl",
                   resolve: {
                     deps: ['$ocLazyLoad',
@@ -54,6 +90,40 @@ angular.module('app')
             				insertBefore : '#ng_load_plugins_before',
             				files : [
             				    'proj/user/user.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.config', {
+                  url: '/config',
+                  templateUrl: 'proj/config/config.html',
+              	  controller : "configNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'configNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/config/config.js',
+            				]
+            			})
+                    }]
+                  }
+              })
+              .state('app.info', {
+                  url: '/info',
+                  templateUrl: 'proj/info/info.html',
+              	  controller : "infoNgControl",
+                  resolve: {
+                    deps: ['$ocLazyLoad',
+                      function( $ocLazyLoad ){
+                    	return $ocLazyLoad.load({
+            				name : 'infoNgModule',
+            				insertBefore : '#ng_load_plugins_before',
+            				files : [
+            				    'proj/info/info.js',
             				]
             			})
                     }]

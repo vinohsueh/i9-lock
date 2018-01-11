@@ -24,8 +24,17 @@ public class LockAddDto {
     @NotBlank(message="keyUser不能为空")
     private String keyUser;
     
+    private String battery;
     
     
+    public String getBattery() {
+        return battery;
+    }
+
+    public void setBattery(String battery) {
+        this.battery = battery;
+    }
+
     public String getKeyUser() {
         return keyUser;
     }

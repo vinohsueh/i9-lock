@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="D:\eclip\i9-lock-parent\i9-lock-dao\mysql-connector-java-5.1.1.jar" />
+    <classPathEntry location="F:\Project\i9-lock-parent\i9-lock-dao\mysql-connector-java-5.1.1.jar" />
     
     <context id="mybatisDemoForMysql" targetRuntime="MyBatis3">
         <!-- 控制注释 -->

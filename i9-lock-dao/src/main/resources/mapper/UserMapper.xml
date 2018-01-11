@@ -75,6 +75,12 @@
         <if test="example.username != null and example.username != ''">
             or username like CONCAT('%',CONCAT('${example.username}','%')) 
         </if>
+        <if test="example.phone != null and example.phone != ''">
+            or phone like CONCAT('%',CONCAT('${example.phone}','%')) 
+        </if>
+        <if test="example.familyPhone != null and example.familyPhone != ''">
+            or familyPhone like CONCAT('%',CONCAT('${example.familyPhone}','%'))
+        </if>
     </trim>
   </sql>
   <sql id="Base_Column_List">
@@ -294,4 +300,5 @@
     </if>
     limit #{offset},#{limit}
   </select>
+ 
 </mapper>

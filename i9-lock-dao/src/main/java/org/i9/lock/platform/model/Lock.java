@@ -1,6 +1,7 @@
 package org.i9.lock.platform.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 锁实体类
@@ -37,7 +38,7 @@ public class Lock {
     /**
      * 电量
      */
-    private Byte battery;
+    private String battery;
     
     /**
      * 电表数
@@ -113,11 +114,45 @@ public class Lock {
     
     private Date endTime;
     
+    private Byte hireType; 
+    
     private byte receiveFlag;
     
+    private User user;
     
     
-    public String getRemark() {
+    
+    public Byte getHireType() {
+        return hireType;
+    }
+
+    public void setHireType(Byte hireType) {
+        this.hireType = hireType;
+    }
+
+    /**
+     * 钥匙
+     */
+    private List<LockKey> keys;
+    
+    
+    public List<LockKey> getKeys() {
+        return keys;
+    }
+
+    public void setKeys(List<LockKey> keys) {
+        this.keys = keys;
+    }
+
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getRemark() {
         return remark;
     }
 
@@ -279,11 +314,11 @@ public class Lock {
         this.name = name == null ? null : name.trim();
     }
 
-    public Byte getBattery() {
+    public String getBattery() {
         return battery;
     }
 
-    public void setBattery(Byte battery) {
+    public void setBattery(String battery) {
         this.battery = battery;
     }
 

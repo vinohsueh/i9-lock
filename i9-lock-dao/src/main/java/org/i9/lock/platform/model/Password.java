@@ -2,6 +2,8 @@ package org.i9.lock.platform.model;
 
 import javax.validation.constraints.NotNull;
 
+import org.i9.lock.platform.dao.enums.PasswordTypeEnum;
+
 /**
  * 开门密码实体类
  * 
@@ -43,6 +45,10 @@ public class Password {
      */
     @NotNull(message="密码序号不能为空")
     private Integer orderNumber;
+    
+    private Lock lock;
+    
+    private User user;
 
     public Integer getId() {
         return id;
@@ -91,4 +97,40 @@ public class Password {
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
+    
+    public String getTypeName() {
+        if (type != null) {
+            return PasswordTypeEnum.getNameById(type);
+        }else{
+            return "";
+        }
+    }
+
+	/**
+	 * @return the lock
+	 */
+	public Lock getLock() {
+		return lock;
+	}
+
+	/**
+	 * @param lock the lock to set
+	 */
+	public void setLock(Lock lock) {
+		this.lock = lock;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

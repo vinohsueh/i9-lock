@@ -89,6 +89,11 @@ public interface LockService {
      * @throws BusinessException
      */
     List<Lock> selectByExample(LockExample example) throws BusinessException;
-
     
+    /**
+     * 查询全部房东数量
+     * @return
+     * @throws BusinessException
+     */
+    Integer selectCount() throws BusinessException;
 }

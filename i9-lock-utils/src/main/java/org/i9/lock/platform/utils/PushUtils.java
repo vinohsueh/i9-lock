@@ -66,9 +66,15 @@ public class PushUtils {
     public static PushPayload buildPushObject_android_and_ios(String id,String info) {
         Map<String, String> extras = new HashMap<String, String>();
         extras.put("test", "https://community.jiguang.cn/push");
+        Audience audience  = null;
+        if (id != null){
+            audience = Audience.tag(id);
+        }else{
+            audience = Audience.all();
+        }
         return PushPayload.newBuilder()
                 .setPlatform(Platform.android_ios())
-                .setAudience(Audience.tag(id))
+                .setAudience(audience)
                 .setNotification(Notification.newBuilder()
                         .setAlert(info)
                         .addPlatformNotification(AndroidNotification.newBuilder()

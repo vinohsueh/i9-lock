@@ -7,7 +7,7 @@
     <result column="effective" jdbcType="TINYINT" property="effective" />
     <result column="userId" property="userId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="battery" property="battery" jdbcType="TINYINT" />
+    <result column="battery" jdbcType="VARCHAR" property="battery" />
     <result column="eleNumber" jdbcType="DOUBLE" property="eleNumber" />
     <result column="elePrice" jdbcType="DOUBLE" property="elePrice" />
     <result column="gasNumber" jdbcType="DOUBLE" property="gasNumber" />
@@ -22,6 +22,11 @@
     <result column="keyNumber" jdbcType="VARCHAR" property="keyNumber" />
     <result column="keyDev" jdbcType="VARCHAR" property="keyDev" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
+  </resultMap>
+  
+  <resultMap id="DetailResultMap" extends="BaseResultMap" type="org.i9.lock.platform.model.Lock" >
+    <collection property="keys" column="id" ofType="org.i9.lock.platform.model.LockKey" select="selectKeys"></collection>  
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -83,9 +88,21 @@
   </sql>
   <sql id="Query_By_Dto_Where_Clause">
     <trim prefix="WHERE" prefixOverrides="AND|OR">
-        <if test="example.userId != null">
-            and userId = #{example.userId} 
+ 	  <if test="example.name != null and example.name != ''">
+           OR (name like CONCAT('%',CONCAT('${example.name}','%'))
+       </if>
+       <if test="example.phone != null and example.phone != ''">
+           OR userId in (select id from t_user where phone like CONCAT('%',CONCAT('${example.phone}','%')))
         </if>
+       <if test="example.keyUser != null and example.keyUser != ''">
+           OR keyUser LIKE CONCAT('%',CONCAT('${example.keyUser}','%'))
+       </if>
+       <if test="example.keyNumber != null and example.keyNumber != ''">
+           OR keyNumber LIKE CONCAT('%',CONCAT('${example.keyNumber}','%')))
+       </if>
+       <if test="example.userId != null">
+           and userId = #{example.userId} 
+       </if>
     </trim>
   </sql>
   <sql id="Base_Column_List" >
@@ -135,7 +152,7 @@
       createTime, keyNumber, keyDev, 
       remark)
     values (#{keyAdmin,jdbcType=VARCHAR}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
-      #{name,jdbcType=VARCHAR}, #{battery,jdbcType=TINYINT}, #{eleNumber,jdbcType=DOUBLE}, 
+      #{name,jdbcType=VARCHAR}, #{battery,jdbcType=VARCHAR}, #{eleNumber,jdbcType=DOUBLE}, 
       #{elePrice,jdbcType=DOUBLE}, #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, 
       #{waterNumber,jdbcType=DOUBLE}, #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, 
       #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=VARCHAR}, 
@@ -160,7 +177,7 @@
       <if test="name != null and name != ''" >
         name,
       </if>
-      <if test="battery != null" >
+      <if test="battery != null and battery != ''">
         battery,
       </if>
       <if test="eleNumber != null">
@@ -219,8 +236,8 @@
       <if test="name != null and name != ''" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="battery != null" >
-        #{battery,jdbcType=TINYINT},
+      <if test="battery != null and battery != ''">
+        #{battery,jdbcType=VARCHAR},
       </if>
        <if test="eleNumber != null">
         #{eleNumber,jdbcType=DOUBLE},
@@ -266,7 +283,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.i9.lock.platform.model.LockExample" resultType="java.lang.Integer" >
+  <select id="countByExample" resultType="java.lang.Integer" >
     select count(*) from t_lock
     <if test="_parameter != null" >
       <include refid="Query_By_Dto_Where_Clause" />
@@ -290,8 +307,8 @@
       <if test="record.name != null and record.name != ''" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.battery != null" >
-        battery = #{record.battery,jdbcType=TINYINT},
+       <if test="record.battery != null and record.battery != ''">
+        battery = #{record.battery,jdbcType=VARCHAR},
       </if>
        <if test="record.eleNumber != null">
         eleNumber = #{record.eleNumber,jdbcType=DOUBLE},
@@ -347,7 +364,7 @@
       effective = #{record.effective,jdbcType=TINYINT},
       userId = #{record.userId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
-      battery = #{record.battery,jdbcType=TINYINT},
+      battery = #{record.battery,jdbcType=VARCHAR},
       eleNumber = #{record.eleNumber,jdbcType=DOUBLE},
       elePrice = #{record.elePrice,jdbcType=DOUBLE},
       gasNumber = #{record.gasNumber,jdbcType=DOUBLE},
@@ -381,8 +398,8 @@
       <if test="name != null and name != ''" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="battery != null" >
-        battery = #{battery,jdbcType=TINYINT},
+      <if test="battery != null and battery != ''">
+        battery = #{battery,jdbcType=VARCHAR},
       </if>
        <if test="eleNumber != null">
         eleNumber = #{eleNumber,jdbcType=DOUBLE},
@@ -435,7 +452,7 @@
       effective = #{effective,jdbcType=TINYINT},
       userId = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
-      battery = #{battery,jdbcType=TINYINT},
+      battery = #{battery,jdbcType=VARCHAR},
       eleNumber = #{eleNumber,jdbcType=DOUBLE},
       elePrice = #{elePrice,jdbcType=DOUBLE},
       gasNumber = #{gasNumber,jdbcType=DOUBLE},
@@ -452,7 +469,7 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="selectByLimitPage" resultMap="BaseResultMap">
+  <select id="selectByLimitPage" resultMap="DetailResultMap">
     select <include refid="Base_Column_List" /> from t_lock
     <if test="_parameter != null">
         <include refid="Query_By_Dto_Where_Clause" />
@@ -467,12 +484,15 @@
     update t_lock set keyAdmin = null,userId = null where id = #{id}
   </update>
   <select id="selectAuthorizeLocks" resultType="org.i9.lock.platform.model.Lock">
-    select l.*,k.receiveFlag,k.startTime,k.endTime from t_lock l left join 
-    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} order by k.createTime
+    select l.*,k.receiveFlag,k.startTime,k.endTime,k.hireType from t_lock l left join 
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} and k.endTime &gt;= NOW() order by k.createTime desc
     limit #{offset},#{limit}
   </select>
   <select id="countAuthorizeLocks" resultType="int">
     select count(*) from t_lock l left join 
-    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId}
+    t_lock_key k on l.id = k.lockId where k.userId = #{example.userId} and k.endTime &gt;= NOW()
+  </select>
+  <select id="selectKeys" parameterType="long" resultType="org.i9.lock.platform.model.LockKey">
+    select * from t_lock_key where lockId = #{lockId} and endTime &gt;= NOW()
   </select>
 </mapper>
