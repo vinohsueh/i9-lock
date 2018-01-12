@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.i9.lock.platform.dao.ConfigDao;
 import org.i9.lock.platform.dao.InfoDao;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
@@ -13,6 +14,7 @@ import org.i9.lock.platform.dao.LockLogDao;
 import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.enums.HireTypeEnum;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
+import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
@@ -56,8 +58,8 @@ public class LockKeyServiceImpl implements LockKeyService {
     @Autowired
     private LockLogDao lockLogDao;
 
-    private static final Integer[] ARRAY = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    
+    @Autowired
+    private ConfigDao configDao;
     private static final String INFO_MID = "的开门密码:";
     @Override
     public void addLockKey(LockKeyDto lockKeyDto) throws BusinessException {
@@ -65,11 +67,14 @@ public class LockKeyServiceImpl implements LockKeyService {
             // 查询1-9的编号 最小未使用编号
             List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto
                     .getLockId());
-            if (list.size() >= 9) {
+            //查询最大可用编号数
+            Config config = configDao.selectMaxHirer();
+            int max = config.getConfigValue();
+            if (list.size() >= max-1) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,
                         "该锁租户已满,不能再添加了");
             }
-            Integer orderNumber = selectOrderNumber(list);
+            Integer orderNumber = selectOrderNumber(list,max);
             LockKey lockKey = lockKeyDto.getLockKey();
             // 将最小编号赋给钥匙
             lockKey.setOrderNumber(orderNumber);
@@ -83,7 +88,7 @@ public class LockKeyServiceImpl implements LockKeyService {
 
             LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
                     lockKeyDto.getLockId(), user.getId());
-            if (existLockKey != null) {
+            if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
             }
             lockKey.setCreateTime(new Date());
@@ -124,11 +129,17 @@ public class LockKeyServiceImpl implements LockKeyService {
      * @param list
      * @return
      */
-    private static Integer selectOrderNumber(List<Integer> list) {
+    private static Integer selectOrderNumber(List<Integer> list,int max) {
+        //最大可用编号数集合
+        List<Integer> maxArray = new ArrayList<Integer>();
+        for (int i = 1; i < max; i++) {
+            maxArray.add(i);
+        }
+        
         List<Integer> array = new ArrayList<Integer>();
-        for (int i = 0; i < ARRAY.length; i++) {
-            if (!array.contains(ARRAY[i]) && !list.contains(ARRAY[i])) {
-                array.add(ARRAY[i]);
+        for (Integer integer : maxArray) {
+            if (!array.contains(integer) && !list.contains(integer)) {
+                array.add(integer);
             }
         }
         Integer orderNumber = Collections.min(array);
@@ -227,6 +238,16 @@ public class LockKeyServiceImpl implements LockKeyService {
             String content = lock.getName()+Constants.LOG_3+HireTypeEnum.getNameById(lockKey.getHireType())+Constants.LOG_4+startDateString+Constants.LOG_5+endDateString;
             lockLog.setContent(content);
             lockLogDao.addLockLog(lockLog);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+        
+    }
+
+    @Override
+    public void deleteAll(Long lockId) throws BusinessException {
+        try {
+            lockKeyDao.deleteAll(lockId);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

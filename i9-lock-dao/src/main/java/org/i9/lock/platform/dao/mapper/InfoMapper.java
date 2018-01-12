@@ -3,11 +3,12 @@ package org.i9.lock.platform.dao.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.i9.lock.platform.dao.vo.InfoSearchDto;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.InfoExample;
 
 public interface InfoMapper {
-    int countByExample(@Param("example") InfoExample example);
+    int countByExample(@Param("example") InfoSearchDto example);
 
     int deleteByExample(InfoExample example);
 
@@ -29,5 +30,5 @@ public interface InfoMapper {
 
     int updateByPrimaryKey(Info record);
     
-    List<Info> selectByLimitPage(@Param("example") InfoExample infoExample, @Param("offset") int offset, @Param("limit") int pageSize);
+    List<Info> selectByLimitPage(@Param("example") InfoSearchDto infoExample, @Param("offset") int offset, @Param("limit") int pageSize);
 }

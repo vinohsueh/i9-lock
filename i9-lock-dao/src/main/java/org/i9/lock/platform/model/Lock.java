@@ -107,7 +107,15 @@ public class Lock {
      */
     private String remark;
     
+    /**
+     * 设备名称
+     */
+    private String deviceName;
     
+    /**
+     * mac地址
+     */
+    private String mac;
     
     
     private Date startTime;
@@ -336,6 +344,22 @@ public class Lock {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getMac() {
+        return mac;
+    }
+
+    public void setMac(String mac) {
+        this.mac = mac;
     }
     
     

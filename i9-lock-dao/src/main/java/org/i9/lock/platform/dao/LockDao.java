@@ -82,6 +82,12 @@ public interface LockDao {
      * @throws Exception
      */
     List<Lock> selectByExample(LockExample example) throws Exception;
-
+    
+    /**
+     * 查询全部房东数量
+     * @return
+     * @throws Exception
+     */
+    Integer selectCount() throws Exception;
     
 }

@@ -72,5 +72,12 @@ public interface UserDao {
      * @param phone
      * @return
      */
-    User getUserByPhone(String phone);
+    User getUserByPhone(String phone) throws Exception;
+    
+    /**
+     * 查询用户总数
+     * @return
+     * @throws Exception
+     */
+    Integer selectCount() throws Exception;
 }

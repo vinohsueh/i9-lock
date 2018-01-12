@@ -1,6 +1,8 @@
 package org.i9.lock.platform.dao.vo;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.i9.lock.platform.model.Lock;
+import org.springframework.beans.BeanUtils;
 
 /** 
  * 创建时间：2017年11月30日 下午2:35:22
@@ -26,7 +28,26 @@ public class LockAddDto {
     
     private String battery;
     
+    private String deviceName; 
     
+    private String mac;
+    
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public void setDeviceName(String deviceName) {
+        this.deviceName = deviceName;
+    }
+
+    public String getMac() {
+        return mac;
+    }
+
+    public void setMac(String mac) {
+        this.mac = mac;
+    }
+
     public String getBattery() {
         return battery;
     }
@@ -75,5 +96,10 @@ public class LockAddDto {
         this.name = name;
     }
     
+    public Lock getLock(){
+        Lock lock = new Lock();
+        BeanUtils.copyProperties(this, lock);
+        return lock;
+    }
     
 }

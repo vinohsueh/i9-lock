@@ -53,12 +53,7 @@ public class LockController {
     public HashMap<String, Object> saveLock(@Valid LockAddDto lockAddDto,BindingResult bindingResult){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
-        Lock lock = new Lock();
-        lock.setKeyAdmin(lockAddDto.getKeyAdmin());
-        lock.setName(lockAddDto.getName());
-        lock.setKeyNumber(lockAddDto.getKeyNumber());
-        lock.setKeyUser(lockAddDto.getKeyUser());
-        lock.setKeyDev(lockAddDto.getKeyDev());
+        Lock lock = lockAddDto.getLock();
         lock.setUserId(user.getId());
         lockService.addLock(lock);
         return result;
@@ -158,7 +153,7 @@ public class LockController {
         PageBounds<Lock> pageBounds = lockService.selectAuthorizeLocks(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
-            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build1();
             jsonArray.add(jsonObject);
         }
         result.put("locks", jsonArray);
@@ -178,7 +173,7 @@ public class LockController {
         PageBounds<Lock> pageBounds = lockService.selectByLimitPage(lockSearchDto, currectPage,pageSize);
         JSONArray jsonArray = new JSONArray();
         for (Lock lock : pageBounds.getPageList()) {
-            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build2();
             jsonArray.add(jsonObject);
         }
         result.put("locks", jsonArray);

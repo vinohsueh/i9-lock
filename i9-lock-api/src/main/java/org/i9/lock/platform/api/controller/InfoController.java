@@ -3,8 +3,8 @@ package org.i9.lock.platform.api.controller;
 import java.util.HashMap;
 
 import org.i9.lock.platform.api.component.InfoComponent;
+import org.i9.lock.platform.dao.vo.InfoSearchDto;
 import org.i9.lock.platform.model.Info;
-import org.i9.lock.platform.model.InfoExample;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.InfoService;
 import org.i9.lock.platform.service.UserService;
@@ -37,8 +37,8 @@ public class InfoController {
     public HashMap<String, Object> updateLock(int currectPage, int pageSize){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
-        InfoExample example = new InfoExample();
-        example.createCriteria().andUserIdEqualTo(user.getId());
+        InfoSearchDto example = new InfoSearchDto();
+        example.setUserId(user.getId());
         example.setOrderByClause("createTime asc");
         PageBounds<Info> infos = infoService.selectByLimitPage(example, currectPage, pageSize);
         JSONArray jsonArray = new JSONArray();

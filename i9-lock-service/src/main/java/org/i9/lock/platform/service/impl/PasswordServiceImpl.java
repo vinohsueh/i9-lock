@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.i9.lock.platform.dao.ConfigDao;
+import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
+import org.i9.lock.platform.dao.vo.PasswordComparator;
+import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.model.Config;
+import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.service.PasswordService;
 import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.ErrorCode;
+import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,13 +36,18 @@ public class PasswordServiceImpl implements PasswordService{
     @Autowired
     private LockKeyDao lockKeyDao;
     
-    private static final Integer [] ARRAY = {0,1,2,3,4,5,6,7,8,9};
+    @Autowired
+    private ConfigDao configDao;
+    
+    @Autowired
+    private LockDao lockDao;
     @Override
     public void addPassword(Password password) throws BusinessException {
         try {
             LockKey lockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(password.getLockId(),password.getUserId());
-            if (lockKey == null) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户非本房屋租户,不能设密码");
+            Lock lock = lockDao.getLockById(password.getLockId());
+            if (lockKey == null && lock.getUserId() != password.getUserId()) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户非本房屋租户或房主,不能设密码");
             }
             List<Integer> existNumbers = passwordDao.selectExistOrderNumber(password.getLockId(), password.getUserId());
             if(existNumbers.contains(password.getOrderNumber())) {
@@ -59,9 +71,15 @@ public class PasswordServiceImpl implements PasswordService{
     }
 
     @Override
-    public void deletePassword(Integer id) throws BusinessException {
+    public void deletePassword(Integer id, Long userId) throws BusinessException {
         try {
+            Password password = passwordDao.getPasswordById(id);
+            if (password.getUserId() != userId){
+                throw new BusinessException("不能删除别人的密码!");
+            }
             passwordDao.deletePassword(id);
+        } catch (BusinessException e) {
+            throw new BusinessException(e.getErrorMessage());
         } catch (Exception e) {
             throw new BusinessException("删除密码失败",e.getMessage());
         }
@@ -93,10 +111,13 @@ public class PasswordServiceImpl implements PasswordService{
             throws BusinessException {
         try {
             List<Integer> list = passwordDao.selectExistOrderNumber(lockId, userId);
-            if (list.size() >= 10) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,"密码最多不能超过10组");
+          //查询最大可用编号数
+            Config config = configDao.selectMaxPassword();
+            int max = config.getConfigValue();
+            if (list.size() >= max) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"密码最多不能超过"+max+"组");
             }
-            return selectOrderNumber(list);
+            return selectOrderNumber(list,max);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(),e.getErrorMessage());
         } catch (Exception e) {
@@ -108,14 +129,63 @@ public class PasswordServiceImpl implements PasswordService{
      * @param list
      * @return
      */
-    private static Integer selectOrderNumber(List<Integer> list) {
+    private static Integer selectOrderNumber(List<Integer> list,int max) {
+        //最大可用编号数集合
+        List<Integer> maxArray = new ArrayList<Integer>();
+        for (int i = 0; i < max; i++) {
+            maxArray.add(i);
+        }
+        
         List<Integer> array = new ArrayList<Integer>();
-        for (int i = 0; i < ARRAY.length; i++) {
-            if (!array.contains(ARRAY[i]) && !list.contains(ARRAY[i])) {
-                array.add(ARRAY[i]);
+        for (Integer integer : maxArray) {
+            if (!array.contains(integer) && !list.contains(integer)) {
+                array.add(integer);
             }
         }
         Integer orderNumber = Collections.min(array);
         return orderNumber;
+    }
+    
+	@Override
+	public PageBounds<Password> selectByLimitPage(PasswordSearchDto passwordSearchDto, int currectPage, int pageSize)
+			throws BusinessException {
+		 try {
+	            return passwordDao.selectByLimitPage(passwordSearchDto, currectPage, pageSize);
+	        } catch (Exception e) {
+	            throw new BusinessException(e.getMessage());
+	        }
+	}
+
+    @Override
+    public List<Password> listAllPasswords(Long lockId, Long userId)
+            throws BusinessException {
+        try {
+            List<Password> passwords = passwordDao.selectAllPasswords(lockId,userId);
+            //查询最大可用编号数
+            Config config = configDao.selectMaxPassword();
+            int max = config.getConfigValue();
+            //最大可用编号数集合
+            List<Integer> maxArray = new ArrayList<Integer>();
+            for (int i = 0; i < max; i++) {
+                maxArray.add(i);
+            }
+            
+            List<Integer> array = new ArrayList<Integer>();
+            for (Password password : passwords) {
+                array.add(password.getOrderNumber());
+            }
+            //将密码填充满 
+            maxArray.removeAll(array);
+            for (Integer integer : maxArray) {
+                Password password = new Password();
+                password.setName("未设置");
+                password.setOrderNumber(integer);
+                passwords.add(password);
+            }
+            Collections.sort(passwords, new PasswordComparator());
+            return passwords;
+        } catch (Exception e) {
+            throw new BusinessException("查询用户全部密码失败",e.getMessage());
+        }
     }
 }

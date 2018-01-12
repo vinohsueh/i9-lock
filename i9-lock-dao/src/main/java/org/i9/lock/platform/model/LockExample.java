@@ -1370,6 +1370,146 @@ public class LockExample {
             addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
+
+        public Criteria andDeviceNameIsNull() {
+            addCriterion("deviceName is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameIsNotNull() {
+            addCriterion("deviceName is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameEqualTo(String value) {
+            addCriterion("deviceName =", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameNotEqualTo(String value) {
+            addCriterion("deviceName <>", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameGreaterThan(String value) {
+            addCriterion("deviceName >", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameGreaterThanOrEqualTo(String value) {
+            addCriterion("deviceName >=", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameLessThan(String value) {
+            addCriterion("deviceName <", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameLessThanOrEqualTo(String value) {
+            addCriterion("deviceName <=", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameLike(String value) {
+            addCriterion("deviceName like", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameNotLike(String value) {
+            addCriterion("deviceName not like", value, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameIn(List<String> values) {
+            addCriterion("deviceName in", values, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameNotIn(List<String> values) {
+            addCriterion("deviceName not in", values, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameBetween(String value1, String value2) {
+            addCriterion("deviceName between", value1, value2, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeviceNameNotBetween(String value1, String value2) {
+            addCriterion("deviceName not between", value1, value2, "deviceName");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacIsNull() {
+            addCriterion("mac is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacIsNotNull() {
+            addCriterion("mac is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacEqualTo(String value) {
+            addCriterion("mac =", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacNotEqualTo(String value) {
+            addCriterion("mac <>", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacGreaterThan(String value) {
+            addCriterion("mac >", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacGreaterThanOrEqualTo(String value) {
+            addCriterion("mac >=", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacLessThan(String value) {
+            addCriterion("mac <", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacLessThanOrEqualTo(String value) {
+            addCriterion("mac <=", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacLike(String value) {
+            addCriterion("mac like", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacNotLike(String value) {
+            addCriterion("mac not like", value, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacIn(List<String> values) {
+            addCriterion("mac in", values, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacNotIn(List<String> values) {
+            addCriterion("mac not in", values, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacBetween(String value1, String value2) {
+            addCriterion("mac between", value1, value2, "mac");
+            return (Criteria) this;
+        }
+
+        public Criteria andMacNotBetween(String value1, String value2) {
+            addCriterion("mac not between", value1, value2, "mac");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

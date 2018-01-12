@@ -37,6 +37,10 @@ public class LockListInfoComponent {
         jsonObject.put("receiveFlag", lock.getReceiveFlag());
         jsonObject.put("remark", lock.getRemark());
         jsonObject.put("safeMode", lock.getSafeMode());
+        jsonObject.put("mac", lock.getMac());
+        jsonObject.put("deviceName", lock.getDeviceName());
+        jsonObject.put("startTime", null);
+        jsonObject.put("endTime", null);
         if (lock.getStartTime() != null) {
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
         }
@@ -58,6 +62,11 @@ public class LockListInfoComponent {
         jsonObject.put("receiveFlag", lock.getReceiveFlag());
         jsonObject.put("remark", lock.getRemark());
         jsonObject.put("safeMode", lock.getSafeMode());
+        jsonObject.put("mac", lock.getMac());
+        jsonObject.put("deviceName", lock.getDeviceName());
+        jsonObject.put("startTime", null);
+        jsonObject.put("endTime", null);
+        jsonObject.put("remains", null);
         if (lock.getStartTime() != null) {
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
         }
@@ -89,6 +98,11 @@ public class LockListInfoComponent {
         jsonObject.put("receiveFlag", lock.getReceiveFlag());
         jsonObject.put("remark", lock.getRemark());
         jsonObject.put("safeMode", lock.getSafeMode());
+        jsonObject.put("mac", lock.getMac());
+        jsonObject.put("deviceName", lock.getDeviceName());
+        jsonObject.put("startTime", null);
+        jsonObject.put("endTime", null);
+        jsonObject.put("remains", null);
         if (lock.getStartTime() != null) {
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
         }

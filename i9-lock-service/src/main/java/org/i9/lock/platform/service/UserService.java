@@ -103,4 +103,11 @@ public interface UserService {
      * @param pwdDto
      */
     void updatePwd(PwdDto pwdDto) throws BusinessException;
+    
+    /**
+     * 查询用户总数
+     * @return
+     * @throws BusinessException
+     */
+    Integer selectCount() throws BusinessException;
 }   
