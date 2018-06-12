@@ -300,7 +300,7 @@
     </if>
     limit #{offset},#{limit}
   </select>
-  <select id="selectByPhoneAndName" resultMap="org.i9.lock.platform.model.User">
+  <select id="selectByPhoneAndName" resultType="org.i9.lock.platform.model.User">
     select * from t_user where phone = #{phone} and name = #{name}
   </select>
 </mapper>
