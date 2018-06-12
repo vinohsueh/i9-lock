@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class LockReleaseDto {
     
     @NotBlank(message="电话号码不能为空")
-    @Pattern(regexp="^1[3|4|5|7|8][0-9]\\d{8}$",message="请输入正确的手机号")
+    @Pattern(regexp="^1[3|4|5|6|7|8][0-9]\\d{8}$",message="请输入正确的手机号")
     private String phone;
     
     @NotBlank(message="密码不能为空")
