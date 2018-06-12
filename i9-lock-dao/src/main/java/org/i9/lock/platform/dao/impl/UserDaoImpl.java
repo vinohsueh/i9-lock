@@ -85,5 +85,10 @@ public class UserDaoImpl implements UserDao{
         UserSearchDto userSearchDto = new UserSearchDto();
         return userMapper.countByExample(userSearchDto);
     }
+
+	@Override
+	public User getUserByPhoneAndName(String hirerPhone, String name) {
+		return userMapper.selectByPhoneAndName(hirerPhone,name);
+	}
     
 }

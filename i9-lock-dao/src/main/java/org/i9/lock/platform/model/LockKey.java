@@ -23,6 +23,11 @@ public class LockKey {
     private Long lockId;
     
     /**
+     * 租户姓名
+     */
+    private String name;
+    
+    /**
      * 租户电话
      */
     private String hirerPhone;
@@ -83,9 +88,46 @@ public class LockKey {
      */
     private Date createTime;
     
+    /**
+     * 电表数
+     */
+    private Double eleNumber;
     
+    /**
+     * 燃气数
+     */
+    private Double gasNumber;
     
-    public Date getCreateTime() {
+    /**
+     * 水表数
+     */
+    private Double waterNumber;
+    
+    public Double getEleNumber() {
+		return eleNumber;
+	}
+
+	public void setEleNumber(Double eleNumber) {
+		this.eleNumber = eleNumber;
+	}
+
+	public Double getGasNumber() {
+		return gasNumber;
+	}
+
+	public void setGasNumber(Double gasNumber) {
+		this.gasNumber = gasNumber;
+	}
+
+	public Double getWaterNumber() {
+		return waterNumber;
+	}
+
+	public void setWaterNumber(Double waterNumber) {
+		this.waterNumber = waterNumber;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 
@@ -184,8 +226,16 @@ public class LockKey {
     public Date getStartTime() {
         return startTime;
     }
+    
+    public String getName() {
+		return name;
+	}
 
-    public void setStartTime(Date startTime) {
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
