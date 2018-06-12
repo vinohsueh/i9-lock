@@ -70,6 +70,7 @@ public interface UserDao {
     /**
      *     
      * @param phone
+     * @param name 
      * @return
      */
     User getUserByPhone(String phone) throws Exception;
@@ -80,4 +81,6 @@ public interface UserDao {
      * @throws Exception
      */
     Integer selectCount() throws Exception;
+
+	User getUserByPhoneAndName(String hirerPhone, String name);
 }

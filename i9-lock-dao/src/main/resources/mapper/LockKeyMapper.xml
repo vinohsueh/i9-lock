@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.LockKey" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="lockId" property="lockId" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="hirerPhone" property="hirerPhone" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="hireType" property="hireType" jdbcType="TINYINT" />
@@ -16,6 +17,9 @@
     <result column="receiveFlag" jdbcType="TINYINT" property="receiveFlag" />
     <result column="receiveTime" jdbcType="TIMESTAMP" property="receiveTime" />
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="eleNumber" jdbcType="DOUBLE" property="eleNumber" />
+    <result column="gasNumber" jdbcType="DOUBLE" property="gasNumber" />
+    <result column="waterNumber" jdbcType="DOUBLE" property="waterNumber" />
   </resultMap>
   <resultMap type="org.i9.lock.platform.model.LockKey" id="DetailResultMap" extends="BaseResultMap">
     <association property="user" column="userId" javaType="org.i9.lock.platform.model.User" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"></association>
@@ -79,8 +83,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, lockId, hirerPhone, password, hireType, hirePrice, startTime, endTime, type, 
-    orderNumber, userId, receiveFlag, receiveTime, createTime
+    id, lockId, name, hirerPhone, password, hireType, hirePrice, startTime, endTime, type, 
+    orderNumber, userId, receiveFlag, receiveTime, createTime, eleNumber, gasNumber, waterNumber
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockKeyExample" >
     select
@@ -116,12 +120,12 @@
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_lock_key (lockId, hirerPhone, password, 
+    insert into t_lock_key (lockId, name,hirerPhone, password, 
       hireType, hirePrice, startTime, 
       endTime, type, orderNumber, 
       userId, receiveFlag, receiveTime, 
       createTime)
-    values (#{lockId,jdbcType=BIGINT}, #{hirerPhone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{lockId,jdbcType=BIGINT}, #{hirerPhone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{hireType,jdbcType=TINYINT}, #{hirePrice,jdbcType=DECIMAL}, #{startTime,jdbcType=TIMESTAMP}, 
       #{endTime,jdbcType=TIMESTAMP}, #{type,jdbcType=TINYINT}, #{orderNumber,jdbcType=INTEGER}, 
       #{userId,jdbcType=BIGINT}, #{receiveFlag,jdbcType=TINYINT}, #{receiveTime,jdbcType=TIMESTAMP}, 
@@ -135,6 +139,9 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="lockId != null" >
         lockId,
+      </if>
+       <if test="name != null and name != ''" >
+        name,
       </if>
       <if test="hirerPhone != null and hirerPhone != ''" >
         hirerPhone,
@@ -172,10 +179,22 @@
       <if test="createTime != null">
         createTime,
       </if>
+       <if test="eleNumber != null">
+        eleNumber,
+      </if>
+       <if test="gasNumber != null">
+        gasNumber,
+      </if>
+       <if test="waterNumber != null">
+        waterNumber,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="lockId != null" >
         #{lockId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null and name != ''" >
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="hirerPhone != null and hirerPhone != ''" >
         #{hirerPhone,jdbcType=VARCHAR},
@@ -213,6 +232,15 @@
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="eleNumber != null">
+        #{eleNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="gasNumber != null">
+        #{gasNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="waterNumber != null">
+        #{waterNumber,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="org.i9.lock.platform.model.LockKeyExample" resultType="java.lang.Integer" >
@@ -229,6 +257,9 @@
       </if>
       <if test="record.lockId != null" >
         lockId = #{record.lockId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null and record.name != ''" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.hirerPhone != null and record.hirerPhone != ''" >
         hirerPhone = #{record.hirerPhone,jdbcType=VARCHAR},
@@ -275,6 +306,7 @@
      update t_lock_key
     set id = #{record.id,jdbcType=INTEGER},
       lockId = #{record.lockId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
       hirerPhone = #{record.hirerPhone,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       hireType = #{record.hireType,jdbcType=TINYINT},
@@ -336,6 +368,9 @@
       <if test="lockId != null" >
         lockId = #{lockId,jdbcType=BIGINT},
       </if>
+      <if test="name != null and name != ''" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="hirerPhone != null and hirerPhone != ''" >
         hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
       </if>
@@ -372,12 +407,22 @@
       <if test="createTime != null">
         createTime = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="eleNumber != null">
+        eleNumber = #{eleNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="gasNumber != null">
+        gasNumber = #{gasNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="waterNumber != null">
+        waterNumber = #{waterNumber,jdbcType=DOUBLE},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.LockKey" >
      update t_lock_key
     set lockId = #{lockId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       hirerPhone = #{hirerPhone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       hireType = #{hireType,jdbcType=TINYINT},

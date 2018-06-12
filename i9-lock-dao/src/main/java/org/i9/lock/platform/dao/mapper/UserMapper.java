@@ -33,4 +33,6 @@ public interface UserMapper {
     
     List<User> selectByLimitPage(@Param("example") UserSearchDto userSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
 
+	User selectByPhoneAndName(@Param("phone")String phone,@Param("name")String name);
+
 }

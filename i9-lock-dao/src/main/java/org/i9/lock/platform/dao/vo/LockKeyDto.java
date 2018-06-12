@@ -35,6 +35,12 @@ public class LockKeyDto {
     private String hirerPhone;
     
     /**
+     * 租户姓名
+     */
+    @NotBlank(message="租户姓名不能为空")
+    private String name;
+    
+    /**
      * 开门密码
      */
     @NotBlank(message="密码不能为空")
@@ -90,8 +96,54 @@ public class LockKeyDto {
     @Pattern(regexp="^[0-9]{8}$",message="密码请输入8个数字")
     private String confirmPwd;
     
+    /**
+     * 电表数
+     */
+    private Double eleNumber;
+    
+    /**
+     * 燃气数
+     */
+    private Double gasNumber;
+    
+    /**
+     * 水表数
+     */
+    private Double waterNumber;
+    
+    public Double getEleNumber() {
+		return eleNumber;
+	}
 
-    public String getConfirmPwd() {
+	public void setEleNumber(Double eleNumber) {
+		this.eleNumber = eleNumber;
+	}
+
+	public Double getGasNumber() {
+		return gasNumber;
+	}
+
+	public void setGasNumber(Double gasNumber) {
+		this.gasNumber = gasNumber;
+	}
+
+	public Double getWaterNumber() {
+		return waterNumber;
+	}
+
+	public void setWaterNumber(Double waterNumber) {
+		this.waterNumber = waterNumber;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getConfirmPwd() {
         return confirmPwd;
     }
 
