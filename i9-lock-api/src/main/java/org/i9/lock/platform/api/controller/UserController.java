@@ -36,7 +36,7 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("user")
 public class UserController {
 
-	private static final String ROOT_PATH = "F:\\";
+	private static final String ROOT_PATH = "/usr/local/lockPic";
 	
     @Autowired
     private UserService userService;
