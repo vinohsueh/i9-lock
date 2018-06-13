@@ -79,20 +79,21 @@ public class LockKeyServiceImpl implements LockKeyService {
             // 将最小编号赋给钥匙
             lockKey.setOrderNumber(orderNumber);
 
-            // 根据填写的手机号把用户id赋给钥匙
-            User user = userDao.getUserByPhone(lockKeyDto.getHirerPhone());
-            if (user == null) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR, "该手机号没有对应的用户");
+            // 根据填写的手机号和用户姓名把用户id赋给钥匙
+            User existUser = userDao.getUserByPhoneAndName(lockKeyDto.getHirerPhone(),lockKeyDto.getName());
+            if (existUser == null) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR, "该手机号没有对应的用户，请注册！");
             }
-            lockKey.setUserId(user.getId());
+            lockKey.setUserId(existUser.getId());
 
             LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
-                    lockKeyDto.getLockId(), user.getId());
+                    lockKeyDto.getLockId(), existUser.getId());
             if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
             }
             lockKey.setCreateTime(new Date());
             lockKeyDao.addLockKey(lockKey);
+            
             // 更新锁的合租状态和安全模式
             Lock lock = lockDao.getLockById(lockKeyDto.getLockId());
             lock.setIfShared(lockKeyDto.getIfShare());
@@ -104,17 +105,17 @@ public class LockKeyServiceImpl implements LockKeyService {
             Info info = new Info();
             info.setContent(infoContent);
             info.setCreateTime(new Date());
-            info.setUserId(user.getId());
+            info.setUserId(existUser.getId());
             infoDao.addInfo(info);
             //给输入的房客发送推送  开门密码
-            PushUtils.sendPush(String.valueOf(user.getId()), infoContent);
+            PushUtils.sendPush(String.valueOf(existUser.getId()), infoContent);
             
             //生成锁日志
             LockLog lockLog = new LockLog();
             lockLog.setCreateTime(new Date());
             lockLog.setLockId(lock.getId());
-            lockLog.setUserId(user.getId());
-            lockLog.setContent(StringUtil.getLockLog(user.getUsername(),lock.getName()));
+            lockLog.setUserId(existUser.getId());
+            lockLog.setContent(StringUtil.getLockLog(existUser.getUsername(),lock.getName()));
             lockLogDao.addLockLog(lockLog);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(), e.getErrorMessage());
