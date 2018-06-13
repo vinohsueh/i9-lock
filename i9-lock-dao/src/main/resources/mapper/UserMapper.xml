@@ -11,6 +11,7 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modifyFamilyPhoneTime" jdbcType="TIMESTAMP" property="modifyFamilyPhoneTime" />
     <result column="userFlag" jdbcType="SMALLINT" property="userFlag" />
+ 	<result column="headPicture" jdbcType="VARCHAR" property="headPicture"/> 
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -84,7 +85,7 @@
     </trim>
   </sql>
   <sql id="Base_Column_List">
-     id, username, name, password, phone, familyPhone, createTime, modifyFamilyPhoneTime, 
+     id, username, name, password, phone, familyPhone, createTime, modifyFamilyPhoneTime,headPicture, 
     userFlag
   </sql>
   <select id="selectByExample" parameterType="org.i9.lock.platform.model.UserExample" resultMap="BaseResultMap">
@@ -129,10 +130,10 @@
     </selectKey>
      insert into t_user (username, name, password, 
       phone, familyPhone, createTime, 
-      modifyFamilyPhoneTime, userFlag)
+      modifyFamilyPhoneTime, userFlag,headPicture)
     values (#{username,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{familyPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{modifyFamilyPhoneTime,jdbcType=TIMESTAMP}, #{userFlag,jdbcType=SMALLINT})
+      #{modifyFamilyPhoneTime,jdbcType=TIMESTAMP}, #{userFlag,jdbcType=SMALLINT},#{headPicture,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.User">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -164,6 +165,9 @@
       <if test="userFlag != null">
         userFlag,
       </if>
+      <if test="headPicture != null">
+        headPicture,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
        <if test="username != null and username != ''">
@@ -189,6 +193,9 @@
       </if>
       <if test="userFlag != null">
         #{userFlag,jdbcType=SMALLINT},
+      </if>
+      <if test="headPicture != null">
+        #{headPicture,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -228,6 +235,9 @@
       <if test="record.userFlag != null">
         userFlag = #{record.userFlag,jdbcType=SMALLINT},
       </if>
+      <if test="headPicture != null">
+       headPicture = #{headPicture,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -243,7 +253,8 @@
       familyPhone = #{record.familyPhone,jdbcType=VARCHAR},
       createTime = #{record.createTime,jdbcType=TIMESTAMP},
       modifyFamilyPhoneTime = #{record.modifyFamilyPhoneTime,jdbcType=TIMESTAMP},
-      userFlag = #{record.userFlag,jdbcType=SMALLINT}
+      userFlag = #{record.userFlag,jdbcType=SMALLINT},
+      headPicture = #{headPicture,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -275,6 +286,9 @@
       <if test="userFlag != null">
         userFlag = #{userFlag,jdbcType=SMALLINT},
       </if>
+      <if test="headPicture != null">
+       headPicture = #{headPicture,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -287,7 +301,8 @@
       familyPhone = #{familyPhone,jdbcType=VARCHAR},
       createTime = #{createTime,jdbcType=TIMESTAMP},
       modifyFamilyPhoneTime = #{modifyFamilyPhoneTime,jdbcType=TIMESTAMP},
-      userFlag = #{userFlag,jdbcType=SMALLINT}
+      userFlag = #{userFlag,jdbcType=SMALLINT},
+      headPicture = #{headPicture,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByLimitPage" resultMap="BaseResultMap">

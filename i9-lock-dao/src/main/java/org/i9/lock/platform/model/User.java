@@ -61,6 +61,11 @@ public class User {
      * 用户类型 0:房东  1:房客
      */
     private Short userFlag;
+    
+    /**
+     * 头像地址
+     */
+    private String headPicture ="1111.jpg";
 
     public Long getId() {
         return id;
@@ -134,4 +139,14 @@ public class User {
     public void setUserFlag(Short userFlag) {
         this.userFlag = userFlag;
     }
+
+	public String getHeadPicture() {
+		return headPicture;
+	}
+
+	public void setHeadPicture(String headPicture) {
+		this.headPicture = headPicture;
+	}
+    
+    
 }

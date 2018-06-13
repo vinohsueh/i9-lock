@@ -238,6 +238,76 @@ public class UserExample {
             addCriterion("username not between", value1, value2, "username");
             return (Criteria) this;
         }
+        
+        public Criteria andHeadPictureIsNull() {
+            addCriterion("headPicture is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureIsNotNull() {
+            addCriterion("headPicture is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureEqualTo(String value) {
+            addCriterion("headPicture =", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureNotEqualTo(String value) {
+            addCriterion("headPicture <>", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureGreaterThan(String value) {
+            addCriterion("headPicture >", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureGreaterThanOrEqualTo(String value) {
+            addCriterion("headPicture >=", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureLessThan(String value) {
+            addCriterion("headPicture <", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureLessThanOrEqualTo(String value) {
+            addCriterion("headPicture <=", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureLike(String value) {
+            addCriterion("headPicture like", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureNotLike(String value) {
+            addCriterion("headPicture not like", value, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureIn(List<String> values) {
+            addCriterion("headPicture in", values, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureNotIn(List<String> values) {
+            addCriterion("headPicture not in", values, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureBetween(String value1, String value2) {
+            addCriterion("headPicture between", value1, value2, "headPicture");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadPictureNotBetween(String value1, String value2) {
+            addCriterion("headPicture not between", value1, value2, "headPicture");
+            return (Criteria) this;
+        }
 
         public Criteria andPasswordIsNull() {
             addCriterion("password is null");

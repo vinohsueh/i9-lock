@@ -128,6 +128,26 @@ public class Lock {
     
     private User user;
     
+    /**
+     * 公寓类型(1.出租公寓  2. 私家公寓)
+     */
+    private Integer departmentType;
+    
+    /**
+     * 公寓地址
+     */
+    private String departmentAddress;
+    
+    /**
+     * 公寓门牌号
+     */
+    private String departmentNumber;
+    
+    /**
+     * 公寓照片地址
+     */
+    private String departmentPicture;
+    
     
     
     public Byte getHireType() {
@@ -361,6 +381,38 @@ public class Lock {
     public void setMac(String mac) {
         this.mac = mac;
     }
+
+	public Integer getDepartmentType() {
+		return departmentType;
+	}
+
+	public void setDepartmentType(Integer departmentType) {
+		this.departmentType = departmentType;
+	}
+
+	public String getDepartmentAddress() {
+		return departmentAddress;
+	}
+
+	public void setDepartmentAddress(String departmentAddress) {
+		this.departmentAddress = departmentAddress;
+	}
+
+	public String getDepartmentNumber() {
+		return departmentNumber;
+	}
+
+	public void setDepartmentNumber(String departmentNumber) {
+		this.departmentNumber = departmentNumber;
+	}
+
+	public String getDepartmentPicture() {
+		return departmentPicture;
+	}
+
+	public void setDepartmentPicture(String departmentPicture) {
+		this.departmentPicture = departmentPicture;
+	}
     
     
 }
