@@ -26,7 +26,7 @@
     <result column="departmentAddress" jdbcType="VARCHAR" property="departmentAddress"/>
     <result column="departmentNumber" jdbcType="VARCHAR" property="departmentNumber"/>
     <result column="departmentPicture" jdbcType="VARCHAR" property="departmentPicture"/>
-    <result column="cusNumber" jdbcType="Integer" property="cusNumber"/>
+    <result column="cusNumber" jdbcType="INTEGER" property="cusNumber"/>
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
   
