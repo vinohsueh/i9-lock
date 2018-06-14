@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.i9.lock.platform.dao.mapper.PriceMapper">
+  <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.Price">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="elePrices" jdbcType="DECIMAL" property="elePrices" />
+    <result column="gasPrices" jdbcType="DECIMAL" property="gasPrices" />
+    <result column="waterPrices" jdbcType="DECIMAL" property="waterPrices" />
+    <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
+    <result column="userId" jdbcType="INTEGER" property="userId" />
+    <result column="lockId" jdbcType="INTEGER" property="lockId" />
+    <result column="lockeyId" jdbcType="INTEGER" property="lockeyId" />
+    <association property="lock" column="lockId" select="org.i9.lock.platform.dao.mapper.LockMapper.selectByPrimaryKey"/>
+    <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
+    <association property="lockKey" column="lockeyId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, elePrices, gasPrices, waterPrices, propertyPrice, userId, lockId, lockeyId
+  </sql>
+  <select id="selectByExample" parameterType="org.i9.lock.platform.model.PriceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_price
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_price
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_price
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.i9.lock.platform.model.PriceExample">
+    delete from t_price
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.i9.lock.platform.model.Price">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_price (elePrices, gasPrices, waterPrices, 
+      propertyPrice, userId, lockId, 
+      lockeyId)
+    values (#{elePrices,jdbcType=DECIMAL}, #{gasPrices,jdbcType=DECIMAL}, #{waterPrices,jdbcType=DECIMAL}, 
+      #{propertyPrice,jdbcType=DECIMAL}, #{userId,jdbcType=INTEGER}, #{lockId,jdbcType=INTEGER}, 
+      #{lockeyId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Price">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="elePrices != null">
+        elePrices,
+      </if>
+      <if test="gasPrices != null">
+        gasPrices,
+      </if>
+      <if test="waterPrices != null">
+        waterPrices,
+      </if>
+      <if test="propertyPrice != null">
+        propertyPrice,
+      </if>
+      <if test="userId != null">
+        userId,
+      </if>
+      <if test="lockId != null">
+        lockId,
+      </if>
+      <if test="lockeyId != null">
+        lockeyId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="elePrices != null">
+        #{elePrices,jdbcType=DECIMAL},
+      </if>
+      <if test="gasPrices != null">
+        #{gasPrices,jdbcType=DECIMAL},
+      </if>
+      <if test="waterPrices != null">
+        #{waterPrices,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyPrice != null">
+        #{propertyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="lockId != null">
+        #{lockId,jdbcType=INTEGER},
+      </if>
+      <if test="lockeyId != null">
+        #{lockeyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.i9.lock.platform.model.PriceExample" resultType="java.lang.Long">
+    select count(*) from t_price
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_price
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.elePrices != null">
+        elePrices = #{record.elePrices,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gasPrices != null">
+        gasPrices = #{record.gasPrices,jdbcType=DECIMAL},
+      </if>
+      <if test="record.waterPrices != null">
+        waterPrices = #{record.waterPrices,jdbcType=DECIMAL},
+      </if>
+      <if test="record.propertyPrice != null">
+        propertyPrice = #{record.propertyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null">
+        userId = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockId != null">
+        lockId = #{record.lockId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockeyId != null">
+        lockeyId = #{record.lockeyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_price
+    set id = #{record.id,jdbcType=INTEGER},
+      elePrices = #{record.elePrices,jdbcType=DECIMAL},
+      gasPrices = #{record.gasPrices,jdbcType=DECIMAL},
+      waterPrices = #{record.waterPrices,jdbcType=DECIMAL},
+      propertyPrice = #{record.propertyPrice,jdbcType=DECIMAL},
+      userId = #{record.userId,jdbcType=INTEGER},
+      lockId = #{record.lockId,jdbcType=INTEGER},
+      lockeyId = #{record.lockeyId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.Price">
+    update t_price
+    <set>
+      <if test="elePrices != null">
+        elePrices = #{elePrices,jdbcType=DECIMAL},
+      </if>
+      <if test="gasPrices != null">
+        gasPrices = #{gasPrices,jdbcType=DECIMAL},
+      </if>
+      <if test="waterPrices != null">
+        waterPrices = #{waterPrices,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyPrice != null">
+        propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null">
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="lockId != null">
+        lockId = #{lockId,jdbcType=INTEGER},
+      </if>
+      <if test="lockeyId != null">
+        lockeyId = #{lockeyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Price">
+    update t_price
+    set elePrices = #{elePrices,jdbcType=DECIMAL},
+      gasPrices = #{gasPrices,jdbcType=DECIMAL},
+      waterPrices = #{waterPrices,jdbcType=DECIMAL},
+      propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
+      userId = #{userId,jdbcType=INTEGER},
+      lockId = #{lockId,jdbcType=INTEGER},
+      lockeyId = #{lockeyId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
