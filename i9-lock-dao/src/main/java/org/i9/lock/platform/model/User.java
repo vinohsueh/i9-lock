@@ -39,7 +39,7 @@ public class User {
      * 电话
      */
     @NotBlank(message = "电话号码不能为空") 
-    @Pattern(regexp = "^1[3|4|5|7|8][0-9]\\d{8}$", message = "请输入正确的手机号")
+    @Pattern(regexp = "^1[3|4|5|6|7|8][0-9]\\d{8}$", message = "请输入正确的手机号")
     private String phone;
     
     /**
@@ -61,6 +61,11 @@ public class User {
      * 用户类型 0:房东  1:房客
      */
     private Short userFlag;
+    
+    /**
+     * 头像地址
+     */
+    private String headPicture ="1111.jpg";
 
     public Long getId() {
         return id;
@@ -134,4 +139,14 @@ public class User {
     public void setUserFlag(Short userFlag) {
         this.userFlag = userFlag;
     }
+
+	public String getHeadPicture() {
+		return headPicture;
+	}
+
+	public void setHeadPicture(String headPicture) {
+		this.headPicture = headPicture;
+	}
+    
+    
 }

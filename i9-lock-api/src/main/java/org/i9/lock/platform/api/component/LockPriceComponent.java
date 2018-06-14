@@ -24,11 +24,11 @@ public class LockPriceComponent {
         jsonObject.put("id", lock.getId());
         jsonObject.put("name", lock.getName());
         jsonObject.put("battery", lock.getBattery());
-        jsonObject.put("eleNumber", lock.getEleNumber());
+ //       jsonObject.put("eleNumber", lock.getEleNumber());
         jsonObject.put("elePrice", lock.getElePrice());
-        jsonObject.put("gasNumber", lock.getGasNumber());
+ //       jsonObject.put("gasNumber", lock.getGasNumber());
         jsonObject.put("gasPrice", lock.getGasPrice());
-        jsonObject.put("waterNumber", lock.getWaterNumber());
+//        jsonObject.put("waterNumber", lock.getWaterNumber());
         jsonObject.put("waterPrice", lock.getWaterPrice());
         jsonObject.put("remark", lock.getRemark());
         return jsonObject;

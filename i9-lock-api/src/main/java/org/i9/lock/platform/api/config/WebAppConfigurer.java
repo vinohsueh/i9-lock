@@ -1,6 +1,7 @@
 package org.i9.lock.platform.api.config;
 
 import org.i9.lock.platform.api.interceptor.UserLoginInterceptor;
+import org.i9.lock.platform.utils.Constants;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -27,7 +28,7 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
         // addPathPatterns 用于添加拦截规则
         // excludePathPatterns 用户排除拦截
 		
-		registry.addInterceptor(new UserLoginInterceptor()).addPathPatterns("/**");
+		registry.addInterceptor(new UserLoginInterceptor()).addPathPatterns("/**").excludePathPatterns(Constants.USER_EXCLUDE_PATH);
 		
 		
 		super.addInterceptors(registry);

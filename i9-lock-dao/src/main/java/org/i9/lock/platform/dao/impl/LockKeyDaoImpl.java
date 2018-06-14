@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.mapper.LockKeyMapper;
+import org.i9.lock.platform.dao.vo.PriceDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.utils.PageBounds;
@@ -77,5 +78,10 @@ public class LockKeyDaoImpl implements LockKeyDao{
     public void deleteAll(Long lockId) throws Exception {
         lockKeyMapper.deleteAll(lockId);
     }
+
+	@Override
+	public PriceDto selectAllPrice(Integer lockeyId) {
+		return lockKeyMapper.selectAllPrice(lockeyId);
+	}
 
 }

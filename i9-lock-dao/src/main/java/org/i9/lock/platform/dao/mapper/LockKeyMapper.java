@@ -3,6 +3,7 @@ package org.i9.lock.platform.dao.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
+import org.i9.lock.platform.dao.vo.PriceDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.utils.BusinessException;
@@ -55,4 +56,6 @@ public interface LockKeyMapper {
      * @param lockId
      */
     void deleteAll(Long lockId);
+
+	PriceDto selectAllPrice(Integer id);
 }

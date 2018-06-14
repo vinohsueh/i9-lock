@@ -2,6 +2,7 @@ package org.i9.lock.platform.dao;
 
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.PriceDto;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.utils.BusinessException;
@@ -88,4 +89,6 @@ public interface LockKeyDao {
      * @throws Exception
      */
     void deleteAll(Long lockId) throws Exception;
+
+	PriceDto selectAllPrice(Integer lockeyId);
 }

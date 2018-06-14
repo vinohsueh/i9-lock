@@ -22,11 +22,8 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
         User user = (User) request.getSession().getAttribute("user");
-        String url = request.getRequestURL().toString();
-        if (!url.endsWith("login") && !url.endsWith("regist")) {
-            if (user == null) {
-                throw new BusinessException(ErrorCode.USER_NOT_LOGIN, "用户未登录");
-            }
+        if (user == null) {
+            throw new BusinessException(ErrorCode.USER_NOT_LOGIN, "用户未登录");
         }
         return true;
     }
