@@ -163,4 +163,22 @@ public class LockServiceImpl implements LockService{
             throw new BusinessException(e.getMessage());
         }
     }
+
+	@Override
+	public List<Lock> selectByLockDto(LockSearchDto lockSearchDto) throws BusinessException {
+		try {
+			return lockDao.selectByLockDto(lockSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Lock> selectByLockKeyDto(LockSearchDto lockSearchDto) throws BusinessException {
+		try {
+			return lockDao.selectByLockKeyDto(lockSearchDto);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

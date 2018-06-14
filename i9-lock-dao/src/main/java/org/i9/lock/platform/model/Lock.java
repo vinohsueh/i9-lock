@@ -3,6 +3,8 @@ package org.i9.lock.platform.model;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 锁实体类
  * 
@@ -18,6 +20,7 @@ public class Lock {
     /**
      *  密钥
      */
+    @NotBlank(message="keyAdmin不能为空")
     private String keyAdmin;
     
     /**
@@ -33,6 +36,7 @@ public class Lock {
     /**
      * 自定义名称
      */
+    @NotBlank(message="名字不能为空") 
     private String name;
     
     /**
@@ -88,6 +92,7 @@ public class Lock {
     /**
      * 
      */
+    @NotBlank(message="keyUser不能为空")
     private String keyUser;
     
     /**
@@ -98,8 +103,10 @@ public class Lock {
     /**
      * 锁号
      */
+    @NotBlank(message="keyNumber不能为空")
     private String keyNumber;
 
+    @NotBlank(message="keyDev不能为空")
     private String keyDev;
     
     /**
@@ -148,7 +155,10 @@ public class Lock {
      */
     private String departmentPicture;
     
-    
+    /**
+     * 租户数量
+     */
+    private Integer cusNumber;
     
     public Byte getHireType() {
         return hireType;
@@ -413,6 +423,13 @@ public class Lock {
 	public void setDepartmentPicture(String departmentPicture) {
 		this.departmentPicture = departmentPicture;
 	}
-    
+
+	public Integer getCusNumber() {
+		return cusNumber;
+	}
+
+	public void setCusNumber(Integer cusNumber) {
+		this.cusNumber = cusNumber;
+	}
     
 }

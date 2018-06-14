@@ -96,4 +96,24 @@ public interface LockService {
      * @throws BusinessException
      */
     Integer selectCount() throws BusinessException;
+    
+    /**
+     * 房东条件查询锁
+    * @Title: selectByLockDto 
+    * @Description: TODO
+    * @param lockSearchDto
+    * @return
+    * @throws BusinessException
+     */
+    List<Lock> selectByLockDto(LockSearchDto lockSearchDto) throws BusinessException;
+    
+    /**
+     * 若是租户查询锁
+    * @Title: selectByLockKeyDto 
+    * @Description: TODO
+    * @param lockSearchDto
+    * @return
+    * @throws BusinessException
+     */
+    List<Lock> selectByLockKeyDto(LockSearchDto lockSearchDto) throws BusinessException;
 }

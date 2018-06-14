@@ -47,5 +47,21 @@ public interface LockMapper {
     
     int countAuthorizeLocks(@Param("example") LockSearchDto lockSearchDto);
 
+    /**
+     * 房东条件查询锁
+    * @Title: selectByLockDto 
+    * @Description: TODO
+    * @param lockSearchDto
+    * @return
+     */
+    List<Lock> selectByLockDto(@Param("example") LockSearchDto lockSearchDto);
     
+    /**
+     * 租户条件查询锁
+    * @Title: selectByLockKeyDto 
+    * @Description: TODO
+    * @param lockSearchDto
+    * @return
+     */
+    List<Lock> selectByLockKeyDto(@Param("example") LockSearchDto lockSearchDto);
 }
