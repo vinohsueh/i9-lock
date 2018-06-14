@@ -1,5 +1,6 @@
 package org.i9.lock.platform.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
@@ -489,66 +490,6 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andEleNumberIsNull() {
-            addCriterion("eleNumber is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberIsNotNull() {
-            addCriterion("eleNumber is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberEqualTo(Double value) {
-            addCriterion("eleNumber =", value, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberNotEqualTo(Double value) {
-            addCriterion("eleNumber <>", value, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberGreaterThan(Double value) {
-            addCriterion("eleNumber >", value, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberGreaterThanOrEqualTo(Double value) {
-            addCriterion("eleNumber >=", value, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberLessThan(Double value) {
-            addCriterion("eleNumber <", value, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberLessThanOrEqualTo(Double value) {
-            addCriterion("eleNumber <=", value, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberIn(List<Double> values) {
-            addCriterion("eleNumber in", values, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberNotIn(List<Double> values) {
-            addCriterion("eleNumber not in", values, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberBetween(Double value1, Double value2) {
-            addCriterion("eleNumber between", value1, value2, "eleNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andEleNumberNotBetween(Double value1, Double value2) {
-            addCriterion("eleNumber not between", value1, value2, "eleNumber");
-            return (Criteria) this;
-        }
-
         public Criteria andElePriceIsNull() {
             addCriterion("elePrice is null");
             return (Criteria) this;
@@ -559,113 +500,53 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andElePriceEqualTo(Double value) {
+        public Criteria andElePriceEqualTo(BigDecimal value) {
             addCriterion("elePrice =", value, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceNotEqualTo(Double value) {
+        public Criteria andElePriceNotEqualTo(BigDecimal value) {
             addCriterion("elePrice <>", value, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceGreaterThan(Double value) {
+        public Criteria andElePriceGreaterThan(BigDecimal value) {
             addCriterion("elePrice >", value, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceGreaterThanOrEqualTo(Double value) {
+        public Criteria andElePriceGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("elePrice >=", value, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceLessThan(Double value) {
+        public Criteria andElePriceLessThan(BigDecimal value) {
             addCriterion("elePrice <", value, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceLessThanOrEqualTo(Double value) {
+        public Criteria andElePriceLessThanOrEqualTo(BigDecimal value) {
             addCriterion("elePrice <=", value, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceIn(List<Double> values) {
+        public Criteria andElePriceIn(List<BigDecimal> values) {
             addCriterion("elePrice in", values, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceNotIn(List<Double> values) {
+        public Criteria andElePriceNotIn(List<BigDecimal> values) {
             addCriterion("elePrice not in", values, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceBetween(Double value1, Double value2) {
+        public Criteria andElePriceBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("elePrice between", value1, value2, "elePrice");
             return (Criteria) this;
         }
 
-        public Criteria andElePriceNotBetween(Double value1, Double value2) {
+        public Criteria andElePriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("elePrice not between", value1, value2, "elePrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberIsNull() {
-            addCriterion("gasNumber is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberIsNotNull() {
-            addCriterion("gasNumber is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberEqualTo(Double value) {
-            addCriterion("gasNumber =", value, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberNotEqualTo(Double value) {
-            addCriterion("gasNumber <>", value, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberGreaterThan(Double value) {
-            addCriterion("gasNumber >", value, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberGreaterThanOrEqualTo(Double value) {
-            addCriterion("gasNumber >=", value, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberLessThan(Double value) {
-            addCriterion("gasNumber <", value, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberLessThanOrEqualTo(Double value) {
-            addCriterion("gasNumber <=", value, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberIn(List<Double> values) {
-            addCriterion("gasNumber in", values, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberNotIn(List<Double> values) {
-            addCriterion("gasNumber not in", values, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberBetween(Double value1, Double value2) {
-            addCriterion("gasNumber between", value1, value2, "gasNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andGasNumberNotBetween(Double value1, Double value2) {
-            addCriterion("gasNumber not between", value1, value2, "gasNumber");
             return (Criteria) this;
         }
 
@@ -679,114 +560,53 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceEqualTo(Double value) {
+        public Criteria andGasPriceEqualTo(BigDecimal value) {
             addCriterion("gasPrice =", value, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceNotEqualTo(Double value) {
+        public Criteria andGasPriceNotEqualTo(BigDecimal value) {
             addCriterion("gasPrice <>", value, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceGreaterThan(Double value) {
+        public Criteria andGasPriceGreaterThan(BigDecimal value) {
             addCriterion("gasPrice >", value, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceGreaterThanOrEqualTo(Double value) {
+        public Criteria andGasPriceGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("gasPrice >=", value, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceLessThan(Double value) {
+        public Criteria andGasPriceLessThan(BigDecimal value) {
             addCriterion("gasPrice <", value, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceLessThanOrEqualTo(Double value) {
+        public Criteria andGasPriceLessThanOrEqualTo(BigDecimal value) {
             addCriterion("gasPrice <=", value, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceIn(List<Double> values) {
+        public Criteria andGasPriceIn(List<BigDecimal> values) {
             addCriterion("gasPrice in", values, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceNotIn(List<Double> values) {
+        public Criteria andGasPriceNotIn(List<BigDecimal> values) {
             addCriterion("gasPrice not in", values, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceBetween(Double value1, Double value2) {
+        public Criteria andGasPriceBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("gasPrice between", value1, value2, "gasPrice");
             return (Criteria) this;
         }
 
-        public Criteria andGasPriceNotBetween(Double value1, Double value2) {
+        public Criteria andGasPriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("gasPrice not between", value1, value2, "gasPrice");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberIsNull() {
-            addCriterion("waterNumber is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberIsNotNull() {
-            addCriterion("waterNumber is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberEqualTo(Double value) {
-            addCriterion("waterNumber =", value, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberNotEqualTo(Double value) {
-            addCriterion("waterNumber <>", value, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberGreaterThan(Double value) {
-            addCriterion("waterNumber >", value, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberGreaterThanOrEqualTo(Double value) {
-            addCriterion("waterNumber >=", value, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberLessThan(Double value) {
-            addCriterion("waterNumber <", value, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberLessThanOrEqualTo(Double value) {
-            addCriterion("waterNumber <=", value, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberIn(List<Double> values) {
-            addCriterion("waterNumber in", values, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberNotIn(List<Double> values) {
-            addCriterion("waterNumber not in", values, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberBetween(Double value1, Double value2) {
-            addCriterion("waterNumber between", value1, value2, "waterNumber");
-            return (Criteria) this;
-        }
-
-        public Criteria andWaterNumberNotBetween(Double value1, Double value2) {
-            addCriterion("waterNumber not between", value1, value2,
-                    "waterNumber");
             return (Criteria) this;
         }
 
@@ -800,55 +620,116 @@ public class LockExample {
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceEqualTo(Double value) {
+        public Criteria andWaterPriceEqualTo(BigDecimal value) {
             addCriterion("waterPrice =", value, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceNotEqualTo(Double value) {
+        public Criteria andWaterPriceNotEqualTo(BigDecimal value) {
             addCriterion("waterPrice <>", value, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceGreaterThan(Double value) {
+        public Criteria andWaterPriceGreaterThan(BigDecimal value) {
             addCriterion("waterPrice >", value, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceGreaterThanOrEqualTo(Double value) {
+        public Criteria andWaterPriceGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("waterPrice >=", value, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceLessThan(Double value) {
+        public Criteria andWaterPriceLessThan(BigDecimal value) {
             addCriterion("waterPrice <", value, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceLessThanOrEqualTo(Double value) {
+        public Criteria andWaterPriceLessThanOrEqualTo(BigDecimal value) {
             addCriterion("waterPrice <=", value, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceIn(List<Double> values) {
+        public Criteria andWaterPriceIn(List<BigDecimal> values) {
             addCriterion("waterPrice in", values, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceNotIn(List<Double> values) {
+        public Criteria andWaterPriceNotIn(List<BigDecimal> values) {
             addCriterion("waterPrice not in", values, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceBetween(Double value1, Double value2) {
+        public Criteria andWaterPriceBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("waterPrice between", value1, value2, "waterPrice");
             return (Criteria) this;
         }
 
-        public Criteria andWaterPriceNotBetween(Double value1, Double value2) {
+        public Criteria andWaterPriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("waterPrice not between", value1, value2, "waterPrice");
             return (Criteria) this;
         }
+        
+        public Criteria andPropertyPriceIsNull() {
+            addCriterion("propertyPrice is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceIsNotNull() {
+            addCriterion("propertyPrice is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceEqualTo(BigDecimal value) {
+            addCriterion("propertyPrice =", value, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceNotEqualTo(BigDecimal value) {
+            addCriterion("propertyPrice <>", value, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceGreaterThan(BigDecimal value) {
+            addCriterion("propertyPrice >", value, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("propertyPrice >=", value, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceLessThan(BigDecimal value) {
+            addCriterion("propertyPrice <", value, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("propertyPrice <=", value, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceIn(List<BigDecimal> values) {
+            addCriterion("propertyPrice in", values, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceNotIn(List<BigDecimal> values) {
+            addCriterion("propertyPrice not in", values, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("propertyPrice between", value1, value2, "propertyPrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andPropertyPriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("propertyPrice not between", value1, value2, "propertyPrice");
+            return (Criteria) this;
+        }
+
 
         public Criteria andSafeModeIsNull() {
             addCriterion("safeMode is null");

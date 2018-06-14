@@ -133,7 +133,7 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updateFamilyPhone")
-    public HashMap<String, Object> updateFamilyPhone(@Valid @NotBlank(message="手机号不能为空") @Pattern(regexp = "^1[3|4|5|7|8][0-9]\\d{8}$", message = "请输入正确的手机号")String phone) {
+    public HashMap<String, Object> updateFamilyPhone(@Valid @NotBlank(message="手机号不能为空") @Pattern(regexp = "^1[3|4|5|6|7|8][0-9]\\d{8}$", message = "请输入正确的手机号")String phone) {
         HashMap<String, Object> result = new HashMap<String, Object>();
         userService.updateFamilyPhone(phone);
         return result;

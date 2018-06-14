@@ -8,12 +8,10 @@
     <result column="userId" property="userId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="battery" jdbcType="VARCHAR" property="battery" />
-    <result column="eleNumber" jdbcType="DOUBLE" property="eleNumber" />
-    <result column="elePrice" jdbcType="DOUBLE" property="elePrice" />
-    <result column="gasNumber" jdbcType="DOUBLE" property="gasNumber" />
-    <result column="gasPrice" jdbcType="DOUBLE" property="gasPrice" />
-    <result column="waterNumber" jdbcType="DOUBLE" property="waterNumber" />
-    <result column="waterPrice" jdbcType="DOUBLE" property="waterPrice" />
+    <result column="elePrice" jdbcType="DECIMAL" property="elePrice" />
+    <result column="gasPrice" jdbcType="DECIMAL" property="gasPrice" />
+    <result column="waterPrice" jdbcType="DECIMAL" property="waterPrice" />
+    <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
     <result column="safeMode" jdbcType="TINYINT" property="safeMode" />
     <result column="ifShared" jdbcType="TINYINT" property="ifShared" />
     <result column="alertMinute" jdbcType="INTEGER" property="alertMinute" />
@@ -190,17 +188,17 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
      insert into t_lock (keyAdmin, effective, userId, 
-      name, battery, eleNumber, 
-      elePrice, gasNumber, gasPrice, 
-      waterNumber, waterPrice, safeMode, 
+      name, battery,  
+      elePrice,  gasPrice, 
+      waterPrice, safeMode, propertyPrice,
       ifShared, alertMinute, keyUser, 
       createTime, keyNumber, keyDev, 
       remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture
       )
     values (#{keyAdmin,jdbcType=VARCHAR}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
-      #{name,jdbcType=VARCHAR}, #{battery,jdbcType=VARCHAR}, #{eleNumber,jdbcType=DOUBLE}, 
-      #{elePrice,jdbcType=DOUBLE}, #{gasNumber,jdbcType=DOUBLE}, #{gasPrice,jdbcType=DOUBLE}, 
-      #{waterNumber,jdbcType=DOUBLE}, #{waterPrice,jdbcType=DOUBLE}, #{safeMode,jdbcType=TINYINT}, 
+      #{name,jdbcType=VARCHAR}, #{battery,jdbcType=VARCHAR}, 
+      #{elePrice,jdbcType=DECIMAL},  #{gasPrice,jdbcType=DECIMAL}, #{propertyPrice,jdbcType=DECIMAL},
+      #{waterPrice,jdbcType=DECIMAL}, #{safeMode,jdbcType=TINYINT}, 
       #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=VARCHAR}, #{keyDev,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR},
@@ -228,23 +226,17 @@
       <if test="battery != null and battery != ''">
         battery,
       </if>
-      <if test="eleNumber != null">
-        eleNumber,
-      </if>
       <if test="elePrice != null">
         elePrice,
-      </if>
-      <if test="gasNumber != null">
-        gasNumber,
       </if>
       <if test="gasPrice != null">
         gasPrice,
       </if>
-      <if test="waterNumber != null">
-        waterNumber,
-      </if>
       <if test="waterPrice != null">
         waterPrice,
+      </if>
+      <if test="propertyPrice != null">
+        propertyPrice,
       </if>
       <if test="safeMode != null">
         safeMode,
@@ -305,23 +297,17 @@
       <if test="battery != null and battery != ''">
         #{battery,jdbcType=VARCHAR},
       </if>
-       <if test="eleNumber != null">
-        #{eleNumber,jdbcType=DOUBLE},
-      </if>
       <if test="elePrice != null">
-        #{elePrice,jdbcType=DOUBLE},
-      </if>
-      <if test="gasNumber != null">
-        #{gasNumber,jdbcType=DOUBLE},
+        #{elePrice,jdbcType=DECIMAL},
       </if>
       <if test="gasPrice != null">
-        #{gasPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="waterNumber != null">
-        #{waterNumber,jdbcType=DOUBLE},
+        #{gasPrice,jdbcType=DECIMAL},
       </if>
       <if test="waterPrice != null">
-        #{waterPrice,jdbcType=DOUBLE},
+        #{waterPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="propertyPrice != null">
+        #{propertyPrice,jdbcType=DECIMAL},
       </if>
       <if test="safeMode != null">
         #{safeMode,jdbcType=TINYINT},
@@ -394,23 +380,17 @@
        <if test="record.battery != null and record.battery != ''">
         battery = #{record.battery,jdbcType=VARCHAR},
       </if>
-       <if test="record.eleNumber != null">
-        eleNumber = #{record.eleNumber,jdbcType=DOUBLE},
-      </if>
       <if test="record.elePrice != null">
-        elePrice = #{record.elePrice,jdbcType=DOUBLE},
-      </if>
-      <if test="record.gasNumber != null">
-        gasNumber = #{record.gasNumber,jdbcType=DOUBLE},
+        elePrice = #{record.elePrice,jdbcType=DECIMAL},
       </if>
       <if test="record.gasPrice != null">
-        gasPrice = #{record.gasPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="record.waterNumber != null">
-        waterNumber = #{record.waterNumber,jdbcType=DOUBLE},
+        gasPrice = #{record.gasPrice,jdbcType=DECIMAL},
       </if>
       <if test="record.waterPrice != null">
-        waterPrice = #{record.waterPrice,jdbcType=DOUBLE},
+        waterPrice = #{record.waterPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.propertyPrice != null">
+        propertyPrice = #{record.propertyPrice,jdbcType=DECIMAL},
       </if>
       <if test="record.safeMode != null">
         safeMode = #{record.safeMode,jdbcType=TINYINT},
@@ -467,12 +447,10 @@
       userId = #{record.userId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       battery = #{record.battery,jdbcType=VARCHAR},
-      eleNumber = #{record.eleNumber,jdbcType=DOUBLE},
-      elePrice = #{record.elePrice,jdbcType=DOUBLE},
-      gasNumber = #{record.gasNumber,jdbcType=DOUBLE},
-      gasPrice = #{record.gasPrice,jdbcType=DOUBLE},
-      waterNumber = #{record.waterNumber,jdbcType=DOUBLE},
-      waterPrice = #{record.waterPrice,jdbcType=DOUBLE},
+      elePrice = #{record.elePrice,jdbcType=DECIMAL},
+      gasPrice = #{record.gasPrice,jdbcType=DECIMAL},
+      waterPrice = #{record.waterPrice,jdbcType=DECIMAL},
+      propertyPrice = #{record.propertyPrice,jdbcType=DECIMAL},
       safeMode = #{record.safeMode,jdbcType=TINYINT},
       ifShared = #{record.ifShared,jdbcType=TINYINT},
       alertMinute = #{record.alertMinute,jdbcType=INTEGER},
@@ -509,23 +487,17 @@
       <if test="battery != null and battery != ''">
         battery = #{battery,jdbcType=VARCHAR},
       </if>
-       <if test="eleNumber != null">
-        eleNumber = #{eleNumber,jdbcType=DOUBLE},
-      </if>
       <if test="elePrice != null">
-        elePrice = #{elePrice,jdbcType=DOUBLE},
-      </if>
-      <if test="gasNumber != null">
-        gasNumber = #{gasNumber,jdbcType=DOUBLE},
+        elePrice = #{elePrice,jdbcType=DECIMAL},
       </if>
       <if test="gasPrice != null">
-        gasPrice = #{gasPrice,jdbcType=DOUBLE},
-      </if>
-      <if test="waterNumber != null">
-        waterNumber = #{waterNumber,jdbcType=DOUBLE},
+        gasPrice = #{gasPrice,jdbcType=DECIMAL},
       </if>
       <if test="waterPrice != null">
-        waterPrice = #{waterPrice,jdbcType=DOUBLE},
+        waterPrice = #{waterPrice,jdbcType=DECIMAL},
+      </if>
+       <if test="propertyPrice != null">
+        propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
       </if>
       <if test="safeMode != null">
         safeMode = #{safeMode,jdbcType=TINYINT},
@@ -579,12 +551,10 @@
       userId = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       battery = #{battery,jdbcType=VARCHAR},
-      eleNumber = #{eleNumber,jdbcType=DOUBLE},
-      elePrice = #{elePrice,jdbcType=DOUBLE},
-      gasNumber = #{gasNumber,jdbcType=DOUBLE},
-      gasPrice = #{gasPrice,jdbcType=DOUBLE},
-      waterNumber = #{waterNumber,jdbcType=DOUBLE},
-      waterPrice = #{waterPrice,jdbcType=DOUBLE},
+      elePrice = #{elePrice,jdbcType=DECIMAL},
+      gasPrice = #{gasPrice,jdbcType=DECIMAL},
+      waterPrice = #{waterPrice,jdbcType=DECIMAL},
+      propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
       safeMode = #{safeMode,jdbcType=TINYINT},
       ifShared = #{ifShared,jdbcType=TINYINT},
       alertMinute = #{alertMinute,jdbcType=INTEGER},

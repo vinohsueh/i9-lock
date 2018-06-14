@@ -1,5 +1,6 @@
 package org.i9.lock.platform.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -45,34 +46,24 @@ public class Lock {
     private String battery;
     
     /**
-     * 电表数
+     * 电费单价
      */
-    private Double eleNumber;
+    private BigDecimal elePrice;
     
     /**
-     * 电费
+     * 燃气价格单价
      */
-    private Double elePrice;
+    private BigDecimal gasPrice;
     
     /**
-     * 燃气数
+     * 水费单价
      */
-    private Double gasNumber;
+    private BigDecimal waterPrice;
     
     /**
-     * 燃气价格
+     * 物业费
      */
-    private Double gasPrice;
-    
-    /**
-     * 水表数
-     */
-    private Double waterNumber;
-    
-    /**
-     * 水费
-     */
-    private Double waterPrice;
+    private BigDecimal propertyPrice;
     
     /**
      * 房客安全模式
@@ -254,32 +245,14 @@ public class Lock {
         this.alertMinute = alertMinute;
     }
 
-    public Double getEleNumber() {
-        return eleNumber;
-    }
-
-    public void setEleNumber(Double eleNumber) {
-        this.eleNumber = eleNumber;
-    }
-
-    public Double getElePrice() {
+    public BigDecimal getElePrice() {
         return elePrice;
     }
 
-    public void setElePrice(Double elePrice) {
+    public void setElePrice(BigDecimal elePrice) {
         this.elePrice = elePrice;
     }
 
-    public Double getGasNumber() {
-        return gasNumber;
-    }
-
-    public void setGasNumber(Double gasNumber) {
-        this.gasNumber = gasNumber;
-    }
-
-    
-    
     public String getKeyAdmin() {
         return keyAdmin;
     }
@@ -296,27 +269,19 @@ public class Lock {
         this.effective = effective;
     }
 
-    public Double getGasPrice() {
+    public BigDecimal getGasPrice() {
         return gasPrice;
     }
 
-    public void setGasPrice(Double gasPrice) {
+    public void setGasPrice(BigDecimal gasPrice) {
         this.gasPrice = gasPrice;
     }
 
-    public Double getWaterNumber() {
-        return waterNumber;
-    }
-
-    public void setWaterNumber(Double waterNumber) {
-        this.waterNumber = waterNumber;
-    }
-
-    public Double getWaterPrice() {
+    public BigDecimal getWaterPrice() {
         return waterPrice;
     }
 
-    public void setWaterPrice(Double waterPrice) {
+    public void setWaterPrice(BigDecimal waterPrice) {
         this.waterPrice = waterPrice;
     }
 
@@ -392,6 +357,13 @@ public class Lock {
         this.mac = mac;
     }
 
+	public BigDecimal getPropertyPrice() {
+		return propertyPrice;
+	}
+
+	public void setPropertyPrice(BigDecimal propertyPrice) {
+		this.propertyPrice = propertyPrice;
+	}
 	public Integer getDepartmentType() {
 		return departmentType;
 	}

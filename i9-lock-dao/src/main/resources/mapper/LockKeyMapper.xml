@@ -463,4 +463,21 @@
   <delete id="deleteAll" parameterType="long">
     delete from t_lock_key where lockId  = #{lockId}
   </delete>
+  <select id="selectAllPrice" parameterType="java.lang.Integer" resultType="org.i9.lock.platform.dao.vo.PriceDto">
+	    SELECT
+		lk.waterNumber as waterNumber,
+		lk.gasNumber as gasNumber,
+		lk.eleNumber as eleNumber,
+		l.waterPrice as waterPrice,
+		l.gasPrice as gasPrice,
+		l.elePrice as elePrice,
+		l.propertyPrice as propertyPrice,
+		lk.userId as userId,
+		lk.lockId as lockId
+	FROM
+		t_lock_key lk
+		LEFT JOIN t_lock l ON l.id = lk.lockId 
+	WHERE
+		lk.id = #{id}
+  </select>
 </mapper>
