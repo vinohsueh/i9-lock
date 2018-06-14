@@ -26,6 +26,7 @@
     <result column="departmentAddress" jdbcType="VARCHAR" property="departmentAddress"/>
     <result column="departmentNumber" jdbcType="VARCHAR" property="departmentNumber"/>
     <result column="departmentPicture" jdbcType="VARCHAR" property="departmentPicture"/>
+    <result column="cusNumber" jdbcType="Integer" property="cusNumber"/>
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
   
@@ -113,8 +114,40 @@
        <if test="example.userId != null">
            and userId = #{example.userId} 
        </if>
+       <if test="example.departmentType != null and example.departmentType != ''">
+       	   and departmentType = #{example.departmentType}
+       </if>
     </trim>
   </sql>
+ <sql id="Query_By_Dto_Where_Clause2">
+    <trim prefix="WHERE" prefixOverrides="AND|OR">
+ 	  <if test="example.name != null and example.name != ''">
+           OR (name like CONCAT('%',CONCAT('${example.name}','%'))
+       </if>
+       <if test="example.phone != null and example.phone != ''">
+           OR userId in (select id from t_user where phone like CONCAT('%',CONCAT('${example.phone}','%')))
+        </if>
+       <if test="example.keyUser != null and example.keyUser != ''">
+           OR keyUser LIKE CONCAT('%',CONCAT('${example.keyUser}','%'))
+       </if>
+       <if test="example.deviceName != null and example.deviceName != ''">
+           OR deviceName LIKE CONCAT('%',CONCAT('${example.deviceName}','%'))
+       </if>
+       <if test="example.mac != null and example.mac != ''">
+           OR mac LIKE CONCAT('%',CONCAT('${example.mac}','%'))
+       </if>
+       <if test="example.keyNumber != null and example.keyNumber != ''">
+           OR keyNumber LIKE CONCAT('%',CONCAT('${example.keyNumber}','%')))
+       </if>
+       <if test="example.userId != null">
+           and id in (select lk.lockId from t_lock_key lk where userId=#{example.userId} )
+       </if>
+       <if test="example.departmentType != null and example.departmentType != ''">
+       	   and departmentType = #{example.departmentType}
+       </if>
+    </trim>
+  </sql>
+  
   <sql id="Base_Column_List" >
      id, keyAdmin, effective, userId, name, battery,  elePrice,  gasPrice, 
      waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
@@ -563,5 +596,33 @@
   </select>
   <select id="selectKeys" parameterType="long" resultType="org.i9.lock.platform.model.LockKey">
     select * from t_lock_key where lockId = #{lockId} and endTime &gt;= NOW()
+  </select>
+  
+  <select id="selectByLockDto"  resultMap="BaseResultMap"> 
+  	select <include refid="Base_Column_List" />,
+	(
+	 select count(id) from t_lock_key lk where lk.lockId = l.id
+	)as cusNumber
+  	 from t_lock l
+   	<if test="_parameter != null">
+        <include refid="Query_By_Dto_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null and example.orderByClause != ''">
+        order by ${example.orderByClause}
+    </if>
+  </select>
+  
+  <select id="selectByLockKeyDto"  resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />,
+	(
+	 select count(id) from t_lock_key lk where lk.lockId = l.id
+	)as cusNumber
+  	 from t_lock l
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto_Where_Clause2" />
+    </if>
+    <if test="example.orderByClause != null and example.orderByClause != ''">
+        order by ${example.orderByClause}
+    </if>
   </select>
 </mapper>

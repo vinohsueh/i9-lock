@@ -2,9 +2,13 @@ package org.i9.lock.platform.api.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.i9.lock.platform.api.component.LockKeyPriceComponent;
 import org.i9.lock.platform.api.component.LockListInfoComponent;
 import org.i9.lock.platform.api.component.LockPriceComponent;
@@ -18,11 +22,14 @@ import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.PageBounds;
+import org.i9.lock.platform.utils.ThumbPicUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -37,25 +44,64 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("lock")
 public class LockController {
     
+	private static final String ROOT_PATH = "F:\\";
+	
     @Autowired
     private LockService lockService;
     @Autowired
     private UserService userService;
     @Autowired
     private LockKeyService lockKeyService;
+    
     /**
-     * 添加锁
+     * 添加锁(无照片)
+     * @param lockAddDto
+     * @param bindingResult
+     * @return
+     */
+    @RequestMapping(value={"/saveNoPicture"},method = {RequestMethod.POST})
+    public HashMap<String, Object> saveLock(LockAddDto lockAddDto,BindingResult bindingResult){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+            User user = userService.getCurrentUser();
+            Lock lock = lockAddDto.getLock();
+            lock.setUserId(user.getId());
+            lockService.addLock(lock);
+        return result;
+    }
+    
+    /**
+     * 添加锁(有照片)
      * @param lockAddDto
      * @param bindingResult
      * @return
      */
     @RequestMapping(value={"/save"},method = {RequestMethod.POST})
-    public HashMap<String, Object> saveLock(@Valid LockAddDto lockAddDto,BindingResult bindingResult){
+    public HashMap<String, Object> saveLock(LockAddDto lockAddDto,BindingResult bindingResult
+    		,@RequestParam(value = "uploadHead", required = false) MultipartFile uploadFile,
+            HttpServletRequest request,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*"); //生产环境绝对不允许设置为“*”
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
         HashMap<String, Object> result = new HashMap<String, Object>();
-        User user = userService.getCurrentUser();
-        Lock lock = lockAddDto.getLock();
-        lock.setUserId(user.getId());
-        lockService.addLock(lock);
+        try {
+        	//获得文件扩展名
+            String ext = FilenameUtils.getExtension(uploadFile.getOriginalFilename());
+            //使用UUID产生一个随机的通用唯一识别码 加上 扩展名 组成一个一个新的文件名
+            String filename = UUID.randomUUID().toString() + ext;
+            //压缩文件到900kb以内
+            ThumbPicUtil.commpressPicForScale(uploadFile.getInputStream(), ROOT_PATH + filename, 900, 0.8);
+            if(null !=filename && ""!=filename) {
+                User user = userService.getCurrentUser();
+                Lock lock = lockAddDto.getLock();
+                lock.setUserId(user.getId());
+                lock.setDepartmentPicture(filename); 
+                lockService.addLock(lock);
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         return result;
     }
     
@@ -64,15 +110,15 @@ public class LockController {
      * @param lock
      * @return
      */
-    @RequestMapping(value={"/update"},method = {RequestMethod.POST})
-    public HashMap<String, Object> updateLock(Lock lock){
+    @RequestMapping(value={"/update"},method = {RequestMethod.POST} )
+    public HashMap<String, Object> updateLock(@Valid Lock lock ,BindingResult bindingResult){
         HashMap<String, Object> result = new HashMap<String, Object>();
         lockService.updateLock(lock);
         return result;
     }
     
     /**
-     * 设备列表
+     * 设备列表（分页）
      * @param lockSearchDto
      * @param currectPage
      * @param pageSize
@@ -91,6 +137,39 @@ public class LockController {
         result.put("locks", jsonArray);
         return result;
     }
+    
+    /**
+     * 该用户是房东的所有房屋或者租的房子（不分页）
+    * @Title: Alllock 
+    * @Description: TODO
+    * @param lockExample
+    * @return
+     */
+    @RequestMapping(value={"/Alllock"},method = {RequestMethod.POST})
+    public HashMap<String, Object> Alllock(LockSearchDto lockSearchDto){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockSearchDto.setOrderByClause("createTime desc");
+        User user = userService.getCurrentUser();
+        lockSearchDto.setUserId(user.getId()); 
+        //若该用户是房东
+        List<Lock> listLock = lockService.selectByLockDto(lockSearchDto);
+        //若该用户是租户
+        List<Lock> listLock2 = lockService.selectByLockKeyDto(lockSearchDto);
+        JSONArray jsonHouseHold = new JSONArray();
+        JSONArray jsonTenant = new JSONArray();
+        for (Lock lock : listLock) { 
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            jsonHouseHold.add(jsonObject);
+        }
+        for (Lock lock : listLock2) { 
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            jsonTenant.add(jsonObject);
+        }
+        result.put("jsonHouseHold", jsonHouseHold);
+        result.put("jsonTenant", jsonTenant);
+        return result;
+    }
+
     
     /**
      * 物业缴费

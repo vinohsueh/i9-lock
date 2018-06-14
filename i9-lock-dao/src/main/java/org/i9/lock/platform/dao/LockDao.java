@@ -5,6 +5,7 @@ import java.util.List;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
+import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.PageBounds;
 
 /** 
@@ -90,4 +91,24 @@ public interface LockDao {
      */
     Integer selectCount() throws Exception;
     
+    
+    /**
+     * 房东条件查询锁
+    * @Title: selectByLockDto 
+    * @Description: TODO
+    * @param lockSearchDto
+    * @return
+    * @throws BusinessException
+     */
+    List<Lock> selectByLockDto(LockSearchDto lockSearchDto) throws Exception;
+    
+    /**
+     * 租户查询锁
+    * @Title: selectByLockKeyDto 
+    * @Description: TODO
+    * @param lockSearchDto
+    * @return
+    * @throws Exception
+     */
+    List<Lock> selectByLockKeyDto(LockSearchDto lockSearchDto) throws Exception;
 }
