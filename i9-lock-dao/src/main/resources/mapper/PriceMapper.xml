@@ -12,8 +12,8 @@
     <result column="lockeyId" jdbcType="INTEGER" property="lockeyId" />
     <association property="lock" column="lockId" select="org.i9.lock.platform.dao.mapper.LockMapper.selectByPrimaryKey"/>
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
-    <association property="lockKey" column="lockeyId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
-  </resultMap>
+    <association property="lockKey" column="lockeyId" select="org.i9.lock.platform.dao.mapper.LockKeyMapper.selectByPrimaryKey"/>
+  </resultMap>   
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
