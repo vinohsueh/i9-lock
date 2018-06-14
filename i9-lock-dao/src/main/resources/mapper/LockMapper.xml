@@ -116,9 +116,6 @@
     </trim>
   </sql>
   <sql id="Base_Column_List" >
-     id, keyAdmin, effective, userId, name, battery, elePrice, gasPrice, 
-     waterPrice, propertyPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
-    keyDev, remark, deviceName, mac
      id, keyAdmin, effective, userId, name, battery, eleNumber, elePrice, gasNumber, gasPrice, 
     waterNumber, waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
     keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture
