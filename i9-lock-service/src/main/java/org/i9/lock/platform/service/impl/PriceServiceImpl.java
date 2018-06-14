@@ -28,6 +28,7 @@ public class PriceServiceImpl implements PriceService{
 			price.setElePrices(priceDto.getElePrices());
 			price.setGasPrices(priceDto.getGasPrices());
 			price.setWaterPrices(priceDto.getWaterPrices());
+			price.setPropertyPrice(priceDto.getPropertyPrice());
 			price.setLockId(priceDto.getLockId());
 			price.setUserId(priceDto.getUserId());
 		    priceDao.addPrice(price);
