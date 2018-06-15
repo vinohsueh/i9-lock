@@ -180,6 +180,8 @@ public class LockController {
     public HashMap<String, Object> price(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         Lock lock = lockService.getLockById(lockId);
+        int keyCount = lockKeyService.selectLockKeyCountByLockId(lockId); 
+        lock.setCusNumber(keyCount); 
         if (lock != null) {
             JSONObject jsonObject = new LockPriceComponent().setLock(lock).build();
             result.put("lock", jsonObject);

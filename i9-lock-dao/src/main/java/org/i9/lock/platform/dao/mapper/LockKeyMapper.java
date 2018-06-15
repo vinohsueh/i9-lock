@@ -58,4 +58,8 @@ public interface LockKeyMapper {
     void deleteAll(Long lockId);
 
 	PriceDto selectAllPrice(Integer id);
+	
+	int selectLockKeyCountByLockId(Integer lockId);
+
+	int selectLockKeyCountByLockId(Long lockId);  
 }

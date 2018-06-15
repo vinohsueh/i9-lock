@@ -480,4 +480,12 @@
 	WHERE
 		lk.id = #{id}
   </select>
+   <select id="selectLockKeyCountByLockId" resultType="int"> 
+	SELECT
+		count( id ) as cusNumber
+	FROM
+		t_lock_key 
+	WHERE
+	lockId = #{lockId} 
+  </select>
 </mapper>

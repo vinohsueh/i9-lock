@@ -404,4 +404,7 @@ public class Lock {
 		this.cusNumber = cusNumber;
 	}
     
+	public String getNameAndNumber() {
+		return name+departmentNumber;
+	}
 }

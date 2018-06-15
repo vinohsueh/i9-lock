@@ -91,4 +91,13 @@ public interface LockKeyService {
      */
     void deleteAll(Long lockId) throws BusinessException;
     
+    /**
+     * 查询钥匙个数
+    * @Title: selectLockKeyCountByLockId 
+    * @Description: TODO
+    * @param lockId
+    * @return
+    * @throws BusinessException
+     */
+    int selectLockKeyCountByLockId(Long lockId) throws BusinessException; 
 }
