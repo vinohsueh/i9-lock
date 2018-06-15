@@ -45,6 +45,7 @@ public class LockListInfoComponent {
         jsonObject.put("departmentAddress",lock.getDepartmentAddress());
         jsonObject.put("departmentNumber", lock.getDepartmentNumber());
         jsonObject.put("departmentPicture", lock.getDepartmentPicture());
+        jsonObject.put("cusNumber",lock.getCusNumber() );
         if (lock.getStartTime() != null) {
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
         }

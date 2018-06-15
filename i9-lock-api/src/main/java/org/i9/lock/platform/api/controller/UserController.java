@@ -36,7 +36,7 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("user")
 public class UserController {
 
-	private static final String ROOT_PATH = "F:\\";
+	private static final String ROOT_PATH = "/usr/local/lockPic";
 	
     @Autowired
     private UserService userService;
@@ -162,5 +162,63 @@ public class UserController {
         JSONObject jsonObject = new UserIndexInfoComponent().setUser(user).build();
         result.put("user", jsonObject);
         return result;
+    }
+    
+    /**
+     * 更换用户头像
+    * @Title: updateUserHeadPicture 
+    * @Description: TODO
+    * @param user
+    * @param bindingResult
+    * @param uploadFile
+    * @param request
+    * @param response
+    * @return
+     */
+    @RequestMapping("/updateUserHeadPicture")
+    public HashMap<String, Object>updateUserHeadPicture(User user ,BindingResult bindingResult,@RequestParam(value = "uploadHead", required = false) MultipartFile uploadFile,
+            HttpServletRequest request,HttpServletResponse response){
+    	response.setHeader("Access-Control-Allow-Origin", "*"); //生产环境绝对不允许设置为“*”
+        response.setHeader("Access-Control-Allow-Methods", "*");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with,content-type");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("utf-8");
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User loginUser = userService.getCurrentUser();
+        user.setId(loginUser.getId()); 
+        try {
+        		//获得文件扩展名
+        		String ext = FilenameUtils.getExtension(uploadFile.getOriginalFilename());
+        		//使用UUID产生一个随机的通用唯一识别码 加上 扩展名 组成一个一个新的文件名
+        		String filename = UUID.randomUUID().toString() + ext;
+        		//压缩文件到900kb以内
+        		ThumbPicUtil.commpressPicForScale(uploadFile.getInputStream(), ROOT_PATH + filename, 900, 0.8);
+        		if(null !=filename && ""!=filename) {
+        			user.setHeadPicture(filename); 
+        		}
+        		userService.updateUser(user);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return result;
+    }
+    
+    /**
+     * 更改用户信息（除了头像，密码，亲情号）
+    * @Title: updateUserInfo 
+    * @Description: TODO
+    * @return
+     */
+    @RequestMapping("/updateUserInfo")
+    public HashMap<String, Object>updateUserInfo(User user){
+    	 HashMap<String, Object> result = new HashMap<String, Object>();
+    	 User loginUser = userService.getCurrentUser();
+    	 try {
+    		 user.setId(loginUser.getId());
+    		 userService.updateUser(user); 
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result; 
     }
 }

@@ -39,7 +39,6 @@ public class CacheConfiguration {
 //      指定xml配置文件
         factoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
         factoryBean.setShared(true);
-        
         return factoryBean;
     }
     
