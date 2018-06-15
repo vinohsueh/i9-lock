@@ -12,10 +12,11 @@ import org.i9.lock.platform.utils.BusinessException;
 public interface PriceService {
 	/**
      * 生成账单
+	 * @param state 
      * @param Price
      * @throws BusinessException
      */
-    void addPrice(Price price) throws BusinessException;
+    void addPrice(Price price, Integer state) throws BusinessException;
     
     /**
      * 查看账单

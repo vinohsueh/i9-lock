@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.i9.lock.platform.dao.ConfigDao;
-import org.i9.lock.platform.dao.InfoDao;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.LockLogDao;
@@ -15,7 +14,6 @@ import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.enums.HireTypeEnum;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.model.Config;
-import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
@@ -26,7 +24,6 @@ import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.Constants;
 import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
-import org.i9.lock.platform.utils.PushUtils;
 import org.i9.lock.platform.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,15 +49,12 @@ public class LockKeyServiceImpl implements LockKeyService {
     @Autowired
     private UserDao userDao;
     
-    @Autowired
-    private InfoDao infoDao;
     
     @Autowired
     private LockLogDao lockLogDao;
 
     @Autowired
     private ConfigDao configDao;
-    private static final String INFO_MID = "的开门密码:";
     @Override
     public void addLockKey(LockKeyDto lockKeyDto) throws BusinessException {
         try {
@@ -88,7 +82,10 @@ public class LockKeyServiceImpl implements LockKeyService {
 
             LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
                     lockKeyDto.getLockId(), existUser.getId());
-            if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
+            /*if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
+                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
+            }*/
+            if (existLockKey != null) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
             }
             lockKey.setCreateTime(new Date());
@@ -101,14 +98,14 @@ public class LockKeyServiceImpl implements LockKeyService {
             lockDao.updateLock(lock);
             
             //给输入的房客添加消息通知
-            String infoContent = lock.getName()+INFO_MID+lockKeyDto.getPassword();
+           /* String infoContent = lock.getName()+INFO_MID+lockKeyDto.getPassword();
             Info info = new Info();
             info.setContent(infoContent);
             info.setCreateTime(new Date());
             info.setUserId(existUser.getId());
             infoDao.addInfo(info);
             //给输入的房客发送推送  开门密码
-            PushUtils.sendPush(String.valueOf(existUser.getId()), infoContent);
+            PushUtils.sendPush(String.valueOf(existUser.getId()), infoContent);*/
             
             //生成锁日志
             LockLog lockLog = new LockLog();

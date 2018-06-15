@@ -3,8 +3,6 @@ package org.i9.lock.platform.api.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.i9.lock.platform.api.component.LockKeyListComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.dao.vo.UpdateTimeDto;
@@ -16,7 +14,6 @@ import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.PageBounds;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,7 +46,7 @@ public class LockKeyController {
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
-    public HashMap<String, Object> addKey(@Valid LockKeyDto lockKeyDto,BindingResult bindingResult){
+    public HashMap<String, Object> addKey(LockKeyDto lockKeyDto){
         HashMap<String, Object> result = new HashMap<String, Object>();
         lockKeyService.addLockKey(lockKeyDto);
         return result;

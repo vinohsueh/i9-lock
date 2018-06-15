@@ -258,15 +258,9 @@ public class LockKeyDto {
         lockKey.setType(type);
         SimpleDateFormat sdf = null;
         try {
-            if (hireType == 2) {
-                sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-                lockKey.setStartTime(sdf.parse(startTimeString));
-                lockKey.setEndTime(sdf.parse(endTimeString));
-            }else{
-                sdf = new SimpleDateFormat("yyyy-MM-dd");
-                lockKey.setStartTime(sdf.parse(startTimeString));
-                lockKey.setEndTime(sdf.parse(endTimeString));
-            }
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            lockKey.setStartTime(sdf.parse(startTimeString));
+            lockKey.setEndTime(sdf.parse(endTimeString));
         } catch (ParseException e) {
             throw new BusinessException("时间格式错误！");
         }
