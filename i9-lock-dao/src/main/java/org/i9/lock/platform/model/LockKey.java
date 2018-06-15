@@ -103,7 +103,17 @@ public class LockKey {
      */
     private Double waterNumber;
     
-    public Double getEleNumber() {
+    private Integer state;
+    
+    public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Double getEleNumber() {
 		return eleNumber;
 	}
 
