@@ -28,6 +28,11 @@ public class LockKeyDto {
     private Long lockId;
     
     /**
+     * 钥匙id
+     */
+    private Integer lockKeyId;
+    
+    /**
      * 租户电话
      */
     @NotBlank(message="电话号码不能为空")
@@ -111,7 +116,15 @@ public class LockKeyDto {
      */
     private Double waterNumber;
     
-    public Double getEleNumber() {
+    public Integer getLockKeyId() {
+		return lockKeyId;
+	}
+
+	public void setLockKeyId(Integer lockKeyId) {
+		this.lockKeyId = lockKeyId;
+	}
+
+	public Double getEleNumber() {
 		return eleNumber;
 	}
 
@@ -250,17 +263,26 @@ public class LockKeyDto {
 
     public LockKey getLockKey() {
         LockKey lockKey = new LockKey();
+        lockKey.setId(lockKeyId);
         lockKey.setHirePrice(hirePrice);
         lockKey.setHirerPhone(hirerPhone);
         lockKey.setHireType(hireType);
         lockKey.setLockId(lockId);
         lockKey.setPassword(password);
         lockKey.setType(type);
+        lockKey.setEleNumber(eleNumber);
+        lockKey.setGasNumber(gasNumber);
+        lockKey.setWaterNumber(waterNumber);
         SimpleDateFormat sdf = null;
         try {
-            sdf = new SimpleDateFormat("yyyy-MM-dd");
-            lockKey.setStartTime(sdf.parse(startTimeString));
-            lockKey.setEndTime(sdf.parse(endTimeString));
+        	if(startTime != null && endTime != null ){
+        		 sdf = new SimpleDateFormat("yyyy-MM-dd");
+                 lockKey.setStartTime(sdf.parse(startTimeString));
+                 lockKey.setEndTime(sdf.parse(endTimeString));
+        	}else {
+        		return null;
+			}
+           
         } catch (ParseException e) {
             throw new BusinessException("时间格式错误！");
         }

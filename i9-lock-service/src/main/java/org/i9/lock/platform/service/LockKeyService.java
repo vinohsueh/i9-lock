@@ -90,5 +90,9 @@ public interface LockKeyService {
      * @throws BusinessException
      */
     void deleteAll(Long lockId) throws BusinessException;
+
+	void updateLockKeyState();
+
+
     
 }

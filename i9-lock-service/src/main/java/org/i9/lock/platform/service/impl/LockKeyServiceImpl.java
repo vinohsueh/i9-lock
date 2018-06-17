@@ -1,5 +1,6 @@
 package org.i9.lock.platform.service.impl;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,14 +11,17 @@ import org.i9.lock.platform.dao.ConfigDao;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.LockLogDao;
+import org.i9.lock.platform.dao.PriceDao;
 import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.enums.HireTypeEnum;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
+import org.i9.lock.platform.dao.vo.PriceDto;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.model.LockLog;
+import org.i9.lock.platform.model.Price;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.utils.BusinessException;
@@ -49,6 +53,8 @@ public class LockKeyServiceImpl implements LockKeyService {
     @Autowired
     private UserDao userDao;
     
+    @Autowired
+    private PriceDao priceDao;
     
     @Autowired
     private LockLogDao lockLogDao;
@@ -58,45 +64,80 @@ public class LockKeyServiceImpl implements LockKeyService {
     @Override
     public void addLockKey(LockKeyDto lockKeyDto) throws BusinessException {
         try {
-            // 查询1-9的编号 最小未使用编号
-            List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto
-                    .getLockId());
-            //查询最大可用编号数
-            Config config = configDao.selectMaxHirer();
-            int max = config.getConfigValue();
-            if (list.size() >= max-1) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,
-                        "该锁租户已满,不能再添加了");
-            }
-            Integer orderNumber = selectOrderNumber(list,max);
-            LockKey lockKey = lockKeyDto.getLockKey();
-            // 将最小编号赋给钥匙
-            lockKey.setOrderNumber(orderNumber);
+        	 if(lockKeyDto.getLockKeyId() != null){
+             	//先通过LockKeyId查询初始水电煤气
+             	PriceDto priceDto = lockKeyDao.selectAllPrice(lockKeyDto.getLockKeyId());
+             	//计算使用的水电煤气，现在的-初始值
+             	//电表
+             	Double eleNum = lockKeyDto.getEleNumber() - priceDto.getEleNumber();
+             	//燃气
+             	Double gasNum = lockKeyDto.getGasNumber() - priceDto.getGasNumber();
+             	//水
+             	Double waterNum = lockKeyDto.getWaterNumber() - priceDto.getWaterNumber();
+             	//计算使用的电费
+             	Price price = new Price();
+             	price.setElePrices(new BigDecimal(String.valueOf(eleNum)).multiply(priceDto.getElePrice()));
+             	price.setGasPrices(new BigDecimal(String.valueOf(gasNum)).multiply(priceDto.getGasPrice()));
+             	price.setWaterPrices(new BigDecimal(String.valueOf(waterNum)).multiply(priceDto.getWaterPrices()));
+             	price.setLockId(priceDto.getLockId());
+             	price.setUserId(priceDto.getUserId());
+             	price.setLockeyId(lockKeyDto.getLockKeyId());
+             	priceDao.addPrice(price);
+             	LockKey lockKey = new LockKey();
+             	lockKey.setId(lockKeyDto.getLockKeyId());
+             	lockKey.setEleNumber(lockKeyDto.getEleNumber());
+             	lockKey.setGasNumber(lockKeyDto.getGasNumber());
+             	lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
+             	this.updateLockKey(lockKey);
+             }else{
+            	 // 查询1-9的编号 最小未使用编号
+                 List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto
+                         .getLockId());
+                 //查询最大可用编号数
+                 Config config = configDao.selectMaxHirer();
+                 int max = config.getConfigValue();
+                 if (list.size() >= max-1) {
+                     throw new BusinessException(ErrorCode.CRUD_ERROR,
+                             "该锁租户已满,不能再添加了");
+                 }
+                 Integer orderNumber = selectOrderNumber(list,max);
+                 LockKey lockKey = lockKeyDto.getLockKey();
+                 // 将最小编号赋给钥匙
+                 lockKey.setOrderNumber(orderNumber);
 
-            // 根据填写的手机号和用户姓名把用户id赋给钥匙
-            User existUser = userDao.getUserByPhoneAndName(lockKeyDto.getHirerPhone(),lockKeyDto.getName());
-            if (existUser == null) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR, "该手机号没有对应的用户，请注册！");
-            }
-            lockKey.setUserId(existUser.getId());
+                 // 根据填写的手机号和用户姓名把用户id赋给钥匙
+                 User existUser = userDao.getUserByPhoneAndName(lockKeyDto.getHirerPhone(),lockKeyDto.getName());
+                 if (existUser == null) {
+                     throw new BusinessException(ErrorCode.CRUD_ERROR, "该手机号没有对应的用户，请注册！");
+                 }
+                 lockKey.setUserId(existUser.getId());
 
-            LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
-                    lockKeyDto.getLockId(), existUser.getId());
-            /*if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
-            }*/
-            if (existLockKey != null) {
-                throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
-            }
-            lockKey.setCreateTime(new Date());
-            lockKeyDao.addLockKey(lockKey);
-            
-            // 更新锁的合租状态和安全模式
-            Lock lock = lockDao.getLockById(lockKeyDto.getLockId());
-            lock.setIfShared(lockKeyDto.getIfShare());
-            lock.setSafeMode(lockKeyDto.getSafeMode());
-            lockDao.updateLock(lock);
-            
+                 LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
+                         lockKeyDto.getLockId(), existUser.getId());
+                 /*if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
+                     throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
+                 }*/
+                 if (existLockKey != null) {
+                     throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
+                 }
+                 lockKey.setCreateTime(new Date());
+                 lockKeyDao.addLockKey(lockKey);
+                 
+              // 更新锁的合租状态和安全模式
+                 Lock lock = lockDao.getLockById(lockKeyDto.getLockId());
+                 lock.setIfShared(lockKeyDto.getIfShare());
+                 lock.setSafeMode(lockKeyDto.getSafeMode());
+                 lockDao.updateLock(lock);
+                 
+               //生成锁日志
+                 LockLog lockLog = new LockLog();
+                 lockLog.setCreateTime(new Date());
+                 lockLog.setLockId(lock.getId());
+                 lockLog.setUserId(existUser.getId());
+                 lockLog.setContent(StringUtil.getLockLog(existUser.getUsername(),lock.getName()));
+                 lockLogDao.addLockLog(lockLog);
+             }
+           
             //给输入的房客添加消息通知
            /* String infoContent = lock.getName()+INFO_MID+lockKeyDto.getPassword();
             Info info = new Info();
@@ -107,13 +148,6 @@ public class LockKeyServiceImpl implements LockKeyService {
             //给输入的房客发送推送  开门密码
             PushUtils.sendPush(String.valueOf(existUser.getId()), infoContent);*/
             
-            //生成锁日志
-            LockLog lockLog = new LockLog();
-            lockLog.setCreateTime(new Date());
-            lockLog.setLockId(lock.getId());
-            lockLog.setUserId(existUser.getId());
-            lockLog.setContent(StringUtil.getLockLog(existUser.getUsername(),lock.getName()));
-            lockLogDao.addLockLog(lockLog);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(), e.getErrorMessage());
         } catch (Exception e) {
@@ -251,4 +285,14 @@ public class LockKeyServiceImpl implements LockKeyService {
         }
         
     }
+
+	@Override
+	public void updateLockKeyState() {
+		try {
+            lockKeyDao.updateLockKeyState();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+	}
+
 }

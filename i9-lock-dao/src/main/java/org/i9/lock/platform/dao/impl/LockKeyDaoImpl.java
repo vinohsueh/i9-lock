@@ -84,4 +84,9 @@ public class LockKeyDaoImpl implements LockKeyDao{
 		return lockKeyMapper.selectAllPrice(lockeyId);
 	}
 
+	@Override
+	public void updateLockKeyState() {
+		lockKeyMapper.updateLockKeyState();
+	}
+
 }

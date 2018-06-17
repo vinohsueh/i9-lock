@@ -490,4 +490,10 @@
 	WHERE
 		lk.id = #{id}
   </select>
+   <update id="updateLockKeyState" >
+	      update t_lock_key
+	    	set state = 1 
+	   	  WHERE  datediff(t_lock_key.endTime,now()) 
+	   	  &lt;= 5 and state = 0
+  </update>
 </mapper>

@@ -29,7 +29,7 @@ public class PriceController {
     private PriceService priceService;
 	
 	/**
-     * 生成账单
+     *确认账单
      * @param price
      * @return
      */
@@ -41,7 +41,7 @@ public class PriceController {
     }
     
     /**
-     * 查看账单
+     * 生成账单
      * @param price
      * @return
      */
