@@ -93,4 +93,6 @@ public interface LockKeyDao {
 	PriceDto selectAllPrice(Integer lockeyId);
 
 	void updateLockKeyState();
+	
+	int selectLockKeyCountByLockId(Long lockId);  
 }

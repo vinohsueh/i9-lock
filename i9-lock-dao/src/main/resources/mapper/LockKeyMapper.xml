@@ -496,4 +496,12 @@
 	   	  WHERE  datediff(t_lock_key.endTime,now()) 
 	   	  &lt;= 5 and state = 0
   </update>
+   <select id="selectLockKeyCountByLockId" resultType="int"> 
+	SELECT
+		count( id ) as cusNumber
+	FROM
+		t_lock_key 
+	WHERE
+	lockId = #{lockId} 
+  </select>
 </mapper>

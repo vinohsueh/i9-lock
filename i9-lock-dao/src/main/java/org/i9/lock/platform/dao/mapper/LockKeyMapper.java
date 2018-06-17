@@ -60,4 +60,8 @@ public interface LockKeyMapper {
 	PriceDto selectAllPrice(Integer id);
 
 	void updateLockKeyState();
+	
+	int selectLockKeyCountByLockId(Integer lockId);
+
+	int selectLockKeyCountByLockId(Long lockId);  
 }

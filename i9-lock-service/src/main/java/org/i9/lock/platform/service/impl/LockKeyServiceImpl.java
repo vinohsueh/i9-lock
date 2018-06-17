@@ -295,4 +295,11 @@ public class LockKeyServiceImpl implements LockKeyService {
         }
 	}
 
+	public int selectLockKeyCountByLockId(Long lockId) throws BusinessException {
+		try {
+			return lockKeyDao.selectLockKeyCountByLockId(lockId);
+		} catch (Exception e) {
+			 throw new BusinessException(e.getMessage());
+		}
+	}
 }

@@ -31,6 +31,8 @@ public class LockPriceComponent {
 //        jsonObject.put("waterNumber", lock.getWaterNumber());
         jsonObject.put("waterPrice", lock.getWaterPrice());
         jsonObject.put("remark", lock.getRemark());
+        jsonObject.put("cusNumber",lock.getCusNumber() );
+        jsonObject.put("nameAndNumber", lock.getNameAndNumber()); 
         return jsonObject;
     }
 }
