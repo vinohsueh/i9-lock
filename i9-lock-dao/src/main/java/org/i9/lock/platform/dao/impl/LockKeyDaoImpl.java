@@ -85,6 +85,11 @@ public class LockKeyDaoImpl implements LockKeyDao{
 	}
 
 	@Override
+	public void updateLockKeyState() {
+		lockKeyMapper.updateLockKeyState();
+	}
+	
+	@Override
 	public int selectLockKeyCountByLockId(Long lockId) { 
 		return lockKeyMapper.selectLockKeyCountByLockId(lockId);
 	}

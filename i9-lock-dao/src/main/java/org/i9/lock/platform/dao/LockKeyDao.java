@@ -91,6 +91,8 @@ public interface LockKeyDao {
     void deleteAll(Long lockId) throws Exception;
 
 	PriceDto selectAllPrice(Integer lockeyId);
+
+	void updateLockKeyState();
 	
 	int selectLockKeyCountByLockId(Long lockId);  
 }

@@ -118,7 +118,7 @@ public class LockKeyController {
     
     /**
      * 获取用户组编号
-     * @param lockId
+     * @param lockkeyId
      * @return
      */
     @RequestMapping(value={"/getUserOrderNumber"},method = {RequestMethod.POST})
@@ -154,4 +154,19 @@ public class LockKeyController {
         lockKeyService.deleteAll(lockId);
         return result;
     }
+    
+    /**
+     * 根据lockkeyId查询
+     * @param lockkeyId
+     * @return
+     */
+    @RequestMapping(value={"/getLockKey"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getLockKey(Integer lockKeyId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        LockKey lockKey = lockKeyService.getLockKeyById(lockKeyId);
+        result.put("lockKey", lockKey);
+        return result;
+    }
+    
+    
 }
