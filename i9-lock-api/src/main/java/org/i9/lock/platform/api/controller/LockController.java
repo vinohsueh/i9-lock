@@ -44,7 +44,7 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("lock")
 public class LockController {
     
-	private static final String ROOT_PATH = "/usr/local/lockPic";
+	private static final String ROOT_PATH = "/usr/local/lockPic/";
 	
     @Autowired
     private LockService lockService;
