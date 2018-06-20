@@ -34,6 +34,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import cn.jiguang.common.utils.StringUtils;
+
 /** 
  * 创建时间：2017年11月22日 下午4:47:21
  * @author  lby
@@ -89,10 +91,10 @@ public class LockController {
         	//获得文件扩展名
             String ext = FilenameUtils.getExtension(uploadFile.getOriginalFilename());
             //使用UUID产生一个随机的通用唯一识别码 加上 扩展名 组成一个一个新的文件名
-            String filename = UUID.randomUUID().toString() + ext;
+            String filename = UUID.randomUUID().toString() +"."+ext;
             //压缩文件到900kb以内
             ThumbPicUtil.commpressPicForScale(uploadFile.getInputStream(), ROOT_PATH + filename, 900, 0.8);
-            if(null !=filename && ""!=filename) {
+            if(StringUtils.isNotEmpty(filename)) {
                 User user = userService.getCurrentUser();
                 Lock lock = lockAddDto.getLock();
                 lock.setUserId(user.getId());
