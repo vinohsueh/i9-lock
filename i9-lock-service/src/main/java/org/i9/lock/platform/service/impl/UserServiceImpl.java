@@ -151,7 +151,12 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getCurrentUser() throws BusinessException {
         User user = (User) request.getSession().getAttribute("user");
-        return user;
+        try {
+			User userNew = userDao.getUserById(user.getId());
+	        return userNew;
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
     }
 
     @Override

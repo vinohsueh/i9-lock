@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.jiguang.common.utils.StringUtils;
+
 /**
  * 创建时间：2017年11月6日 上午11:06:34
  * 
@@ -36,7 +38,7 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("user")
 public class UserController {
 
-	private static final String ROOT_PATH = "/usr/local/lockPic";
+	private static final String ROOT_PATH = "/usr/local/lockPic/";
 	
     @Autowired
     private UserService userService;
@@ -79,10 +81,10 @@ public class UserController {
         		//获得文件扩展名
         		String ext = FilenameUtils.getExtension(uploadFile.getOriginalFilename());
         		//使用UUID产生一个随机的通用唯一识别码 加上 扩展名 组成一个一个新的文件名
-        		String filename = UUID.randomUUID().toString() + ext;
+        		String filename = UUID.randomUUID().toString() +"."+ext;
         		//压缩文件到900kb以内
         		ThumbPicUtil.commpressPicForScale(uploadFile.getInputStream(), ROOT_PATH + filename, 900, 0.8);
-        		if(null !=filename && ""!=filename) {
+        		if(StringUtils.isNotEmpty(filename)) {
         			user.setHeadPicture(filename); 
         		}
         		userService.regist(user); 
@@ -190,10 +192,10 @@ public class UserController {
         		//获得文件扩展名
         		String ext = FilenameUtils.getExtension(uploadFile.getOriginalFilename());
         		//使用UUID产生一个随机的通用唯一识别码 加上 扩展名 组成一个一个新的文件名
-        		String filename = UUID.randomUUID().toString() + ext;
+        		String filename = UUID.randomUUID().toString() +"."+ext;
         		//压缩文件到900kb以内
         		ThumbPicUtil.commpressPicForScale(uploadFile.getInputStream(), ROOT_PATH + filename, 900, 0.8);
-        		if(null !=filename && ""!=filename) {
+        		if(StringUtils.isNotEmpty(filename)) { 
         			user.setHeadPicture(filename); 
         		}
         		userService.updateUser(user);
