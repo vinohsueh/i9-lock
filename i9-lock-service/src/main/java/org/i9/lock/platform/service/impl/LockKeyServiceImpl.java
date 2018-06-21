@@ -112,8 +112,7 @@ public class LockKeyServiceImpl implements LockKeyService {
                  }
                  lockKey.setUserId(existUser.getId());
 
-                 LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(
-                         lockKeyDto.getLockId(), existUser.getId());
+                 LockKey existLockKey = lockKeyDao.selectLockKeyByLockIdAndUserId(lockKeyDto.getLockId(), existUser.getId());
                  /*if (existLockKey != null && existLockKey.getEndTime().getTime() >= new Date().getTime()) {
                      throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
                  }*/
@@ -121,6 +120,9 @@ public class LockKeyServiceImpl implements LockKeyService {
                      throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
                  }
                  lockKey.setCreateTime(new Date());
+                 lockKey.setEleNumber(lockKeyDto.getEleNumber());
+                 lockKey.setGasNumber(lockKeyDto.getGasNumber());
+                 lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
                  lockKeyDao.addLockKey(lockKey);
                  
               // 更新锁的合租状态和安全模式
