@@ -21,6 +21,7 @@
     <result column="gasNumber" jdbcType="DOUBLE" property="gasNumber" />
     <result column="waterNumber" jdbcType="DOUBLE" property="waterNumber" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    <association property="lock" column="lockId" select="org.i9.lock.platform.dao.mapper.LockMapper.selectByPrimaryKey"></association>
   </resultMap>
   <resultMap type="org.i9.lock.platform.model.LockKey" id="DetailResultMap" extends="BaseResultMap">
     <association property="user" column="userId" javaType="org.i9.lock.platform.model.User" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"></association>

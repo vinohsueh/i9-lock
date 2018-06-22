@@ -11,7 +11,6 @@
     <result column="elePrice" jdbcType="DECIMAL" property="elePrice" />
     <result column="gasPrice" jdbcType="DECIMAL" property="gasPrice" />
     <result column="waterPrice" jdbcType="DECIMAL" property="waterPrice" />
-    <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
     <result column="safeMode" jdbcType="TINYINT" property="safeMode" />
     <result column="ifShared" jdbcType="TINYINT" property="ifShared" />
     <result column="alertMinute" jdbcType="INTEGER" property="alertMinute" />
@@ -26,6 +25,7 @@
     <result column="departmentAddress" jdbcType="VARCHAR" property="departmentAddress"/>
     <result column="departmentNumber" jdbcType="VARCHAR" property="departmentNumber"/>
     <result column="departmentPicture" jdbcType="VARCHAR" property="departmentPicture"/>
+    <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
     <result column="cusNumber" jdbcType="INTEGER" property="cusNumber"/>
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
@@ -151,7 +151,7 @@
   <sql id="Base_Column_List" >
      id, keyAdmin, effective, userId, name, battery,  elePrice,  gasPrice, 
      waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
-    keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture
+    keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,propertyPrice
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
     select

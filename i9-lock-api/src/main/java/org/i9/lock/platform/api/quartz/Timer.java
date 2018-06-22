@@ -19,7 +19,7 @@ public class Timer {
 	@Autowired
 	private LockKeyService lockKeyService;
 	//每天查询一下结束时间
-	@Scheduled(cron= "0 0 0 * * ?" ) //每天执行一次
+	@Scheduled(cron= "0/5 * * * * ?" ) //每天执行一次
 	public void stepTimer(){  
 		//批量处理问题设备
 		lockKeyService.updateLockKeyState();

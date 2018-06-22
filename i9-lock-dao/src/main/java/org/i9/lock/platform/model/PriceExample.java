@@ -345,63 +345,63 @@ public class PriceExample {
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceIsNull() {
-            addCriterion("propertyPrice is null");
+        public Criteria andPropertyPricesIsNull() {
+            addCriterion("propertyPrices is null");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceIsNotNull() {
-            addCriterion("propertyPrice is not null");
+        public Criteria andPropertyPricesIsNotNull() {
+            addCriterion("propertyPrices is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceEqualTo(BigDecimal value) {
-            addCriterion("propertyPrice =", value, "propertyPrice");
+        public Criteria andPropertyPricesEqualTo(BigDecimal value) {
+            addCriterion("propertyPrices =", value, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceNotEqualTo(BigDecimal value) {
-            addCriterion("propertyPrice <>", value, "propertyPrice");
+        public Criteria andPropertyPricesNotEqualTo(BigDecimal value) {
+            addCriterion("propertyPrices <>", value, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceGreaterThan(BigDecimal value) {
-            addCriterion("propertyPrice >", value, "propertyPrice");
+        public Criteria andPropertyPricesGreaterThan(BigDecimal value) {
+            addCriterion("propertyPrices >", value, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("propertyPrice >=", value, "propertyPrice");
+        public Criteria andPropertyPricesGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("propertyPrices >=", value, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceLessThan(BigDecimal value) {
-            addCriterion("propertyPrice <", value, "propertyPrice");
+        public Criteria andPropertyPricesLessThan(BigDecimal value) {
+            addCriterion("propertyPrices <", value, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("propertyPrice <=", value, "propertyPrice");
+        public Criteria andPropertyPricesLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("propertyPrices <=", value, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceIn(List<BigDecimal> values) {
-            addCriterion("propertyPrice in", values, "propertyPrice");
+        public Criteria andPropertyPricesIn(List<BigDecimal> values) {
+            addCriterion("propertyPrices in", values, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceNotIn(List<BigDecimal> values) {
-            addCriterion("propertyPrice not in", values, "propertyPrice");
+        public Criteria andPropertyPricesNotIn(List<BigDecimal> values) {
+            addCriterion("propertyPrices not in", values, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("propertyPrice between", value1, value2, "propertyPrice");
+        public Criteria andPropertyPricesBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("propertyPrices between", value1, value2, "propertyPrices");
             return (Criteria) this;
         }
 
-        public Criteria andPropertyPriceNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("propertyPrice not between", value1, value2, "propertyPrice");
+        public Criteria andPropertyPricesNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("propertyPrices not between", value1, value2, "propertyPrices");
             return (Criteria) this;
         }
 

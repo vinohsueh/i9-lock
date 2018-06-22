@@ -65,7 +65,7 @@ public class LockKeyServiceImpl implements LockKeyService {
     public void addLockKey(LockKeyDto lockKeyDto) throws BusinessException {
         try {
         	 if(lockKeyDto.getLockKeyId() != null){
-             	//先通过LockKeyId查询初始水电煤气
+             	//先通过LockKeyId查询初始水电煤气物业费的单价
              	PriceDto priceDto = lockKeyDao.selectAllPrice(lockKeyDto.getLockKeyId());
              	//计算使用的水电煤气，现在的-初始值
              	//电表
@@ -79,15 +79,21 @@ public class LockKeyServiceImpl implements LockKeyService {
              	price.setElePrices(new BigDecimal(String.valueOf(eleNum)).multiply(priceDto.getElePrice()));
              	price.setGasPrices(new BigDecimal(String.valueOf(gasNum)).multiply(priceDto.getGasPrice()));
              	price.setWaterPrices(new BigDecimal(String.valueOf(waterNum)).multiply(priceDto.getWaterPrices()));
+             	price.setPropertyPrices(priceDto.getPropertyPrice());
              	price.setLockId(priceDto.getLockId());
              	price.setUserId(priceDto.getUserId());
              	price.setLockeyId(lockKeyDto.getLockKeyId());
              	priceDao.addPrice(price);
              	LockKey lockKey = new LockKey();
              	lockKey.setId(lockKeyDto.getLockKeyId());
+             	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+             	lockKey.setEndTime(sdf.parse(lockKeyDto.getEndTimeString()));
              	lockKey.setEleNumber(lockKeyDto.getEleNumber());
              	lockKey.setGasNumber(lockKeyDto.getGasNumber());
              	lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
+             	lockKey.setState(0);
+             	lockKey.setHireType(lockKeyDto.getHireType());
+             	lockKey.setHirePrice(lockKeyDto.getHirePrice());
              	this.updateLockKey(lockKey);
              }else{
             	 // 查询1-9的编号 最小未使用编号
