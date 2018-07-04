@@ -120,6 +120,18 @@ public class LockController {
     }
     
     /**
+     * 修改水电煤气
+     * @param lock
+     * @return
+     */
+    @RequestMapping(value={"/updateLocks"},method = {RequestMethod.POST} )
+    public HashMap<String, Object> updateLocks(Lock lock){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockService.updateLocks(lock);
+        return result;
+    }
+    
+    /**
      * 设备列表（分页）
      * @param lockSearchDto
      * @param currectPage
@@ -260,6 +272,17 @@ public class LockController {
             jsonArray.add(jsonObject);
         }
         result.put("locks", jsonArray);
+        return result;
+    }
+    
+    /**
+     * 更新租房类型
+     * @return
+     */
+    @RequestMapping(value={"/updateDepartmentType"},method = {RequestMethod.POST} )
+    public HashMap<String, Object> updateDepartmentType(Integer lockId, Integer departmentType){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockService.updateDepartmentType(lockId,departmentType);
         return result;
     }
     

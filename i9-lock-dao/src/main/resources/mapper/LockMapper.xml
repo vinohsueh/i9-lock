@@ -625,4 +625,14 @@
         order by ${example.orderByClause}
     </if>
   </select>
+  <update id="updateDepartmentType">
+  	 update t_lock set departmentType = #{departmentType} where id = #{lockId}
+  </update>
+   <update id="updateLocks" parameterType="org.i9.lock.platform.model.Lock">
+  	 update t_lock set elePrice = #{elePrice,jdbcType=DECIMAL},
+      gasPrice = #{gasPrice,jdbcType=DECIMAL},
+      waterPrice = #{waterPrice,jdbcType=DECIMAL},
+      propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
+      remark = #{remark,jdbcType=VARCHAR}
+  </update>
 </mapper>

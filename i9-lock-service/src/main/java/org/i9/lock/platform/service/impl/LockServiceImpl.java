@@ -181,4 +181,22 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public void updateDepartmentType(Integer lockId, Integer departmentType) {
+		try {
+			lockDao.updateDepartmentType(lockId,departmentType);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateLocks(Lock lock) {
+		try {
+			lockDao.updateLocks(lock);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

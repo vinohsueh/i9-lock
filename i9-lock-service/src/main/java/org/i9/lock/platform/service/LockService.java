@@ -116,4 +116,14 @@ public interface LockService {
     * @throws BusinessException
      */
     List<Lock> selectByLockKeyDto(LockSearchDto lockSearchDto) throws BusinessException;
+    
+    /**
+     * 更新租房类型
+     */
+	void updateDepartmentType(Integer lockId, Integer departmentType);
+
+	/**
+     * 修改房屋水电煤气费用单价
+     */
+	void updateLocks(Lock lock);
 }
