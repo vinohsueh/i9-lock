@@ -99,4 +99,14 @@ public class LockDaoImpl implements LockDao{
 	public List<Lock> selectByLockKeyDto(LockSearchDto lockSearchDto) throws Exception {
 		return lockMapper.selectByLockKeyDto(lockSearchDto);
 	}
+
+	@Override
+	public void updateDepartmentType(Integer lockId, Integer departmentType) {
+		lockMapper.updateDepartmentType(lockId,departmentType);
+	}
+
+	@Override
+	public void updateLocks(Lock lock) {
+		lockMapper.updateLocks(lock);
+	}
 }

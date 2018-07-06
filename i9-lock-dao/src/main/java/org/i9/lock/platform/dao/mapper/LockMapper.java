@@ -64,4 +64,14 @@ public interface LockMapper {
     * @return
      */
     List<Lock> selectByLockKeyDto(@Param("example") LockSearchDto lockSearchDto);
+    
+    /**
+     * 更新租房类型
+     */
+	void updateDepartmentType(@Param("lockId")Integer lockId,@Param("departmentType")Integer departmentType);
+	
+	 /**
+     * 修改水电煤气
+     */
+	void updateLocks(Lock lock);
 }

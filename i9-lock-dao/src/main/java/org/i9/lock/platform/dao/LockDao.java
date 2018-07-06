@@ -111,4 +111,14 @@ public interface LockDao {
     * @throws Exception
      */
     List<Lock> selectByLockKeyDto(LockSearchDto lockSearchDto) throws Exception;
+    
+    /**
+     * 更新租房类型
+     */
+	void updateDepartmentType(Integer lockId, Integer departmentType);
+	
+	 /**
+     * 修改水电煤气
+     */
+	void updateLocks(Lock lock);
 }

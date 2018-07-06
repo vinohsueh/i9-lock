@@ -275,12 +275,12 @@ public class LockKeyDto {
         lockKey.setWaterNumber(waterNumber);
         SimpleDateFormat sdf = null;
         try {
-        	if(startTime != null && endTime != null ){
+        	if(startTimeString != null && endTimeString != null ){
         		 sdf = new SimpleDateFormat("yyyy-MM-dd");
                  lockKey.setStartTime(sdf.parse(startTimeString));
                  lockKey.setEndTime(sdf.parse(endTimeString));
-        	}else {
-        		return null;
+        	}else {//这里返回有问题
+        		return  null;
 			}
            
         } catch (ParseException e) {

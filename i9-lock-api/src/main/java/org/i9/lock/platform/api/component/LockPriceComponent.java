@@ -33,6 +33,7 @@ public class LockPriceComponent {
         jsonObject.put("remark", lock.getRemark());
         jsonObject.put("cusNumber",lock.getCusNumber() );
         jsonObject.put("nameAndNumber", lock.getNameAndNumber()); 
+        jsonObject.put("propertyPrice", lock.getPropertyPrice()); 
         return jsonObject;
     }
 }

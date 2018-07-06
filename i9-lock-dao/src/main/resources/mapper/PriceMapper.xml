@@ -6,7 +6,7 @@
     <result column="elePrices" jdbcType="DECIMAL" property="elePrices" />
     <result column="gasPrices" jdbcType="DECIMAL" property="gasPrices" />
     <result column="waterPrices" jdbcType="DECIMAL" property="waterPrices" />
-    <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
+    <result column="propertyPrices" jdbcType="DECIMAL" property="propertyPrices" />
     <result column="userId" jdbcType="INTEGER" property="userId" />
     <result column="lockId" jdbcType="INTEGER" property="lockId" />
     <result column="lockeyId" jdbcType="INTEGER" property="lockeyId" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, elePrices, gasPrices, waterPrices, propertyPrice, userId, lockId, lockeyId
+    id, elePrices, gasPrices, waterPrices, propertyPrices, userId, lockId, lockeyId
   </sql>
   <select id="selectByExample" parameterType="org.i9.lock.platform.model.PriceExample" resultMap="BaseResultMap">
     select
@@ -110,10 +110,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into t_price (elePrices, gasPrices, waterPrices, 
-      propertyPrice, userId, lockId, 
+      propertyPrices, userId, lockId, 
       lockeyId)
     values (#{elePrices,jdbcType=DECIMAL}, #{gasPrices,jdbcType=DECIMAL}, #{waterPrices,jdbcType=DECIMAL}, 
-      #{propertyPrice,jdbcType=DECIMAL}, #{userId,jdbcType=INTEGER}, #{lockId,jdbcType=INTEGER}, 
+      #{propertyPrices,jdbcType=DECIMAL}, #{userId,jdbcType=INTEGER}, #{lockId,jdbcType=INTEGER}, 
       #{lockeyId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Price">
@@ -131,8 +131,8 @@
       <if test="waterPrices != null">
         waterPrices,
       </if>
-      <if test="propertyPrice != null">
-        propertyPrice,
+      <if test="propertyPrices != null">
+        propertyPrices,
       </if>
       <if test="userId != null">
         userId,
@@ -154,8 +154,8 @@
       <if test="waterPrices != null">
         #{waterPrices,jdbcType=DECIMAL},
       </if>
-      <if test="propertyPrice != null">
-        #{propertyPrice,jdbcType=DECIMAL},
+      <if test="propertyPrices != null">
+        #{propertyPrices,jdbcType=DECIMAL},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
@@ -189,8 +189,8 @@
       <if test="record.waterPrices != null">
         waterPrices = #{record.waterPrices,jdbcType=DECIMAL},
       </if>
-      <if test="record.propertyPrice != null">
-        propertyPrice = #{record.propertyPrice,jdbcType=DECIMAL},
+      <if test="record.propertyPrices != null">
+        propertyPrices = #{record.propertyPrices,jdbcType=DECIMAL},
       </if>
       <if test="record.userId != null">
         userId = #{record.userId,jdbcType=INTEGER},
@@ -212,7 +212,7 @@
       elePrices = #{record.elePrices,jdbcType=DECIMAL},
       gasPrices = #{record.gasPrices,jdbcType=DECIMAL},
       waterPrices = #{record.waterPrices,jdbcType=DECIMAL},
-      propertyPrice = #{record.propertyPrice,jdbcType=DECIMAL},
+      propertyPrices = #{record.propertyPrices,jdbcType=DECIMAL},
       userId = #{record.userId,jdbcType=INTEGER},
       lockId = #{record.lockId,jdbcType=INTEGER},
       lockeyId = #{record.lockeyId,jdbcType=INTEGER}
@@ -232,8 +232,8 @@
       <if test="waterPrices != null">
         waterPrices = #{waterPrices,jdbcType=DECIMAL},
       </if>
-      <if test="propertyPrice != null">
-        propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
+      <if test="propertyPrices != null">
+        propertyPrices = #{propertyPrices,jdbcType=DECIMAL},
       </if>
       <if test="userId != null">
         userId = #{userId,jdbcType=INTEGER},
@@ -252,7 +252,7 @@
     set elePrices = #{elePrices,jdbcType=DECIMAL},
       gasPrices = #{gasPrices,jdbcType=DECIMAL},
       waterPrices = #{waterPrices,jdbcType=DECIMAL},
-      propertyPrice = #{propertyPrice,jdbcType=DECIMAL},
+      propertyPrices = #{propertyPrices,jdbcType=DECIMAL},
       userId = #{userId,jdbcType=INTEGER},
       lockId = #{lockId,jdbcType=INTEGER},
       lockeyId = #{lockeyId,jdbcType=INTEGER}

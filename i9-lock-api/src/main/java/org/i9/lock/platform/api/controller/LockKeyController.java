@@ -3,6 +3,7 @@ package org.i9.lock.platform.api.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import org.i9.lock.platform.api.component.LockKeyComponent;
 import org.i9.lock.platform.api.component.LockKeyListComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.dao.vo.UpdateTimeDto;
@@ -164,7 +165,10 @@ public class LockKeyController {
     public HashMap<String, Object> getLockKey(Integer lockKeyId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         LockKey lockKey = lockKeyService.getLockKeyById(lockKeyId);
-        result.put("lockKey", lockKey);
+        JSONArray jsonArray = new JSONArray();
+            JSONObject jsonObject = new LockKeyComponent().setLockKey(lockKey).build();
+            jsonArray.add(jsonObject);
+        result.put("lockKey", jsonArray);
         return result;
     }
     

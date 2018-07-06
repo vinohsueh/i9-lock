@@ -11,7 +11,7 @@ public class Price {
 
     private BigDecimal waterPrices;
 
-    private BigDecimal propertyPrice;
+    private BigDecimal propertyPrices;
 
     private Integer userId;
 
@@ -57,12 +57,12 @@ public class Price {
         this.waterPrices = waterPrices;
     }
 
-    public BigDecimal getPropertyPrice() {
-        return propertyPrice;
+    public BigDecimal getPropertyPrices() {
+        return propertyPrices;
     }
 
-    public void setPropertyPrice(BigDecimal propertyPrice) {
-        this.propertyPrice = propertyPrice;
+    public void setPropertyPrices(BigDecimal propertyPrices) {
+        this.propertyPrices = propertyPrices;
     }
 
     public Integer getUserId() {

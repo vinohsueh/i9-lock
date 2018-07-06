@@ -22,6 +22,8 @@ public class LockKey {
      */
     private Long lockId;
     
+    private Lock lock;
+    
     /**
      * 租户姓名
      */
@@ -177,7 +179,15 @@ public class LockKey {
         this.userId = userId;
     }
 
-    public Integer getOrderNumber() {
+    public Lock getLock() {
+		return lock;
+	}
+
+	public void setLock(Lock lock) {
+		this.lock = lock;
+	}
+
+	public Integer getOrderNumber() {
         return orderNumber;
     }
 
