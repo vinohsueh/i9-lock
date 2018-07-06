@@ -172,7 +172,7 @@ public class LockKeyServiceImpl implements LockKeyService {
     private static Integer selectOrderNumber(List<Integer> list,int max) {
         //最大可用编号数集合
         List<Integer> maxArray = new ArrayList<Integer>();
-        for (int i = 1; i < max; i++) {
+        for (int i = 0; i < max; i++) {
             maxArray.add(i);
         }
         
