@@ -46,7 +46,9 @@ import cn.jiguang.common.utils.StringUtils;
 @RequestMapping("lock")
 public class LockController {
     
-	private static final String ROOT_PATH = "/usr/local/lockPic/";
+	/*private static final String ROOT_PATH = "/usr/local/lockPic/";*/
+	
+	private static final String ROOT_PATH="/F:\\";
 	
     @Autowired
     private LockService lockService;
@@ -58,7 +60,7 @@ public class LockController {
     /**
      * 添加锁(无照片)
      * @param lockAddDto
-     * @param bindingResult
+     * @param bindingResult 
      * @return
      */
     @RequestMapping(value={"/saveNoPicture"},method = {RequestMethod.POST})

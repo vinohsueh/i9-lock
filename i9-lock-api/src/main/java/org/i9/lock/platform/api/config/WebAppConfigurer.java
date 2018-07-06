@@ -41,7 +41,7 @@ public class WebAppConfigurer extends WebMvcConfigurerAdapter {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/source/**").addResourceLocations("file:///usr/local/lockPic/");
-		/*registry.addResourceHandler("/source1/**").addResourceLocations("file:///F:\\");*/
+		registry.addResourceHandler("/source1/**").addResourceLocations("file:///F:\\");
 		//		registry.addResourceHandler("/myres/**").addResourceLocations("classpath:/myres/");
 //		registry.addResourceHandler("/**").addResourceLocations("/");
 		super.addResourceHandlers(registry);
