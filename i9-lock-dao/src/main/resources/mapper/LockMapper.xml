@@ -613,11 +613,13 @@
   </select>
   
   <select id="selectByLockKeyDto"  resultMap="BaseResultMap">
-  	select <include refid="Base_Column_List" />,
+  	select l.*,
 	(
 	 select count(id) from t_lock_key lk where lk.lockId = l.id
 	)as cusNumber
-  	 from t_lock l
+	,(select startTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as startTime
+	,(select endTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as endTime
+  	 from t_lock l 
   	<if test="_parameter != null">
         <include refid="Query_By_Dto_Where_Clause2" />
     </if>
