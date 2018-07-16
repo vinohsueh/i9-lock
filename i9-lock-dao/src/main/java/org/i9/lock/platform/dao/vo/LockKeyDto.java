@@ -116,7 +116,18 @@ public class LockKeyDto {
      */
     private Double waterNumber;
     
-    public Integer getLockKeyId() {
+    //是否续租 1:续租
+    private Integer rentState;
+    
+    public Integer getRentState() {
+		return rentState;
+	}
+
+	public void setRentState(Integer rentState) {
+		this.rentState = rentState;
+	}
+
+	public Integer getLockKeyId() {
 		return lockKeyId;
 	}
 

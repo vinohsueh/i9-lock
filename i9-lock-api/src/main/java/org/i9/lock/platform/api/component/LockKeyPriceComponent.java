@@ -33,6 +33,7 @@ public class LockKeyPriceComponent {
         jsonObject.put("gasNumber", lockKey.getGasNumber());
         jsonObject.put("waterNumber", lockKey.getWaterNumber());
         jsonObject.put("state", lockKey.getState());
+        jsonObject.put("name", lockKey.getName());
         if (2 == lockKey.getHireType()){
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy/MM/dd HH:00:00"));
             jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy/MM/dd HH:00:00"));

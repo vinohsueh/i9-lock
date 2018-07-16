@@ -199,4 +199,13 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public void updateClickLock(Integer lockId, Integer clickLock) throws BusinessException  {
+		try {
+			lockDao.updateClickLock(lockId,clickLock);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

@@ -121,4 +121,8 @@ public interface LockDao {
      * 修改水电煤气
      */
 	void updateLocks(Lock lock);
+	/**
+     * 双击开锁
+     */
+	void updateClickLock(Integer lockId, Integer clickLock);
 }

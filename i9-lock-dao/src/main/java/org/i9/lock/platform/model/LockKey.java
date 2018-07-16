@@ -106,8 +106,19 @@ public class LockKey {
     private Double waterNumber;
     
     private Integer state;
+    //是否续租 1:续租
+    private Integer rentState;
     
-    public Integer getState() {
+    
+    public Integer getRentState() {
+		return rentState;
+	}
+
+	public void setRentState(Integer rentState) {
+		this.rentState = rentState;
+	}
+
+	public Integer getState() {
 		return state;
 	}
 

@@ -74,4 +74,6 @@ public interface LockMapper {
      * 修改水电煤气
      */
 	void updateLocks(Lock lock);
+
+	void updateClickLock(@Param("lockId")Integer lockId,@Param("clickLock") Integer clickLock);
 }

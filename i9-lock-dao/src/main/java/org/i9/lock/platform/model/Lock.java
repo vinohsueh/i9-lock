@@ -163,9 +163,20 @@ public class Lock {
      * 钥匙
      */
     private List<LockKey> keys;
+    /**
+     * 双击开锁
+     */
+    private Integer clickLock;
     
-    
-    public List<LockKey> getKeys() {
+    public Integer getClickLock() {
+		return clickLock;
+	}
+
+	public void setClickLock(Integer clickLock) {
+		this.clickLock = clickLock;
+	}
+
+	public List<LockKey> getKeys() {
         return keys;
     }
 
