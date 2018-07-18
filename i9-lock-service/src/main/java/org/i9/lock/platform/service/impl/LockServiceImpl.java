@@ -208,4 +208,13 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public void updateShowType(Long lockId, Integer showType) throws BusinessException {
+		try {
+			lockDao.updateShowType(lockId, showType); 
+		} catch (Exception e) {
+			throw new BusinessException("移交锁失败");
+		}
+	}
 }

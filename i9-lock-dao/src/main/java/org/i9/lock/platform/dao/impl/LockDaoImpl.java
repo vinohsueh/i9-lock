@@ -114,4 +114,9 @@ public class LockDaoImpl implements LockDao{
 	public void updateClickLock(Integer lockId, Integer clickLock) {
 		lockMapper.updateClickLock(lockId,clickLock);
 	}
+
+	@Override
+	public void updateShowType(Long lockId, Integer showType) {
+		lockMapper.updateShowType(lockId, showType); 
+	}
 }

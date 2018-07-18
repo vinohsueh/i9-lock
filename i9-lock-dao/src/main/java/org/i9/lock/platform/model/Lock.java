@@ -151,7 +151,20 @@ public class Lock {
      */
     private Integer cusNumber;
     
-    public Byte getHireType() {
+    /**
+     * 是否显示 0:显示 1:隐藏
+     */
+    private Integer showType;
+    
+    public Integer getShowType() {
+		return showType;
+	}
+
+	public void setShowType(Integer showType) {
+		this.showType = showType;
+	}
+
+	public Byte getHireType() {
         return hireType;
     }
 

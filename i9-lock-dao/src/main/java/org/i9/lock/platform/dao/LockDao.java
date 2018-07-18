@@ -125,4 +125,7 @@ public interface LockDao {
      * 双击开锁
      */
 	void updateClickLock(Integer lockId, Integer clickLock);
+	 
+	void updateShowType(Long lockId,Integer showType);
+	
 }

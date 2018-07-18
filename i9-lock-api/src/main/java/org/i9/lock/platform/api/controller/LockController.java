@@ -233,7 +233,8 @@ public class LockController {
     @RequestMapping(value={"/release"},method = {RequestMethod.POST})
     public HashMap<String, Object> release(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        lockService.releaseLock(lockId);
+        lockService.updateShowType(lockId, 1); 
+        result.put("移交成功", "移交成功"); 
         return result;
     }
     

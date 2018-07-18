@@ -130,4 +130,7 @@ public interface LockService {
      * 双击开锁
      */
 	void updateClickLock(Integer lockId, Integer clickLock) throws BusinessException;
+	 
+	void updateShowType(Long lockId, Integer showType) throws BusinessException;
+
 }
