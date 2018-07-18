@@ -94,6 +94,10 @@ public class LockKeyServiceImpl implements LockKeyService {
              	lockKey.setState(0);
              	lockKey.setHireType(lockKeyDto.getHireType());
              	lockKey.setHirePrice(lockKeyDto.getHirePrice());
+             	lockKey.setName(lockKeyDto.getName());
+             	if(lockKeyDto.getRentState() != null){
+             		lockKey.setRentState(lockKeyDto.getRentState());
+             	}
              	this.updateLockKey(lockKey);
              }else{
             	 // 查询1-9的编号 最小未使用编号
@@ -129,6 +133,7 @@ public class LockKeyServiceImpl implements LockKeyService {
                  lockKey.setEleNumber(lockKeyDto.getEleNumber());
                  lockKey.setGasNumber(lockKeyDto.getGasNumber());
                  lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
+                 lockKey.setName(lockKeyDto.getName());
                  lockKeyDao.addLockKey(lockKey);
                  
               // 更新锁的合租状态和安全模式

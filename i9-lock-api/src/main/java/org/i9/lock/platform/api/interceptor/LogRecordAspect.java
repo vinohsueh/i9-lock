@@ -65,7 +65,7 @@ public class LogRecordAspect {
             result = new HashMap<String, Object>();
             result.put("success", false);
             result.put("errorMsg", exception.getErrorMessage());
-            result.put("result", "");
+            result.put("result", null);
             exception.printStackTrace();
             logger.error("error, message: {}, errorMessage: {}, exception: {}",exception.getMessage(),exception.getErrorMessage(),exception.getExceptionMessage());
         }
@@ -81,7 +81,7 @@ public class LogRecordAspect {
             result = new HashMap<String, Object>();
             result.put("success", false);
             result.put("errorMsg", "系统错误");
-            result.put("result", "");
+            result.put("result", null);
             e.printStackTrace();
             logger.error(e.getMessage());
         }

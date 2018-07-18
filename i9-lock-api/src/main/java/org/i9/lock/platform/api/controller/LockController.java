@@ -288,4 +288,30 @@ public class LockController {
         return result;
     }
     
+    /**
+     * 双认证
+     * @return
+     */
+    @RequestMapping(value={"/updateClickLock"},method = {RequestMethod.POST} )
+    public HashMap<String, Object> updateClickLock(Integer lockId, Integer clickLock){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockService.updateClickLock(lockId,clickLock);
+        return result;
+    }
+    
+    /**
+     * 获取认证状态
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/getClickLock"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getClickLock(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        Lock lock = lockService.getLockById(lockId);
+        if (lock != null) {
+            result.put("lockClickLock", lock.getClickLock());
+        }
+        return result;
+    }
+    
 }

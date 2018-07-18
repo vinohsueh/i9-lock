@@ -126,4 +126,8 @@ public interface LockService {
      * 修改房屋水电煤气费用单价
      */
 	void updateLocks(Lock lock);
+	 /**
+     * 双击开锁
+     */
+	void updateClickLock(Integer lockId, Integer clickLock) throws BusinessException;
 }

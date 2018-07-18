@@ -8,7 +8,6 @@ import org.i9.lock.platform.dao.ConfigDao;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
-import org.i9.lock.platform.dao.vo.PasswordComparator;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.Lock;
@@ -53,6 +52,8 @@ public class PasswordServiceImpl implements PasswordService{
             if(existNumbers.contains(password.getOrderNumber())) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,"该密码顺序编号已存在");
             }
+            /*Integer orderNumber = this.selectUsefulOrderNumber(password.getLockId(), password.getUserId());
+            password.setOrderNumber(orderNumber);*/
             passwordDao.addPassword(password);
         } catch (BusinessException e) {
             throw new BusinessException(e.getErrorCode(),e.getErrorMessage());
@@ -162,7 +163,7 @@ public class PasswordServiceImpl implements PasswordService{
         try {
             List<Password> passwords = passwordDao.selectAllPasswords(lockId,userId);
             //查询最大可用编号数
-            Config config = configDao.selectMaxPassword();
+            /*Config config = configDao.selectMaxPassword();
             int max = config.getConfigValue();
             //最大可用编号数集合
             List<Integer> maxArray = new ArrayList<Integer>();
@@ -182,7 +183,7 @@ public class PasswordServiceImpl implements PasswordService{
                 password.setOrderNumber(integer);
                 passwords.add(password);
             }
-            Collections.sort(passwords, new PasswordComparator());
+            Collections.sort(passwords, new PasswordComparator());*/
             return passwords;
         } catch (Exception e) {
             throw new BusinessException("查询用户全部密码失败",e.getMessage());

@@ -7,6 +7,7 @@ import org.i9.lock.platform.api.component.LockKeyComponent;
 import org.i9.lock.platform.api.component.LockKeyListComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.dao.vo.UpdateTimeDto;
+import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
 import org.i9.lock.platform.model.User;
@@ -126,8 +127,14 @@ public class LockKeyController {
     public HashMap<String, Object> getUserOrderNumber(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
-        LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
-        result.put("userOrder", lockKey.getOrderNumber());
+        Lock lock = lockService.getLockById(lockId);
+        //判断是否是房东
+        if (lock.getUserId() - user.getId() == 0) {
+        	result.put("userOrder", 0);
+        }else{
+        	LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
+            result.put("userOrder", lockKey.getOrderNumber());
+        }
         return result;
     }
     
