@@ -46,7 +46,9 @@ import cn.jiguang.common.utils.StringUtils;
 @RequestMapping("lock")
 public class LockController {
     
-	private static final String ROOT_PATH = "/usr/local/lockPic/";
+	/*private static final String ROOT_PATH = "/usr/local/lockPic/";*/
+	
+	private static final String ROOT_PATH="/F:\\";
 	
     @Autowired
     private LockService lockService;
@@ -58,7 +60,7 @@ public class LockController {
     /**
      * 添加锁(无照片)
      * @param lockAddDto
-     * @param bindingResult
+     * @param bindingResult 
      * @return
      */
     @RequestMapping(value={"/saveNoPicture"},method = {RequestMethod.POST})
@@ -229,9 +231,11 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/release"},method = {RequestMethod.POST})
-    public HashMap<String, Object> release(Long lockId){
+    public HashMap<String, Object> release(Lock lock){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        lockService.releaseLock(lockId);
+        lock.setShowType(1);
+        lockService.updateLock(lock); 
+        result.put("移交成功", "移交成功"); 
         return result;
     }
     
@@ -310,6 +314,35 @@ public class LockController {
             result.put("lockClickLock", lock.getClickLock());
         }
         return result;
+    }
+    
+    /**
+     * 获取报警时间
+    * @Title: getLockWarnTime 
+    * @Description: TODO
+    * @param lockId
+    * @return
+     */
+    @RequestMapping(value={"/getLockWarnTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getLockWarnTime(Long lockId){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	String WarnTime = lockService.getLockWarnTime(lockId);
+    	result.put("lockWarnTime", WarnTime);
+    	return result;
+    }
+    
+    /**
+     * 更改报警时间
+    * @Title: updapteLockWarnTime 
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/updapteLockWarnTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> updapteLockWarnTime(Lock lock){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	lockService.updateLock(lock);
+    	return result;
     }
     
 }

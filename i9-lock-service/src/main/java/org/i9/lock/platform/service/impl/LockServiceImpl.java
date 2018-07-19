@@ -208,4 +208,13 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public String getLockWarnTime(Long lockId) throws BusinessException {
+		try {
+			return lockDao.getLockWarnTime(lockId);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

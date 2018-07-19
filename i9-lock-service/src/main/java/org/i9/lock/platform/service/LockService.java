@@ -130,4 +130,8 @@ public interface LockService {
      * 双击开锁
      */
 	void updateClickLock(Integer lockId, Integer clickLock) throws BusinessException;
+	
+	String getLockWarnTime(Long lockId)throws BusinessException;
+	
+	
 }

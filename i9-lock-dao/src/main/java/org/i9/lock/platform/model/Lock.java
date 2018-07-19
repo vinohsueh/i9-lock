@@ -151,7 +151,33 @@ public class Lock {
      */
     private Integer cusNumber;
     
-    public Byte getHireType() {
+    /**
+     * 是否显示 0:显示 1:隐藏
+     */
+    private Integer showType;
+    
+    /**
+     * 报警时间
+     */
+    private String warnTime;
+    
+	public String getWarnTime() {
+		return warnTime;
+	}
+
+	public void setWarnTime(String warnTime) {
+		this.warnTime = warnTime;
+	}
+
+	public Integer getShowType() {
+		return showType;
+	}
+
+	public void setShowType(Integer showType) {
+		this.showType = showType;
+	}
+
+	public Byte getHireType() {
         return hireType;
     }
 

@@ -114,4 +114,10 @@ public class LockDaoImpl implements LockDao{
 	public void updateClickLock(Integer lockId, Integer clickLock) {
 		lockMapper.updateClickLock(lockId,clickLock);
 	}
+
+	@Override
+	public String getLockWarnTime(Long lockId) throws Exception {
+		return lockMapper.getLockWarnTime(lockId);
+	}
+
 }

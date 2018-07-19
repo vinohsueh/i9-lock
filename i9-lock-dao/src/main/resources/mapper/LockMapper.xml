@@ -28,6 +28,8 @@
     <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
     <result column="cusNumber" jdbcType="INTEGER" property="cusNumber"/>
     <result column="clickLock" jdbcType="INTEGER" property="clickLock"/>
+    <result column="showType" jdbcType="INTEGER" property="showType"/>
+    <result column="warnTime" jdbcType="VARCHAR" property="warnTime"/>
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
   
@@ -152,7 +154,7 @@
   <sql id="Base_Column_List" >
      id, keyAdmin, effective, userId, name, battery,  elePrice,  gasPrice, 
      waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
-    keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,propertyPrice,clickLock
+    keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,propertyPrice,clickLock,showType,warnTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
     select
@@ -194,7 +196,7 @@
       waterPrice, safeMode, propertyPrice,
       ifShared, alertMinute, keyUser, 
       createTime, keyNumber, keyDev, 
-      remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture
+      remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,showType,warnTime
       )
     values (#{keyAdmin,jdbcType=VARCHAR}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
       #{name,jdbcType=VARCHAR}, #{battery,jdbcType=VARCHAR}, 
@@ -203,7 +205,8 @@
       #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=VARCHAR}, #{keyDev,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR},
-      #{departmentType,jdbcType=INTEGER},#{departmentAddress,jdbcType=VARCHAR},#{departmentNumber,jdbcType=VARCHAR},#{departmentPicture,jdbcType=VARCHAR}
+      #{departmentType,jdbcType=INTEGER},#{departmentAddress,jdbcType=VARCHAR},#{departmentNumber,jdbcType=VARCHAR},
+      #{departmentPicture,jdbcType=VARCHAR},#{showType,jdbcType=INTEGER},#{warnTime,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Lock" >
@@ -281,6 +284,12 @@
       <if test="departmentPicture != null and departmentPicture != ''">
         departmentPicture,
       </if>
+      <if test="showType != null and showType != ''">
+        showType,
+      </if>
+      <if test="warnTime != null and warnTime != ''">
+        warnTime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="keyAdmin != null and keyAdmin != ''">
@@ -351,6 +360,12 @@
       </if>
       <if test="departmentPicture != null and departmentPicture != ''">
         #{departmentPicture,jdbcType=VARCHAR},
+      </if>
+      <if test="showType != null and showType != ''">
+        showType,
+      </if>
+      <if test="warnTime != null and warnTime != ''">
+        warnTime,
       </if>
     </trim>
   </insert>
@@ -423,20 +438,26 @@
       <if test="record.mac != null and record.mac != ''">
         mac = #{record.mac,jdbcType=VARCHAR},
       </if>
-      <if test="departmentType != null and departmentType != ''">
-       departmentType = #{departmentType,jdbcType=INTEGER},
+      <if test="record.departmentType != null and record.departmentType != ''">
+       departmentType = #{record.departmentType,jdbcType=INTEGER},
       </if>
-      <if test="departmentAddress != null and departmentAddress != ''">
-      departmentAddress =  #{departmentAddress,jdbcType=VARCHAR},
+      <if test="record.departmentAddress != null and record.departmentAddress != ''">
+      departmentAddress =  #{record.departmentAddress,jdbcType=VARCHAR},
       </if>
-      <if test="departmentNumber != null and departmentNumber != ''">
-      departmentNumber =  #{departmentNumber,jdbcType=VARCHAR},
+      <if test="record.departmentNumber != null and record.departmentNumber != ''">
+      departmentNumber =  #{record.departmentNumber,jdbcType=VARCHAR},
       </if>
-      <if test="departmentPicture != null and departmentPicture != ''">
-      departmentPicture = #{departmentPicture,jdbcType=VARCHAR},
+      <if test="record.departmentPicture != null and record.departmentPicture != ''">
+      departmentPicture = #{record.departmentPicture,jdbcType=VARCHAR},
       </if>
-       <if test="clickLock != null and clickLock != ''">
-      clickLock = #{clickLock,jdbcType=INTEGER},
+       <if test="record.clickLock != null and record.clickLock != ''">
+      clickLock = #{record.clickLock,jdbcType=INTEGER},
+      </if>
+      <if test="record.showType != null and record.showType != ''">
+      showType = #{record.showType,jdbcType=INTEGER},
+      </if>
+      <if test="record.warnTime != null and record.warnTime != ''">
+        warnTime =#{record.warnTime,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -469,7 +490,9 @@
       departmentAddress = #{record.departmentAddress,jdbcType=VARCHAR},
       departmentNumber = #{record.departmentNumber,jdbcType=VARCHAR},
       departmentPicture = #{record.departmentPicture,jdbcType=VARCHAR},
-      clickLock = #{record.clickLock,jdbcType=INTEGER}
+      clickLock = #{record.clickLock,jdbcType=INTEGER},
+      showType = #{record.showType,jdbcType=INTEGER},
+      warnTime =#{record.warnTime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -549,6 +572,12 @@
        <if test="clickLock != null and clickLock != ''">
        clickLock = #{clickLock,jdbcType=INTEGER},
       </if>
+      <if test="showType != null and showType != ''">
+      	showType = #{showType,jdbcType=INTEGER},
+      </if>
+      <if test="warnTime != null and warnTime != ''">
+      	warnTime = #{warnTime,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -577,7 +606,9 @@
       departmentAddress = #{departmentAddress,jdbcType=VARCHAR},
       departmentNumber = #{departmentNumber,jdbcType=VARCHAR},
       departmentPicture = #{departmentPicture,jdbcType=VARCHAR},
-      clickLock = #{clickLock,jdbcType=INTEGER}
+      clickLock = #{clickLock,jdbcType=INTEGER},
+      showType = #{showType,jdbcType=INTEGER},
+      warnTime = #{warnTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="selectByLimitPage" resultMap="DetailResultMap">
@@ -649,4 +680,7 @@
    <update id="updateClickLock" >
   	 update t_lock set clickLock = #{clickLock} where id = #{lockId}
   </update>
+  <select id="getLockWarnTime" resultType="string"> 
+  	select warnTime from t_lock where id=#{lockId}
+  </select>
 </mapper>

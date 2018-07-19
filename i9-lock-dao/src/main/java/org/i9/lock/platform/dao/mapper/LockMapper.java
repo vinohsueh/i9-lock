@@ -76,4 +76,6 @@ public interface LockMapper {
 	void updateLocks(Lock lock);
 
 	void updateClickLock(@Param("lockId")Integer lockId,@Param("clickLock") Integer clickLock);
+
+	String getLockWarnTime(Long lockId); 
 }

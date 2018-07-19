@@ -125,4 +125,6 @@ public interface LockDao {
      * 双击开锁
      */
 	void updateClickLock(Integer lockId, Integer clickLock);
+	 
+	String getLockWarnTime(Long lockId)throws Exception; 
 }

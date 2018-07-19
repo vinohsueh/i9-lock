@@ -20,7 +20,7 @@ public class Constants {
     public static final String LOG_5 = "到";
     
     public static final String[] USER_EXCLUDE_PATH = { "/user/login",
-            "/user/regist","/user/registNoPicture","/source/**"/*,"/source1/**"*/};
+            "/user/regist","/user/registNoPicture","/source/**","/source1/**"};
     
     
     
