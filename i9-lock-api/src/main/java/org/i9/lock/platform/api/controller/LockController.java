@@ -231,9 +231,10 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/release"},method = {RequestMethod.POST})
-    public HashMap<String, Object> release(Long lockId){
+    public HashMap<String, Object> release(Lock lock){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        lockService.updateShowType(lockId, 1); 
+        lock.setShowType(1);
+        lockService.updateLock(lock); 
         result.put("移交成功", "移交成功"); 
         return result;
     }
@@ -313,6 +314,35 @@ public class LockController {
             result.put("lockClickLock", lock.getClickLock());
         }
         return result;
+    }
+    
+    /**
+     * 获取报警时间
+    * @Title: getLockWarnTime 
+    * @Description: TODO
+    * @param lockId
+    * @return
+     */
+    @RequestMapping(value={"/getLockWarnTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getLockWarnTime(Long lockId){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	String WarnTime = lockService.getLockWarnTime(lockId);
+    	result.put("lockWarnTime", WarnTime);
+    	return result;
+    }
+    
+    /**
+     * 更改报警时间
+    * @Title: updapteLockWarnTime 
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/updapteLockWarnTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> updapteLockWarnTime(Lock lock){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	lockService.updateLock(lock);
+    	return result;
     }
     
 }

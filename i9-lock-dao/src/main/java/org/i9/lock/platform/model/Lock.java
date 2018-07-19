@@ -156,7 +156,20 @@ public class Lock {
      */
     private Integer showType;
     
-    public Integer getShowType() {
+    /**
+     * 报警时间
+     */
+    private String warnTime;
+    
+	public String getWarnTime() {
+		return warnTime;
+	}
+
+	public void setWarnTime(String warnTime) {
+		this.warnTime = warnTime;
+	}
+
+	public Integer getShowType() {
 		return showType;
 	}
 

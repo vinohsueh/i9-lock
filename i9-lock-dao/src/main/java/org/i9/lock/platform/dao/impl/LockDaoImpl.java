@@ -116,7 +116,8 @@ public class LockDaoImpl implements LockDao{
 	}
 
 	@Override
-	public void updateShowType(Long lockId, Integer showType) {
-		lockMapper.updateShowType(lockId, showType); 
+	public String getLockWarnTime(Long lockId) throws Exception {
+		return lockMapper.getLockWarnTime(lockId);
 	}
+
 }
