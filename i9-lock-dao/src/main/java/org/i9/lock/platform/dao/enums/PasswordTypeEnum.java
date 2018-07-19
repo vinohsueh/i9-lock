@@ -10,14 +10,13 @@ import java.util.List;
  * 
  */
 public enum PasswordTypeEnum {
-    PWD((byte)0,"密码"),LOOPS((byte)1,"指纹"),ALL((byte)2,"密码和指纹");
+    PWD((byte)0,"指纹"),LOOPS((byte)1,"IC卡");
     
     private static final List<PasswordTypeEnum> TYPES = new ArrayList<PasswordTypeEnum>();
     
     static{
         TYPES.add(PWD);
         TYPES.add(LOOPS);
-        TYPES.add(ALL);
     }
     
     private PasswordTypeEnum(byte id,String name){

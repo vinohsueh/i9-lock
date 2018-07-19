@@ -81,7 +81,7 @@ public class LogRecordAspect {
             result = new HashMap<String, Object>();
             result.put("success", false);
             result.put("errorMsg", "系统错误");
-            result.put("result", null);
+            result.put("result", true);
             e.printStackTrace();
             logger.error(e.getMessage());
         }

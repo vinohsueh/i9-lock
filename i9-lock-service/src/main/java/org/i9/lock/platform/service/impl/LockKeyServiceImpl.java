@@ -101,8 +101,7 @@ public class LockKeyServiceImpl implements LockKeyService {
              	this.updateLockKey(lockKey);
              }else{
             	 // 查询1-9的编号 最小未使用编号
-                 List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto
-                         .getLockId());
+                 List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto.getLockId());
                  //查询最大可用编号数
                  Config config = configDao.selectMaxHirer();
                  int max = config.getConfigValue();

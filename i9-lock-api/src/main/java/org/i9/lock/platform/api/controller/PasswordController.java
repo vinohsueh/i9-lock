@@ -51,8 +51,7 @@ public class PasswordController {
     @RequestMapping(value={"/getUsefulOrderNumber"},method = {RequestMethod.POST})
     public HashMap<String, Object> getUsefulOrderNumber(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        User user = userService.getCurrentUser();
-        Integer orderNumber = passwordService.selectUsefulOrderNumber(lockId, user.getId());
+        Integer orderNumber = passwordService.selectUsefulOrderNumber(lockId);
         result.put("orderNumber", orderNumber);
         return result;
     }

@@ -68,4 +68,10 @@ public class PasswordDaoImpl implements PasswordDao{
 	        return pageBounds;
 	}
 
+	@Override
+	public List<Integer> selectExistOrderNumbers(Long lockId)throws Exception {
+		// TODO Auto-generated method stub
+		return passwordMapper.selectExistOrderNumber2(lockId);
+	}
+
 }

@@ -66,11 +66,10 @@ public interface PasswordService {
     /**
      * 查询用户可用的锁的密码序号
      * @param lockId
-     * @param userId
      * @return
      * @throws BusinessException 
      */
-    Integer selectUsefulOrderNumber(Long lockId,Long userId) throws BusinessException;
+    Integer selectUsefulOrderNumber(Long lockId) throws BusinessException;
 
     List<Password> listAllPasswords(Long lockId, Long id) throws BusinessException;
 }

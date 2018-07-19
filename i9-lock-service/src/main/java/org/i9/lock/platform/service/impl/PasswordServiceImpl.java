@@ -108,10 +108,10 @@ public class PasswordServiceImpl implements PasswordService{
     }
 
     @Override
-    public Integer selectUsefulOrderNumber(Long lockId, Long userId)
+    public Integer selectUsefulOrderNumber(Long lockId)
             throws BusinessException {
         try {
-            List<Integer> list = passwordDao.selectExistOrderNumber(lockId, userId);
+            List<Integer> list = passwordDao.selectExistOrderNumbers(lockId);
           //查询最大可用编号数
             Config config = configDao.selectMaxPassword();
             int max = config.getConfigValue();

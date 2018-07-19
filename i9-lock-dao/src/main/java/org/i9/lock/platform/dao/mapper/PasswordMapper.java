@@ -39,4 +39,11 @@ public interface PasswordMapper {
     List<Integer> selectExistOrderNumber(@Param("lockId") Long lockId,@Param("userId") Long userId);
     
     List<Password> selectByLimitPage(@Param("example") PasswordSearchDto passwordSearchDto, @Param("offset") int offset, @Param("limit") int pageSize);
+    /**
+     * 查询用户已有的锁的密码序号2
+     * @param lockId
+     * @param userId
+     * @return
+     */
+	List<Integer> selectExistOrderNumber2(@Param("lockId")Long lockId);
 }

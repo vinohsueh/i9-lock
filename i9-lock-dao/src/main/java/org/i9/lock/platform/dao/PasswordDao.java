@@ -68,6 +68,14 @@ public interface PasswordDao {
      * @throws Exception 
      */
     List<Integer> selectExistOrderNumber(Long lockId,Long userId) throws Exception;
+    /**
+     * 查询用户已有的锁的密码序号2
+     * @param lockId
+     * @param userId
+     * @return
+     * @throws Exception 
+     */
+	List<Integer> selectExistOrderNumbers(Long lockId)throws Exception;
 
 	
 }

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.i9.lock.platform.dao.mapper.CardMapper">
+  <resultMap id="BaseResultMap" type="org.i9.lock.platform.model.Card">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="lockId" jdbcType="BIGINT" property="lockId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="userNumber" jdbcType="INTEGER" property="userNumber" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, lockId, name, orderNumber,type,userNumber
+  </sql>
+  <select id="selectByExample" parameterType="org.i9.lock.platform.model.CardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_card
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_card
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="org.i9.lock.platform.model.CardExample">
+    delete from t_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="org.i9.lock.platform.model.Card">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_card (lockId, name, orderNumber, type,userNumber
+      )
+    values (#{lockId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER},#{type,jdbcType=VARCHAR}, #{userNumber,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Card">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_card
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lockId != null">
+        lockId,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="orderNumber != null">
+        orderNumber,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="userNumber != null">
+        userNumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lockId != null">
+        #{lockId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        #{orderNumber,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="userNumber != null">
+        #{userNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="org.i9.lock.platform.model.CardExample" resultType="java.lang.Integer">
+    select count(*) from t_card
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_card
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockId != null">
+        lockId = #{record.lockId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNumber != null">
+        orderNumber = #{record.orderNumber,jdbcType=INTEGER},
+      </if>
+       <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNumber != null">
+        userNumber = #{record.userNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_card
+    set id = #{record.id,jdbcType=INTEGER},
+      lockId = #{record.lockId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      orderNumber = #{record.orderNumber,jdbcType=INTEGER}, 
+      type = #{record.type,jdbcType=VARCHAR},
+      userNumber = #{record.userNumber,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="org.i9.lock.platform.model.Card">
+    update t_card
+    <set>
+      <if test="lockId != null">
+        lockId = #{lockId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null">
+        orderNumber = #{orderNumber,jdbcType=INTEGER},
+      </if>
+       <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="userNumber != null">
+        userNumber = #{userNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Card">
+    update t_card
+    set lockId = #{lockId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
+      orderNumber = #{orderNumber,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      userNumber = #{userNumber,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getAllCard" parameterType="java.lang.Long" resultType="org.i9.lock.platform.model.Card">
+    select * from t_card where lockId = #{lockId}
+  </select>
+  <select id="selectExistOrderNumber" parameterType="long" resultType="int">
+    select orderNumber from t_card where lockId = #{lockId}
+  </select>
+</mapper>
