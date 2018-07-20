@@ -7,7 +7,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="orderNumber" jdbcType="INTEGER" property="orderNumber" />
     <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="userNumber" jdbcType="INTEGER" property="userNumber" />
+    <result column="userId" jdbcType="BIGINT" property="userId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, lockId, name, orderNumber,type,userNumber
+    id, lockId, name, orderNumber,type,userId
   </sql>
   <select id="selectByExample" parameterType="org.i9.lock.platform.model.CardExample" resultMap="BaseResultMap">
     select
@@ -104,9 +104,9 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into t_card (lockId, name, orderNumber, type,userNumber
+    insert into t_card (lockId, name, orderNumber, type,userId
       )
-    values (#{lockId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER},#{type,jdbcType=VARCHAR}, #{userNumber,jdbcType=INTEGER}
+    values (#{lockId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{orderNumber,jdbcType=INTEGER},#{type,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="org.i9.lock.platform.model.Card">
@@ -127,8 +127,8 @@
       <if test="type != null">
         type,
       </if>
-      <if test="userNumber != null">
-        userNumber,
+      <if test="userId != null">
+        userId,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -144,8 +144,8 @@
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="userNumber != null">
-        #{userNumber,jdbcType=INTEGER},
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -173,8 +173,8 @@
        <if test="record.type != null">
         type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.userNumber != null">
-        userNumber = #{record.userNumber,jdbcType=INTEGER},
+      <if test="record.userId != null">
+        userId = #{record.userId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null">
@@ -188,7 +188,7 @@
       name = #{record.name,jdbcType=VARCHAR},
       orderNumber = #{record.orderNumber,jdbcType=INTEGER}, 
       type = #{record.type,jdbcType=VARCHAR},
-      userNumber = #{record.userNumber,jdbcType=INTEGER}
+      userId = #{record.userId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -208,8 +208,8 @@
        <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="userNumber != null">
-        userNumber = #{userNumber,jdbcType=INTEGER},
+      <if test="userId != null">
+        userId = #{userId,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -220,7 +220,7 @@
       name = #{name,jdbcType=VARCHAR},
       orderNumber = #{orderNumber,jdbcType=INTEGER},
       type = #{type,jdbcType=VARCHAR},
-      userNumber = #{userNumber,jdbcType=INTEGER}
+      userId = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getAllCard" parameterType="java.lang.Long" resultType="org.i9.lock.platform.model.Card">

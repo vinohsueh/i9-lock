@@ -30,6 +30,7 @@
     <result column="clickLock" jdbcType="INTEGER" property="clickLock"/>
     <result column="showType" jdbcType="INTEGER" property="showType"/>
     <result column="warnTime" jdbcType="VARCHAR" property="warnTime"/>
+    <result column="updateKeyDate" property="updateKeyDate" jdbcType="TIMESTAMP" />
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
   
@@ -152,7 +153,7 @@
   </sql>
   
   <sql id="Base_Column_List" >
-     id, keyAdmin, effective, userId, name, battery,  elePrice,  gasPrice, 
+     id, keyAdmin,updateKeyDate, effective, userId, name, battery,  elePrice,  gasPrice, 
      waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, 
     keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,propertyPrice,clickLock,showType,warnTime
   </sql>
@@ -384,6 +385,9 @@
        <if test="record.keyAdmin != null and record.keyAdmin != ''">
         keyAdmin = #{record.keyAdmin,jdbcType=VARCHAR},
       </if>
+      <if test="record.updateKeyDate != null and record.updateKeyDate != ''">
+        updateKeyDate = #{record.updateKeyDate,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.effective != null">
         effective = #{record.effective,jdbcType=TINYINT},
       </if>
@@ -468,6 +472,7 @@
      update t_lock
     set id = #{record.id,jdbcType=BIGINT},
       keyAdmin = #{record.keyAdmin,jdbcType=VARCHAR},
+      updateKeyDate = #{record.updateKeyDate,jdbcType=TIMESTAMP},
       effective = #{record.effective,jdbcType=TINYINT},
       userId = #{record.userId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
@@ -502,6 +507,9 @@
     <set >
       <if test="keyAdmin != null and keyAdmin != ''">
         keyAdmin = #{keyAdmin,jdbcType=VARCHAR},
+      </if>
+       <if test="updateKeyDate != null and updateKeyDate != ''">
+        updateKeyDate = #{updateKeyDate,jdbcType=TIMESTAMP},
       </if>
       <if test="effective != null">
         effective = #{effective,jdbcType=TINYINT},
@@ -584,6 +592,7 @@
   <update id="updateByPrimaryKey" parameterType="org.i9.lock.platform.model.Lock" >
      update t_lock
     set keyAdmin = #{keyAdmin,jdbcType=VARCHAR},
+      updateKeyDate = #{updateKeyDate,jdbcType=TIMESTAMP},
       effective = #{effective,jdbcType=TINYINT},
       userId = #{userId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
@@ -682,5 +691,8 @@
   </update>
   <select id="getLockWarnTime" resultType="string"> 
   	select warnTime from t_lock where id=#{lockId}
+  </select>
+   <select id="getKeyAdminUptime" parameterType="long" resultType="Date"> 
+  	select updateKeyDate from t_lock where id=#{lockId}
   </select>
 </mapper>

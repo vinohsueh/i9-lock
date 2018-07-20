@@ -3,12 +3,22 @@ package org.i9.lock.platform.api.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import org.i9.lock.platform.api.component.CardComponent;
 import org.i9.lock.platform.model.Card;
+import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockKey;
+import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.CardService;
+import org.i9.lock.platform.service.LockKeyService;
+import org.i9.lock.platform.service.LockService;
+import org.i9.lock.platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /** 
  * 创建时间：2018年7月17日 下午4:47:21
@@ -21,7 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CardController {
 	@Autowired
     private  CardService cardService;
-	
+	@Autowired
+    private UserService userService;
+	@Autowired
+    private LockService lockService;
+	@Autowired
+	private LockKeyService lockKeyService;
 	 /**
      * 查询全部卡
      * @param 
@@ -30,8 +45,24 @@ public class CardController {
     @RequestMapping(value={"/getAllCard"},method = {RequestMethod.POST})
     public HashMap<String, Object> getAllCard(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<Card> card = cardService.getAllCard(lockId);
-        result.put("card", card);
+        List<Card> cards = cardService.getAllCard(lockId);
+        Lock lock = lockService.getLockById(lockId);
+        Integer userNumber = null;
+        User user = userService.getCurrentUser();
+        if (lock.getUserId() == user.getId()){
+            userNumber = 0;
+        }else{
+          //查询用户组编号
+            LockKey existLockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
+            userNumber = existLockKey.getOrderNumber();
+        }
+        
+        JSONArray jsonArray = new JSONArray();
+        for (Card card : cards) {
+            JSONObject jsonObject = new CardComponent().setCard(card).setNumber(userNumber).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("card", jsonArray);
         return result;
     }
     /**
@@ -42,6 +73,8 @@ public class CardController {
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
     public HashMap<String, Object> addCard(Card card){
         HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        card.setUserId(user.getId());
         cardService.addCard(card);
         return result;
     }

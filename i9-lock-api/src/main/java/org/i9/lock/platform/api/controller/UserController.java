@@ -14,6 +14,7 @@ import org.i9.lock.platform.api.component.UserIndexInfoComponent;
 import org.i9.lock.platform.dao.vo.PwdDto;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.UserService;
+import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.EncryptUtils;
 import org.i9.lock.platform.utils.ThumbPicUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -220,6 +221,22 @@ public class UserController {
     		 userService.updateUser(user); 
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		}
+		return result; 
+    }
+    
+    /**
+     * 验证账号密码是否正确
+    * @Title: existUser
+    * @Description: TODO
+    * @return
+     */
+    @RequestMapping("/existUser")
+    public HashMap<String, Object> existUser(String password){
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		User loginUser = userService.getCurrentUser();
+		if (!password.equals(loginUser.getPassword())) {
+			throw new BusinessException("密码不正确");
 		}
 		return result; 
     }

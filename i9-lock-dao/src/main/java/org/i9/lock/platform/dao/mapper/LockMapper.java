@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -77,5 +78,9 @@ public interface LockMapper {
 
 	void updateClickLock(@Param("lockId")Integer lockId,@Param("clickLock") Integer clickLock);
 
-	String getLockWarnTime(Long lockId); 
+	String getLockWarnTime(Long lockId);
+	 /**
+     * 查询最近修改的keyAdmin的时间
+     */
+	Date getKeyAdminUptime(Long lockId); 
 }

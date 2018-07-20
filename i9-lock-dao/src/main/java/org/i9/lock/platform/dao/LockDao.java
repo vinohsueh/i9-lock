@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.i9.lock.platform.dao.vo.LockSearchDto;
@@ -126,5 +127,9 @@ public interface LockDao {
      */
 	void updateClickLock(Integer lockId, Integer clickLock);
 	 
-	String getLockWarnTime(Long lockId)throws Exception; 
+	String getLockWarnTime(Long lockId)throws Exception;
+	/**
+     *  查询最近修改的keyAdmin的时间
+     */
+	Date getKeyAdminUptime(Long lockId)throws Exception;
 }
