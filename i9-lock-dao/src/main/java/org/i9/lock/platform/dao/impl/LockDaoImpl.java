@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.i9.lock.platform.dao.LockDao;
@@ -118,6 +119,11 @@ public class LockDaoImpl implements LockDao{
 	@Override
 	public String getLockWarnTime(Long lockId) throws Exception {
 		return lockMapper.getLockWarnTime(lockId);
+	}
+
+	@Override
+	public Date getKeyAdminUptime(Long lockId) throws Exception {
+		return lockMapper.getKeyAdminUptime(lockId);
 	}
 
 }

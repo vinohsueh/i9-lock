@@ -1,5 +1,6 @@
 package org.i9.lock.platform.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
@@ -132,6 +133,10 @@ public interface LockService {
 	void updateClickLock(Integer lockId, Integer clickLock) throws BusinessException;
 	
 	String getLockWarnTime(Long lockId)throws BusinessException;
+	 /**
+     * 查询最近修改的keyAdmin的时间
+     */
+	Date getKeyAdminUptime(Long lockId)throws BusinessException;
 	
 	
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.i9.lock.platform.utils.DateUtils;
 
 /**
  * 锁实体类
@@ -23,6 +24,11 @@ public class Lock {
      */
     @NotBlank(message="keyAdmin不能为空")
     private String keyAdmin;
+    
+    /**
+     *  修改keyAdmin时间
+     */
+    private Date updateKeyDate;
     
     /**
      * 是否有效 1：有效   0：无效
@@ -444,4 +450,16 @@ public class Lock {
 	public String getNameAndNumber() {
 		return name+departmentNumber;
 	}
+
+	public Date getUpdateKeyDate() {
+		return updateKeyDate;
+	}
+
+	public void setUpdateKeyDate(Date updateKeyDate) {
+		this.updateKeyDate = updateKeyDate;
+	}
+	 public String getKeyTimeString() {
+	        return DateUtils.dateToString(updateKeyDate);
+	    } 
+	
 }

@@ -46,7 +46,7 @@ public class CardServiceImpl implements CardService {
             //查询最大可用编号数
             Config config = configDao.selectMaxHirer();
             int max = config.getConfigValue();
-            if (list.size() >= max-1) {
+            if (list.size() >= max) {
                 throw new BusinessException(ErrorCode.CRUD_ERROR,
                         "该锁租户已满,不能再添加了");
             }
@@ -86,7 +86,7 @@ public class CardServiceImpl implements CardService {
     private static Integer selectOrderNumber(List<Integer> list,int max) {
         //最大可用编号数集合
         List<Integer> maxArray = new ArrayList<Integer>();
-        for (int i = 1; i < max; i++) {
+        for (int i = 0; i < max; i++) {
             maxArray.add(i);
         }
         

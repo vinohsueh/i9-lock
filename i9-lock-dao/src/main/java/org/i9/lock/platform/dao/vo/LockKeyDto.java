@@ -118,8 +118,19 @@ public class LockKeyDto {
     
     //是否续租 1:续租
     private Integer rentState;
+    //查看订单：0  生成订单：1
+    private Integer state;
     
-    public Integer getRentState() {
+    
+    public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Integer getRentState() {
 		return rentState;
 	}
 

@@ -1,5 +1,6 @@
 package org.i9.lock.platform.api.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,7 @@ import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
+import org.i9.lock.platform.utils.DateUtils;
 import org.i9.lock.platform.utils.PageBounds;
 import org.i9.lock.platform.utils.ThumbPicUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -332,6 +334,22 @@ public class LockController {
     }
     
     /**
+     * 查询最近修改的keyAdmin的时间
+    * @Title: getKeyAdminUptime
+    * @Description: TODO
+    * @param lockId
+    * @return
+     */
+    @RequestMapping(value={"/getKeyAdminUptime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getKeyAdminUptime(Long lockId){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	Date keyAdminUptime = lockService.getKeyAdminUptime(lockId);
+    	String dateToString = DateUtils.dateToString(keyAdminUptime);
+    	result.put("keyAdminUptime", dateToString);
+    	return result;
+    }
+    
+    /**
      * 更改报警时间
     * @Title: updapteLockWarnTime 
     * @Description: TODO
@@ -341,6 +359,22 @@ public class LockController {
     @RequestMapping(value={"/updapteLockWarnTime"},method = {RequestMethod.POST})
     public HashMap<String, Object> updapteLockWarnTime(Lock lock){
     	HashMap<String, Object> result = new HashMap<String, Object>();
+    	lockService.updateLock(lock);
+    	return result;
+    }
+    
+    /**
+     * 更改keyAdmin的时间
+    * @Title: updapteKeyAdminUptime
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/updateKeyAdminUptime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> updateKeyAdminUptime(Lock lock){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	Date date = new Date();
+    	lock.setUpdateKeyDate(date);
     	lockService.updateLock(lock);
     	return result;
     }

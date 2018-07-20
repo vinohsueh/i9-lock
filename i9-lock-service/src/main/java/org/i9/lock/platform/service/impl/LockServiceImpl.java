@@ -217,4 +217,13 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public Date getKeyAdminUptime(Long lockId) throws BusinessException {
+		try {
+			return lockDao.getKeyAdminUptime(lockId);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

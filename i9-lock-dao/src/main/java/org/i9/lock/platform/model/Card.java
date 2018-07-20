@@ -11,14 +11,14 @@ public class Card {
     
     private String type;
     
-    private Integer userNumber;
+    private Long userId;
 
-	public Integer getUserNumber() {
-		return userNumber;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUserNumber(Integer userNumber) {
-		this.userNumber = userNumber;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Integer getId() {

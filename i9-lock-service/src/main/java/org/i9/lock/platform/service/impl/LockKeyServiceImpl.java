@@ -91,7 +91,7 @@ public class LockKeyServiceImpl implements LockKeyService {
              	lockKey.setEleNumber(lockKeyDto.getEleNumber());
              	lockKey.setGasNumber(lockKeyDto.getGasNumber());
              	lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
-             	lockKey.setState(0);
+             	lockKey.setState(lockKeyDto.getState());
              	lockKey.setHireType(lockKeyDto.getHireType());
              	lockKey.setHirePrice(lockKeyDto.getHirePrice());
              	lockKey.setName(lockKeyDto.getName());
