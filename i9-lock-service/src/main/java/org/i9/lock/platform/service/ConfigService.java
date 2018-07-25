@@ -27,7 +27,7 @@ public interface ConfigService {
     Config selectMaxHirer() throws BusinessException;
     
     /**
-     * 查询最大密码数
+     * 查询最大密码数	
      * @return
      * @throws BusinessException
      */
