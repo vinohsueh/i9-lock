@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao.vo;
 
+
 import org.hibernate.validator.constraints.NotBlank;
 import org.i9.lock.platform.model.Lock;
 import org.springframework.beans.BeanUtils;
@@ -31,7 +32,7 @@ public class LockAddDto {
     private String deviceName; 
     
     private String mac;
-    
+   
     /**
      * 公寓类型(1.出租公寓  2. 私家公寓)
      */
@@ -52,7 +53,10 @@ public class LockAddDto {
      */
     private String departmentPicture;
     
-    public String getDeviceName() {
+    
+   
+
+	public String getDeviceName() {
         return deviceName;
     }
 

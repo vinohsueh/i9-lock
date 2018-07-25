@@ -179,5 +179,22 @@ public class LockKeyController {
         return result;
     }
     
+    /**
+     * 根据锁号查询结束时间和ordernumber
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/getTimeAndOrderNum"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getTimeAndOrderNum(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        List<LockKey> lockKey=lockKeyService.getTimeAndOrderNum(lockId);
+        JSONArray jsonArray = new JSONArray();
+        for (LockKey lockKeys : lockKey) {
+            JSONObject jsonObject = new LockKeyComponent().setLockKey(lockKeys).build();
+            jsonArray.add(jsonObject);
+        }
+        result.put("lockKey", jsonArray);
+        return result;
+    }
     
 }

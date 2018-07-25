@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
+import org.i9.lock.platform.dao.vo.LockUpdateDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 
@@ -82,5 +83,7 @@ public interface LockMapper {
 	 /**
      * 查询最近修改的keyAdmin的时间
      */
-	Date getKeyAdminUptime(Long lockId); 
+	Date getKeyAdminUptime(Long lockId);
+
+	void updateLockes(LockUpdateDto lockDto); 
 }

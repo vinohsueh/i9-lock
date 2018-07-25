@@ -289,4 +289,8 @@ public class LockKey {
     public String getReceiveTimeString(){
         return StringUtil.dateToStringWithoutTime(receiveTime);
     }
+    
+    public String getEndTimeString(){
+        return StringUtil.dateToStringWithoutTime(endTime);
+    }
 }

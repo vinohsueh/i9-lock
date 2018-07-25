@@ -7,6 +7,7 @@ import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
+import org.i9.lock.platform.dao.vo.LockUpdateDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.model.User;
@@ -40,6 +41,7 @@ public class LockServiceImpl implements LockService{
     public void addLock(Lock lock) throws BusinessException {
         try {
             lock.setCreateTime(new Date());
+            lock.setSynTime(new Date());
             lockDao.addLock(lock);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"添加锁失败",e.getMessage());
@@ -222,6 +224,15 @@ public class LockServiceImpl implements LockService{
 	public Date getKeyAdminUptime(Long lockId) throws BusinessException {
 		try {
 			return lockDao.getKeyAdminUptime(lockId);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateLockes(LockUpdateDto lockDto) throws BusinessException {
+		try {
+			lockDao.updateLockes(lockDto);
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

@@ -6,6 +6,7 @@ import java.util.List;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.mapper.LockMapper;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
+import org.i9.lock.platform.dao.vo.LockUpdateDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.utils.PageBounds;
@@ -124,6 +125,11 @@ public class LockDaoImpl implements LockDao{
 	@Override
 	public Date getKeyAdminUptime(Long lockId) throws Exception {
 		return lockMapper.getKeyAdminUptime(lockId);
+	}
+
+	@Override
+	public void updateLockes(LockUpdateDto lockDto) throws Exception {
+		lockMapper.updateLockes(lockDto);		
 	}
 
 }

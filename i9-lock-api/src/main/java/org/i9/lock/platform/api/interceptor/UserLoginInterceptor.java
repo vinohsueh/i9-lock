@@ -23,7 +23,7 @@ public class UserLoginInterceptor extends HandlerInterceptorAdapter {
             HttpServletResponse response, Object handler) throws Exception {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
-            throw new BusinessException(ErrorCode.USER_NOT_LOGIN, "用户未登录");
+            throw new BusinessException(ErrorCode.USER_NOT_LOGIN, "连接异常，请重新登录");
         }
         return true;
     }

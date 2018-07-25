@@ -7,7 +7,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.i9.lock.platform.dao.ConfigDao;
+import org.i9.lock.platform.dao.InfoDao;
 import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.LockLogDao;
@@ -17,6 +20,7 @@ import org.i9.lock.platform.dao.enums.HireTypeEnum;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.dao.vo.PriceDto;
 import org.i9.lock.platform.model.Config;
+import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.LockKeyExample;
@@ -28,6 +32,7 @@ import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.Constants;
 import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
+import org.i9.lock.platform.utils.PushUtils;
 import org.i9.lock.platform.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,9 +63,15 @@ public class LockKeyServiceImpl implements LockKeyService {
     
     @Autowired
     private LockLogDao lockLogDao;
+    
+    @Autowired
+    private HttpServletRequest request;
 
     @Autowired
     private ConfigDao configDao;
+    @Autowired
+    private InfoDao infoDao;
+    
     @Override
     public void addLockKey(LockKeyDto lockKeyDto) throws BusinessException {
         try {
@@ -99,6 +110,27 @@ public class LockKeyServiceImpl implements LockKeyService {
              		lockKey.setRentState(lockKeyDto.getRentState());
              	}
              	this.updateLockKey(lockKey);
+             	if (lockKeyDto.getState() == 1) {
+             		//获取当前登陆人
+                    User user = (User) request.getSession().getAttribute("user");
+                    User userNew = userDao.getUserById(user.getId());
+                    //推送给当前登录人
+                    String valueOf = String.valueOf(userNew.getId());
+                    PushUtils.sendPush(valueOf, "门锁续期已完成，欢迎使用常通物联智能门锁。");
+                    Info info = new Info(); 
+                    info.setUserId(userNew.getId());
+                    info.setContent("门锁续期已完成，欢迎使用常通物联智能门锁。");
+                    info.setCreateTime(new Date());
+                    infoDao.addInfo(info);
+                    //推送给房东下的租客
+                    String valueOf1 = String.valueOf(lockKeyDto.getLockKeyId());
+                    PushUtils.sendPush(valueOf1, "门锁续期已完成，欢迎使用常通物联智能门锁。");
+                    LockKey lockKeyById = lockKeyDao.getLockKeyById(lockKeyDto.getLockKeyId());
+                    info.setUserId(lockKeyById.getUserId());
+                    info.setContent("门锁续期已完成，欢迎使用常通物联智能门锁。");
+                    info.setCreateTime(new Date());
+                    infoDao.addInfo(info);
+				}
              }else{
             	 // 查询1-9的编号 最小未使用编号
                  List<Integer> list = lockKeyDao.selectExistOrderNumber(lockKeyDto.getLockId());
@@ -128,12 +160,37 @@ public class LockKeyServiceImpl implements LockKeyService {
                  if (existLockKey != null) {
                      throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是该房的租客,无法重复添加");
                  }
+                 //判断是否为当前登录人，如果是当前登录人，不可添加租客
+                 User user = (User) request.getSession().getAttribute("user");
+                 User userNew = userDao.getUserById(user.getId());
+                 if(userNew.getPhone().equals(lockKeyDto.getHirerPhone()) && userNew.getName().equals(lockKeyDto.getName())){
+                	 throw new BusinessException(ErrorCode.CRUD_ERROR,"该用户已经是当前登录人,无法添加"); 
+                 }
+                 
                  lockKey.setCreateTime(new Date());
                  lockKey.setEleNumber(lockKeyDto.getEleNumber());
                  lockKey.setGasNumber(lockKeyDto.getGasNumber());
                  lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
                  lockKey.setName(lockKeyDto.getName());
                  lockKeyDao.addLockKey(lockKey);
+                 
+                 //推送给当前登录人
+                 String valueOf = String.valueOf(userNew.getId());
+                 PushUtils.sendPush(valueOf, "新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 Info info = new Info(); 
+                 info.setUserId(userNew.getId());
+                 info.setContent("新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 info.setCreateTime(new Date());
+                 infoDao.addInfo(info);
+                 //推送给房东下的租客
+                 String valueOf1 = String.valueOf(lockKeyDto.getLockKeyId());
+                 PushUtils.sendPush(valueOf1, "新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 LockKey lockKeyById = lockKeyDao.getLockKeyById(lockKeyDto.getLockKeyId());
+                 info.setUserId(lockKeyById.getUserId());
+                 info.setContent("新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 info.setCreateTime(new Date());
+                 infoDao.addInfo(info);
+                 
                  
               // 更新锁的合租状态和安全模式
                  Lock lock = lockDao.getLockById(lockKeyDto.getLockId());
@@ -310,6 +367,24 @@ public class LockKeyServiceImpl implements LockKeyService {
 	public int selectLockKeyCountByLockId(Long lockId) throws BusinessException {
 		try {
 			return lockKeyDao.selectLockKeyCountByLockId(lockId);
+		} catch (Exception e) {
+			 throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<LockKey> getTimeAndOrderNum(Long lockId) throws BusinessException {
+		try {
+			return lockKeyDao.getTimeAndOrderNum(lockId);
+		} catch (Exception e) {
+			 throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<LockKey> getTime() throws BusinessException {
+		try {
+			return lockKeyDao.getTime();
 		} catch (Exception e) {
 			 throw new BusinessException(e.getMessage());
 		}

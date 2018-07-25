@@ -93,7 +93,6 @@ public interface LockKeyService {
 
 	void updateLockKeyState();
 
-
     
     /**
      * 查询钥匙个数
@@ -103,5 +102,16 @@ public interface LockKeyService {
     * @return
     * @throws BusinessException
      */
-    int selectLockKeyCountByLockId(Long lockId) throws BusinessException; 
+    int selectLockKeyCountByLockId(Long lockId) throws BusinessException;
+    /**
+     * 根据锁号查询结束时间和ordernumber
+     * @param lockId
+     * @return
+     */
+	List<LockKey> getTimeAndOrderNum(Long lockId)throws BusinessException;
+	/**
+     * 查询结束时间
+     * @return
+     */
+	List<LockKey> getTime()throws BusinessException;
 }

@@ -16,6 +16,7 @@ import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.EncryptUtils;
+import org.i9.lock.platform.utils.StringUtil;
 import org.i9.lock.platform.utils.ThumbPicUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -235,7 +236,7 @@ public class UserController {
     public HashMap<String, Object> existUser(String password){
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		User loginUser = userService.getCurrentUser();
-		if (!password.equals(loginUser.getPassword())) {
+		if (!StringUtil.MD5(password).equals(loginUser.getPassword())) {
 			throw new BusinessException("密码不正确");
 		}
 		return result; 

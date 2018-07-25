@@ -94,5 +94,16 @@ public interface LockKeyDao {
 
 	void updateLockKeyState();
 	
-	int selectLockKeyCountByLockId(Long lockId);  
+	int selectLockKeyCountByLockId(Long lockId);
+	 /**
+     * 根据锁号查询结束时间和ordernumber
+     * @param lockId
+     * @return
+     */
+	List<LockKey> getTimeAndOrderNum(Long lockId);
+	 /**
+     * 查询结束时间
+     * @return
+     */
+	List<LockKey> getTime()throws Exception;
 }

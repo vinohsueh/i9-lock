@@ -166,7 +166,31 @@ public class Lock {
      * 报警时间
      */
     private String warnTime;
+    /**
+     * 锁同步时间
+     */
+    private Date synTime;
+    /**
+     * 免打扰 0：关；1：开
+     */
+    private Integer disturb;
     
+	public Date getSynTime() {
+		return synTime;
+	}
+
+	public void setSynTime(Date synTime) {
+		this.synTime = synTime;
+	}
+
+	public Integer getDisturb() {
+		return disturb;
+	}
+
+	public void setDisturb(Integer disturb) {
+		this.disturb = disturb;
+	}
+
 	public String getWarnTime() {
 		return warnTime;
 	}

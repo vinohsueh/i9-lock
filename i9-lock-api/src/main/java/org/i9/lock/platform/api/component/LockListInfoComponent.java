@@ -129,4 +129,19 @@ public class LockListInfoComponent {
         }
         return jsonObject;
     }
+    public JSONObject build3() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", lock.getId());
+        if (lock.getSynTime() != null) {
+            jsonObject.put("synTime", StringUtil.dateToStringByRep(lock.getSynTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
+        return jsonObject;
+    }
+    
+    public JSONObject build4() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", lock.getId());
+        jsonObject.put("disturb", lock.getDisturb());
+        return jsonObject;
+    }
 }

@@ -515,4 +515,20 @@
 	WHERE
 	lockId = #{lockId} 
   </select>
+  <select id="getTimeAndOrderNum" parameterType="long" resultType="org.i9.lock.platform.model.LockKey"> 
+	SELECT
+		k.endTime, k.orderNumber
+	FROM
+		t_lock_key k
+	WHERE
+	k.lockId = #{lockId} 
+  </select>
+  <select id="getTime" resultType="org.i9.lock.platform.model.LockKey"> 
+	SELECT
+		k.endTime,k.id,k.userId
+	FROM
+		t_lock_key k
+	WHERE
+	k.endTime = datediff(k.endTime,now()) &lt;= 5 and k.state = 0
+  </select>
 </mapper>

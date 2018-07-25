@@ -16,14 +16,18 @@ import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.dao.vo.LockAddDto;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
+import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
+import org.i9.lock.platform.service.InfoService;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.DateUtils;
 import org.i9.lock.platform.utils.PageBounds;
+import org.i9.lock.platform.utils.PushUtils;
 import org.i9.lock.platform.utils.ThumbPicUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -58,6 +62,8 @@ public class LockController {
     private UserService userService;
     @Autowired
     private LockKeyService lockKeyService;
+    @Autowired
+    private InfoService infoService;
     
     /**
      * 添加锁(无照片)
@@ -72,6 +78,13 @@ public class LockController {
             Lock lock = lockAddDto.getLock();
             lock.setUserId(user.getId());
             lockService.addLock(lock);
+            String valueOf = String.valueOf(user.getId());
+            PushUtils.sendPush(valueOf, "您好！绑定门锁成功，欢迎使用常通物联智能门锁。");
+            Info info = new Info(); 
+            info.setUserId(user.getId());
+            info.setContent("您好！绑定门锁成功，欢迎使用常通物联智能门锁。");
+            info.setCreateTime(new Date());
+            infoService.addInfo(info);
         return result;
     }
     
@@ -103,7 +116,16 @@ public class LockController {
                 Lock lock = lockAddDto.getLock();
                 lock.setUserId(user.getId());
                 lock.setDepartmentPicture(filename); 
+                lock.setSynTime(new Date());
                 lockService.addLock(lock);
+                //推送
+                String valueOf = String.valueOf(user.getId());
+                PushUtils.sendPush(valueOf, "您好！绑定门锁成功，欢迎使用常通物联智能门锁。");
+                Info info = new Info(); 
+                info.setUserId(user.getId());
+                info.setContent("您好！绑定门锁成功，欢迎使用常通物联智能门锁。");
+                info.setCreateTime(new Date());
+                infoService.addInfo(info);
             }
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,6 +146,40 @@ public class LockController {
     }
     
     /**
+     * 更换门锁
+     * @param lock
+     * @return
+     */
+    @RequestMapping(value={"/updateLockes"},method = {RequestMethod.POST} )
+    public HashMap<String, Object> updateLocks(@Valid LockUpdateDto lockDto ,BindingResult bindingResult){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        lockService.updateLockes(lockDto);
+        User user = userService.getCurrentUser();
+        //推送
+        List<LockKey> lockKey = lockKeyService.getLockKeyByLockId(lockDto.getId());
+        if (!lockKey.isEmpty()) {
+			for(LockKey Key : lockKey){
+				Integer keyId = Key.getId();
+				String valueOf = String.valueOf(keyId);
+				PushUtils.sendPush(valueOf, "您好！更换门锁成功，常通物联智能门锁欢迎您的再次使用。");
+				 Info info = new Info(); 
+		            info.setUserId(Key.getUserId());
+		            info.setContent("您好！更换门锁成功，常通物联智能门锁欢迎您的再次使用。");
+		            info.setCreateTime(new Date());
+		            infoService.addInfo(info);
+			}
+		}
+        String valueOf = String.valueOf(user.getId());
+        PushUtils.sendPush(valueOf, "您好！更换门锁成功，常通物联智能门锁欢迎您的再次使用。");
+        Info info = new Info(); 
+        info.setUserId(user.getId());
+        info.setContent("您好！更换门锁成功，常通物联智能门锁欢迎您的再次使用。");
+        info.setCreateTime(new Date());
+        infoService.addInfo(info);
+        return result;
+    }
+    
+    /**
      * 修改水电煤气
      * @param lock
      * @return
@@ -131,7 +187,29 @@ public class LockController {
     @RequestMapping(value={"/updateLocks"},method = {RequestMethod.POST} )
     public HashMap<String, Object> updateLocks(Lock lock){
         HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
         lockService.updateLocks(lock);
+      //推送
+        List<LockKey> lockKey = lockKeyService.getLockKeyByLockId(lock.getId());
+        if (!lockKey.isEmpty()) {
+			for(LockKey Key : lockKey){
+				Integer keyId = Key.getId();
+				String valueOf = String.valueOf(keyId);
+				PushUtils.sendPush(valueOf, "您好！水，电，燃气，物业费进行了重新修改。");
+				 Info info = new Info(); 
+		            info.setUserId(Key.getUserId());
+		            info.setContent("您好！水，电，燃气，物业费进行了重新修改。");
+		            info.setCreateTime(new Date());
+		            infoService.addInfo(info);
+			}
+		}
+        String valueOf = String.valueOf(user.getId());
+        PushUtils.sendPush(valueOf, "您好！水，电，燃气，物业费进行了重新修改。");
+        Info info = new Info(); 
+        info.setUserId(user.getId());
+        info.setContent("您好！水，电，燃气，物业费进行了重新修改。");
+        info.setCreateTime(new Date());
+        infoService.addInfo(info);
         return result;
     }
     
@@ -238,6 +316,27 @@ public class LockController {
         lock.setShowType(1);
         lockService.updateLock(lock); 
         result.put("移交成功", "移交成功"); 
+        User user = userService.getCurrentUser();
+        List<LockKey> lockKey = lockKeyService.getLockKeyByLockId(lock.getId());
+        if (!lockKey.isEmpty()) {
+			for(LockKey Key : lockKey){
+				Integer keyId = Key.getId();
+				String valueOf = String.valueOf(keyId);
+				PushUtils.sendPush(valueOf, "解绑门锁成功，常通物联智能门锁为您提供安全保障。");
+				 Info info = new Info(); 
+	             info.setUserId(Key.getUserId());
+	             info.setContent("解绑门锁成功，常通物联智能门锁为您提供安全保障。");
+	             info.setCreateTime(new Date());
+	             infoService.addInfo(info);
+			}
+		}
+        String valueOf = String.valueOf(user.getId());
+        PushUtils.sendPush(valueOf, "解绑门锁成功，常通物联智能门锁为您提供安全保障。");
+        Info info = new Info(); 
+        info.setUserId(user.getId());
+        info.setContent("解绑门锁成功，常通物联智能门锁为您提供安全保障。");
+        info.setCreateTime(new Date());
+        infoService.addInfo(info);
         return result;
     }
     
@@ -376,6 +475,72 @@ public class LockController {
     	Date date = new Date();
     	lock.setUpdateKeyDate(date);
     	lockService.updateLock(lock);
+    	return result;
+    }
+    
+    
+    /**
+     * 同步锁的时间
+    * @Title: updateSynTime
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/updateSynTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> updateSynTime(Lock lock){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	lock.setSynTime(new Date());
+    	lockService.updateLock(lock);
+    	return result;
+    }
+    
+    /**
+     * 获取同步锁的时间
+    * @Title: updateSynTime
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/getSynTime"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getSynTime(Long lockId){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	Lock lock = lockService.getLockById(lockId);
+    	JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build3();
+        jsonArray.add(jsonObject);
+        result.put("lock", jsonArray);
+    	return result;
+    }
+    
+    /**
+     * 更新免打扰
+    * @Title: updateDisturb
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/updateDisturb"},method = {RequestMethod.POST})
+    public HashMap<String, Object> updateDisturb(Lock lock){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	lockService.updateLock(lock);
+    	return result;
+    }
+    
+    /**
+     * 获取免打扰
+    * @Title: getDisturb
+    * @Description: TODO
+    * @param lock
+    * @return
+     */
+    @RequestMapping(value={"/getDisturb"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getDisturb(Long lockId){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	Lock lock = lockService.getLockById(lockId);
+    	JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build4();
+        jsonArray.add(jsonObject);
+        result.put("lock", jsonArray);
     	return result;
     }
     

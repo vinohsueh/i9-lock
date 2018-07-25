@@ -94,4 +94,14 @@ public class LockKeyDaoImpl implements LockKeyDao{
 		return lockKeyMapper.selectLockKeyCountByLockId(lockId);
 	}
 
+	@Override
+	public List<LockKey> getTimeAndOrderNum(Long lockId) {
+		return lockKeyMapper.getTimeAndOrderNum(lockId);
+	}
+
+	@Override
+	public List<LockKey> getTime() throws Exception {
+		return lockKeyMapper.getTime();
+	}
+
 }
