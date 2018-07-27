@@ -33,6 +33,7 @@
     <result column="updateKeyDate" property="updateKeyDate" jdbcType="TIMESTAMP" />
     <result column="disturb" jdbcType="INTEGER" property="disturb"/>
     <result column="synTime" property="synTime" jdbcType="TIMESTAMP" />
+    <result column="receiveFlag" property="receiveFlag" jdbcType="TINYINT" />
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
   </resultMap>
   
@@ -698,6 +699,7 @@
 	)as cusNumber
 	,(select startTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as startTime
 	,(select endTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as endTime
+	,(SELECT receiveFlag FROM t_lock_key WHERE lockId =l.id AND userId= #{example.userId})as receiveFlag
   	 from t_lock l 
   	<if test="_parameter != null">
         <include refid="Query_By_Dto_Where_Clause2" />
