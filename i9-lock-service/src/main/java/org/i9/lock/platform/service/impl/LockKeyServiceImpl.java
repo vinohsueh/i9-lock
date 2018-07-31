@@ -176,17 +176,17 @@ public class LockKeyServiceImpl implements LockKeyService {
                  
                  //推送给当前登录人
                  String valueOf = String.valueOf(userNew.getId());
-                 PushUtils.sendPush(valueOf, "新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 PushUtils.sendPush(valueOf, existUser.getPhone()+"租客添加成功");
                  Info info = new Info(); 
                  info.setUserId(userNew.getId());
-                 info.setContent("新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 info.setContent(userNew.getPhone()+"租客添加成功");
                  info.setCreateTime(new Date());
                  infoDao.addInfo(info);
                  //推送给房东下的租客
                  String valueOf1 = String.valueOf(existUser.getId());
-                 PushUtils.sendPush(valueOf1, "新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 PushUtils.sendPush(valueOf1, existUser.getPhone()+"租客添加成功");
                  info.setUserId(existUser.getId());
-                 info.setContent("新门锁支付已完成，欢迎使用常通物联智能门锁。");
+                 info.setContent(existUser.getPhone()+"租客添加成功");
                  info.setCreateTime(new Date());
                  infoDao.addInfo(info);
                  

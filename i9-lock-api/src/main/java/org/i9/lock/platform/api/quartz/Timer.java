@@ -45,7 +45,7 @@ public class Timer {
 				} finally {
 			        Info info = new Info(); 
 			        info.setUserId(key.getUserId());
-			        info.setContent("您好！租客账单即将到期，请重新生成账单进行续期！");
+			        info.setContent(key.getHirerPhone()+"您好！租客账单即将到期，请重新生成账单进行续期！");
 			        info.setCreateTime(new Date());
 			        infoService.addInfo(info);
 				}
