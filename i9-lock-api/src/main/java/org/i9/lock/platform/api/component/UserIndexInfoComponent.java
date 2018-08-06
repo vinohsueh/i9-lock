@@ -22,7 +22,7 @@ public class UserIndexInfoComponent {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("phone", user.getPhone());
         jsonObject.put("familyPhone", user.getFamilyPhone());
-        jsonObject.put("username", user.getUsername());
+        jsonObject.put("name", user.getName());
         jsonObject.put("headPicture",user.getHeadPicture() );
         return jsonObject;
     }
