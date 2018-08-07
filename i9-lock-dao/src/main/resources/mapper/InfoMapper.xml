@@ -206,7 +206,7 @@
         <include refid="Query_By_Dto_Where_Clause" />
     </if>
     <if test="example.orderByClause != null and example.orderByClause != ''">
-        order by ${example.orderByClause}
+        order by createTime desc
     </if>
     limit #{offset},#{limit}
   </select>
