@@ -75,5 +75,7 @@ public interface LockKeyMapper {
      * 查询结束时间
      * @return
      */
-	List<LockKey> getTime();  
+	List<LockKey> getTime();
+
+	void updateLockKeyrentState();  
 }

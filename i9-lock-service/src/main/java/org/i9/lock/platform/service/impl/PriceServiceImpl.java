@@ -1,5 +1,7 @@
 package org.i9.lock.platform.service.impl;
 
+import java.util.List;
+
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PriceDao;
 import org.i9.lock.platform.dao.vo.PriceDto;
@@ -47,6 +49,15 @@ public class PriceServiceImpl implements PriceService{
 			return priceDao.selectPrice(priceId);
 		}catch (Exception e) {
 		    throw new BusinessException("查看账单失败",e.getMessage());
+		}
+	}
+
+	@Override
+	public List<Price> selectPriceAll(Integer lookId) throws BusinessException {
+		try {
+			return priceDao.selectPriceAll(lookId);
+		}catch (Exception e) {
+		    throw new BusinessException("查询失败",e.getMessage());
 		}
 	}
 

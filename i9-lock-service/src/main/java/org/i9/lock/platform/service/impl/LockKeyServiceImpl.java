@@ -90,7 +90,11 @@ public class LockKeyServiceImpl implements LockKeyService {
              	price.setElePrices(new BigDecimal(String.valueOf(eleNum)).multiply(priceDto.getElePrice()));
              	price.setGasPrices(new BigDecimal(String.valueOf(gasNum)).multiply(priceDto.getGasPrice()));
              	price.setWaterPrices(new BigDecimal(String.valueOf(waterNum)).multiply(priceDto.getWaterPrices()));
-             	price.setPropertyPrices(priceDto.getPropertyPrice());
+             	if(priceDto.getPropertyPrice() == null){
+             		price.setPropertyPrices(new BigDecimal(0));
+             	}else{
+             		price.setPropertyPrices(priceDto.getPropertyPrice());
+             	}
              	price.setLockId(priceDto.getLockId());
              	price.setUserId(priceDto.getUserId());
              	price.setLockeyId(lockKeyDto.getLockKeyId());
@@ -98,7 +102,7 @@ public class LockKeyServiceImpl implements LockKeyService {
              	LockKey lockKey = new LockKey();
              	lockKey.setId(lockKeyDto.getLockKeyId());
              	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-             	lockKey.setEndTime(sdf.parse(lockKeyDto.getEndTimeString()));
+             	lockKey.setEndTime(sdf.parse(lockKeyDto.getEndTimeString())); 
              	lockKey.setEleNumber(lockKeyDto.getEleNumber());
              	lockKey.setGasNumber(lockKeyDto.getGasNumber());
              	lockKey.setWaterNumber(lockKeyDto.getWaterNumber());
@@ -384,6 +388,15 @@ public class LockKeyServiceImpl implements LockKeyService {
 	public List<LockKey> getTime() throws BusinessException {
 		try {
 			return lockKeyDao.getTime();
+		} catch (Exception e) {
+			 throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateLockKeyrentState() throws BusinessException {
+		try {
+			lockKeyDao.updateLockKeyrentState();
 		} catch (Exception e) {
 			 throw new BusinessException(e.getMessage());
 		}

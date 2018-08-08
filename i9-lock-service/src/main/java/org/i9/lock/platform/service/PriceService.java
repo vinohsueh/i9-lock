@@ -1,5 +1,7 @@
 package org.i9.lock.platform.service;
 
+import java.util.List;
+
 import org.i9.lock.platform.model.Price;
 import org.i9.lock.platform.utils.BusinessException;
 
@@ -24,5 +26,11 @@ public interface PriceService {
      * @throws BusinessException
      */
 	Price selectPrice(Integer priceId)throws BusinessException;
+	  /**
+     * 查询房屋物业费
+     * @param lookId
+     * @throws BusinessException
+     */
+	List<Price> selectPriceAll(Integer lookId)throws BusinessException;
     
 }

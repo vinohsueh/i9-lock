@@ -114,4 +114,6 @@ public interface LockKeyService {
      * @return
      */
 	List<LockKey> getTime()throws BusinessException;
+
+	void updateLockKeyrentState()throws BusinessException;
 }

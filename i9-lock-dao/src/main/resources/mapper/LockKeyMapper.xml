@@ -503,7 +503,7 @@
   </select>
    <update id="updateLockKeyState" >
 	      update t_lock_key
-	    	set state = 1 ,rentState = 0
+	    	set state = 1 
 	   	  WHERE  datediff(t_lock_key.endTime,now()) 
 	   	  &lt;= 5 and state = 0
   </update>
@@ -531,4 +531,10 @@
 	WHERE
 	k.endTime = datediff(k.endTime,now()) &lt;= 5 and k.state = 0
   </select>
+  
+   <update id="updateLockKeyrentState" >
+	      update t_lock_key
+	    	set rentState = 0
+	   	  WHERE  datediff(t_lock_key.endTime,now()) &gt;= 0
+  </update>
 </mapper>

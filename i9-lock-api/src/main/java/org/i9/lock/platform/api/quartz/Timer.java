@@ -30,8 +30,10 @@ public class Timer {
 	//每天查询一下结束时间
 	@Scheduled(cron= "0 0 0 * * ?" ) //每天执行一次0*****
 	public void stepTimer(){  
-		//如果时间小于5，修改State
+		//endTime 房租到期时间小于5，修改State
 		lockKeyService.updateLockKeyState();
+		//endTime 房租到期时间大于当前时间，修改rentState
+		lockKeyService.updateLockKeyrentState();
 		//提醒租客续租，发送推送
 		List<LockKey> lockKey = lockKeyService.getTime();
 		if (!lockKey.isEmpty()) {

@@ -104,4 +104,9 @@ public class LockKeyDaoImpl implements LockKeyDao{
 		return lockKeyMapper.getTime();
 	}
 
+	@Override
+	public void updateLockKeyrentState() throws Exception {
+		lockKeyMapper.updateLockKeyrentState();
+	}
+
 }

@@ -28,4 +28,13 @@ public class PriceComponent {
 	        jsonObject.put("waterPrices", price.getWaterPrices());
 	        return jsonObject;
 	    }
+	 
+	 public JSONObject build1() {
+	        JSONObject jsonObject = new JSONObject();
+	        jsonObject.put("elePrices", price.getElePrices());
+	        jsonObject.put("gasPrices", price.getGasPrices());
+	        jsonObject.put("waterPrices", price.getWaterPrices());
+	        jsonObject.put("propertyPrices", price.getPropertyPrices());
+	        return jsonObject;
+	    }
 }

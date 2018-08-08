@@ -106,4 +106,6 @@ public interface LockKeyDao {
      * @return
      */
 	List<LockKey> getTime()throws Exception;
+
+	void updateLockKeyrentState()throws Exception;
 }

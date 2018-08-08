@@ -1,6 +1,7 @@
 package org.i9.lock.platform.api.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -55,5 +56,20 @@ public class PriceController {
         result.put("price",price);
         return result;
     }
-
+    
+    /**
+     * 查询房屋物业费
+     */
+     @RequestMapping(value={"/selectPriceAll"},method = {RequestMethod.POST})
+     public HashMap<String, Object> selectPriceAll(Integer lookId){
+         HashMap<String, Object> result = new HashMap<String, Object>();
+         List<Price> price = priceService.selectPriceAll(lookId);
+         JSONArray jsonArray = new JSONArray();
+         for (Price prices : price) {
+             JSONObject jsonObject = new PriceComponent().setPrice(prices).build();
+             jsonArray.add(jsonObject);
+         }
+         result.put("price",price);
+         return result;
+     }
 }

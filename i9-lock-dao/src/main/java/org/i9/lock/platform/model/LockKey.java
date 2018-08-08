@@ -104,7 +104,7 @@ public class LockKey {
      * 水表数
      */
     private Double waterNumber;
-    
+    //生成订单 0：查看订单 1：生成订单
     private Integer state;
     //是否续租 1:续租
     private Integer rentState;

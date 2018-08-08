@@ -1,5 +1,7 @@
 package org.i9.lock.platform.dao;
 
+import java.util.List;
+
 import org.i9.lock.platform.model.Price;
 
 /** 
@@ -21,4 +23,10 @@ public interface PriceDao {
      * @throws Exception
      */
 	Price selectPrice(Integer priceId);
+	  /**
+     * 查询房屋物业费
+     * @param lookId
+     * @throws Exception
+     */
+	List<Price> selectPriceAll(Integer lookId) throws Exception;
 }

@@ -1,5 +1,7 @@
 package org.i9.lock.platform.dao.impl;
 
+import java.util.List;
+
 import org.i9.lock.platform.dao.PriceDao;
 import org.i9.lock.platform.dao.mapper.PriceMapper;
 import org.i9.lock.platform.model.Price;
@@ -20,6 +22,11 @@ public class PriceDaoImpl implements PriceDao{
 	@Override
 	public Price selectPrice(Integer priceId) {
 		return priceMapper.selectByPrimaryKey(priceId);
+	}
+
+	@Override
+	public List<Price> selectPriceAll(Integer lookId) throws Exception {
+		return priceMapper.selectPriceAll(lookId);
 	}
 
 }

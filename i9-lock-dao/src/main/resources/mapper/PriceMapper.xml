@@ -258,4 +258,7 @@
       lockeyId = #{lockeyId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectPriceAll" parameterType="INTEGER" resultType="org.i9.lock.platform.model.Price">
+  select * from t_price where lockId = #{lockId}
+  </select>
 </mapper>
