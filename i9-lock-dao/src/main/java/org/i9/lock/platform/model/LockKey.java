@@ -108,9 +108,18 @@ public class LockKey {
     private Integer state;
     //是否续租 1:续租
     private Integer rentState;
+    //合约结束时间
+    private Date overTime;
     
-    
-    public Integer getRentState() {
+    public Date getOverTime() {
+		return overTime;
+	}
+
+	public void setOverTime(Date overTime) {
+		this.overTime = overTime;
+	}
+
+	public Integer getRentState() {
 		return rentState;
 	}
 

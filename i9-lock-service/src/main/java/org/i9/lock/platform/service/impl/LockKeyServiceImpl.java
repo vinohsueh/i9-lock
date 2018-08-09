@@ -110,6 +110,7 @@ public class LockKeyServiceImpl implements LockKeyService {
              	lockKey.setHireType(lockKeyDto.getHireType());
              	lockKey.setHirePrice(lockKeyDto.getHirePrice());
              	lockKey.setName(lockKeyDto.getName());
+             	lockKey.setOverTime(sdf.parse(lockKeyDto.getEndTimeString()));
              	if(lockKeyDto.getRentState() != null){
              		lockKey.setRentState(lockKeyDto.getRentState());
              	}

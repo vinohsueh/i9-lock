@@ -121,8 +121,27 @@ public class LockKeyDto {
     //查看订单：0  生成订单：1
     private Integer state;
     
+    private Date overTime;
     
-    public Integer getState() {
+    private String overTimeString;
+    
+    public String getOverTimeString() {
+		return overTimeString;
+	}
+
+	public void setOverTimeString(String overTimeString) {
+		this.overTimeString = overTimeString;
+	}
+
+	public Date getOverTime() {
+		return overTime;
+	}
+
+	public void setOverTime(Date overTime) {
+		this.overTime = overTime;
+	}
+
+	public Integer getState() {
 		return state;
 	}
 
@@ -295,10 +314,12 @@ public class LockKeyDto {
         lockKey.setEleNumber(eleNumber);
         lockKey.setGasNumber(gasNumber);
         lockKey.setWaterNumber(waterNumber);
+        lockKey.setOverTime(overTime);
         SimpleDateFormat sdf = null;
+        sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
+        	lockKey.setOverTime(sdf.parse(overTimeString));
         	if(startTimeString != null && endTimeString != null ){
-        		 sdf = new SimpleDateFormat("yyyy-MM-dd");
                  lockKey.setStartTime(sdf.parse(startTimeString));
                  lockKey.setEndTime(sdf.parse(endTimeString));
         	}else {//这里返回有问题
