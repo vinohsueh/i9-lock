@@ -539,7 +539,7 @@
 	FROM
 		t_lock_key k
 	WHERE
-	k.endTime = datediff(k.endTime,now()) &lt;= 5 and k.state = 0
+	TO_DAYS(k.endTime) - TO_DAYS(now()) &lt;=5 and k.state = 0
   </select>
   
    <update id="updateLockKeyrentState" >
