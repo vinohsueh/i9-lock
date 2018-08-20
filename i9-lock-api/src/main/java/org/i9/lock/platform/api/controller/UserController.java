@@ -89,10 +89,10 @@ public class UserController {
         		if(StringUtils.isNotEmpty(filename)) {
         			user.setHeadPicture(filename); 
         		}
-        		userService.regist(user); 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        userService.regist(user); 
         return result;
     }
     
@@ -106,11 +106,7 @@ public class UserController {
     public HashMap<String, Object> registNoPicture(@Valid User user,BindingResult bindingResult
             ) throws Exception  {
     	HashMap<String, Object> result = new HashMap<String, Object>();
-        try {
-        	 userService.regist(user); 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    	userService.regist(user); 
         return result;
     }
     
