@@ -37,8 +37,8 @@ public class LockKeyPriceComponent {
         jsonObject.put("name", lockKey.getName());
         jsonObject.put("overTime", StringUtil.dateToStringByRep(lockKey.getOverTime(), "yyyy-MM-dd"));
         if (2 == lockKey.getHireType()){
-            jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy-MM-dd HH:00:00"));
-            jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy-MM-dd HH:00:00"));
+            jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy-MM-dd"));
+            jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy-MM-dd"));
         }else{
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lockKey.getStartTime(), "yyyy-MM-dd"));
             jsonObject.put("endTime", StringUtil.dateToStringByRep(lockKey.getEndTime(), "yyyy-MM-dd"));
