@@ -337,8 +337,6 @@ public class LockController {
         info.setContent("解绑门锁成功，常通物联智能门锁为您提供安全保障。");
         info.setCreateTime(new Date());
         infoService.addInfo(info);
-        Lock lock2 = lockService.getLockById(lock.getId());
-    	result.put("battery", lock2.getBattery());
         return result;
     }
     
@@ -398,11 +396,12 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/updateClickLock"},method = {RequestMethod.POST} )
-    public HashMap<String, Object> updateClickLock(Integer lockId, Integer clickLock){
+    public HashMap<String, Object> updateClickLock(Integer lockId, Integer clickLock,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         lockService.updateClickLock(lockId,clickLock);
-        Lock lock2 = lockService.getLockById(lockId.longValue());
-    	result.put("battery", lock2.getBattery());
+        Lock lock = lockService.getLockById(lockId.longValue());
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     
@@ -463,8 +462,6 @@ public class LockController {
     public HashMap<String, Object> updapteLockWarnTime(Lock lock){
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	lockService.updateLock(lock);
-    	Lock lock2 = lockService.getLockById(lock.getId());
-    	result.put("battery", lock2.getBattery());
     	return result;
     }
     
@@ -481,8 +478,6 @@ public class LockController {
     	Date date = new Date();
     	lock.setUpdateKeyDate(date);
     	lockService.updateLock(lock);
-    	Lock lock2 = lockService.getLockById(lock.getId());
-    	result.put("battery", lock2.getBattery());
     	return result;
     }
     
@@ -542,9 +537,11 @@ public class LockController {
     * @return
      */
     @RequestMapping(value={"/getDisturb"},method = {RequestMethod.POST})
-    public HashMap<String, Object> getDisturb(Long lockId){
+    public HashMap<String, Object> getDisturb(Long lockId,String battery){
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	Lock lock = lockService.getLockById(lockId);
+    	lock.setBattery(battery);
+        lockService.updateLock(lock);
     	JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build4();
         jsonArray.add(jsonObject);

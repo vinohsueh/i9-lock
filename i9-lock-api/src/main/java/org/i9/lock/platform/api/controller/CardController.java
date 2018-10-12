@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.i9.lock.platform.api.component.CardComponent;
-import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
@@ -72,13 +71,14 @@ public class CardController {
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
-    public HashMap<String, Object> addCard(Card card,Long lockId){
+    public HashMap<String, Object> addCard(Card card,Long lockId,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         card.setUserId(user.getId());
         cardService.addCard(card);
-        Lock lock2 = lockService.getLockById(lockId);
-        result.put("battery", lock2.getBattery());
+        Lock lock = lockService.getLockById(lockId);
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     
@@ -88,11 +88,12 @@ public class CardController {
      * @return
      */
     @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
-    public HashMap<String, Object> deleteCard(Integer cardId,Long id){
+    public HashMap<String, Object> deleteCard(Integer cardId,Long id,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         cardService.deleteCard(cardId);
-        Lock lock2 = lockService.getLockById(id);
-        result.put("battery", lock2.getBattery());
+        Lock lock = lockService.getLockById(id);
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     /**
