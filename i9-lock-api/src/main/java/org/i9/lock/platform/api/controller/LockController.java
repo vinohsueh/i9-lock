@@ -337,6 +337,8 @@ public class LockController {
         info.setContent("解绑门锁成功，常通物联智能门锁为您提供安全保障。");
         info.setCreateTime(new Date());
         infoService.addInfo(info);
+        Lock lock2 = lockService.getLockById(lock.getId());
+    	result.put("battery", lock2.getBattery());
         return result;
     }
     
@@ -399,6 +401,8 @@ public class LockController {
     public HashMap<String, Object> updateClickLock(Integer lockId, Integer clickLock){
         HashMap<String, Object> result = new HashMap<String, Object>();
         lockService.updateClickLock(lockId,clickLock);
+        Lock lock2 = lockService.getLockById(lockId.longValue());
+    	result.put("battery", lock2.getBattery());
         return result;
     }
     
@@ -459,6 +463,8 @@ public class LockController {
     public HashMap<String, Object> updapteLockWarnTime(Lock lock){
     	HashMap<String, Object> result = new HashMap<String, Object>();
     	lockService.updateLock(lock);
+    	Lock lock2 = lockService.getLockById(lock.getId());
+    	result.put("battery", lock2.getBattery());
     	return result;
     }
     
@@ -475,6 +481,8 @@ public class LockController {
     	Date date = new Date();
     	lock.setUpdateKeyDate(date);
     	lockService.updateLock(lock);
+    	Lock lock2 = lockService.getLockById(lock.getId());
+    	result.put("battery", lock2.getBattery());
     	return result;
     }
     

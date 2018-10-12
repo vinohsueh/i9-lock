@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.api.component.PasswordComponent;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
@@ -62,11 +63,13 @@ public class PasswordController {
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
-    public HashMap<String, Object> add(@Valid Password password,BindingResult bindingResult){
+    public HashMap<String, Object> add(@Valid Password password,BindingResult bindingResult,Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         password.setUserId(user.getId());
         passwordService.addPassword(password);
+        Lock lock2 = lockService.getLockById(lockId);
+        result.put("battery", lock2.getBattery());
         return result;
     }
     
@@ -76,10 +79,12 @@ public class PasswordController {
      * @return
      */
     @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
-    public HashMap<String, Object> delete(Integer passwordId){
+    public HashMap<String, Object> delete(Integer passwordId,Long id){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         passwordService.deletePassword(passwordId,user.getId());
+        Lock lock2 = lockService.getLockById(id);
+        result.put("battery", lock2.getBattery());
         return result;
     }
     

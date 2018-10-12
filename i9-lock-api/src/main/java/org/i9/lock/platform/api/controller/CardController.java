@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.i9.lock.platform.api.component.CardComponent;
+import org.i9.lock.platform.api.component.LockPriceComponent;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
@@ -71,11 +72,13 @@ public class CardController {
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
-    public HashMap<String, Object> addCard(Card card){
+    public HashMap<String, Object> addCard(Card card,Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         card.setUserId(user.getId());
         cardService.addCard(card);
+        Lock lock2 = lockService.getLockById(lockId);
+        result.put("battery", lock2.getBattery());
         return result;
     }
     
@@ -85,9 +88,11 @@ public class CardController {
      * @return
      */
     @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
-    public HashMap<String, Object> deleteCard(Integer cardId){
+    public HashMap<String, Object> deleteCard(Integer cardId,Long id){
         HashMap<String, Object> result = new HashMap<String, Object>();
         cardService.deleteCard(cardId);
+        Lock lock2 = lockService.getLockById(id);
+        result.put("battery", lock2.getBattery());
         return result;
     }
     /**

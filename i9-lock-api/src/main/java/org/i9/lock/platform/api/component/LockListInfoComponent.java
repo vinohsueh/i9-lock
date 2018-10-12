@@ -142,6 +142,7 @@ public class LockListInfoComponent {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", lock.getId());
         jsonObject.put("disturb", lock.getDisturb());
+        jsonObject.put("battery", lock.getBattery());
         return jsonObject;
     }
 }
