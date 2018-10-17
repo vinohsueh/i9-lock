@@ -527,7 +527,7 @@
   </select>
   <select id="getTimeAndOrderNum" parameterType="long" resultType="org.i9.lock.platform.model.LockKey"> 
 	SELECT
-		k.endTime, k.orderNumber
+		k.endTime, k.orderNumber,k.startTime
 	FROM
 		t_lock_key k
 	WHERE

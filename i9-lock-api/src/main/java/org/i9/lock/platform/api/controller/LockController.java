@@ -17,6 +17,7 @@ import org.i9.lock.platform.dao.vo.LockAddDto;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
@@ -549,4 +550,60 @@ public class LockController {
     	return result;
     }
     
+    /**
+     * 根据lockId查询长密码
+    * @Title: getPwdByUidAndLockId
+    * @param @param userLongPassword
+    * @param @return
+    * @return HashMap<String,Object>
+     */
+    @RequestMapping("/getPwdByUidAndLockId")
+    public HashMap<String, Object> getPwdByUidAndLockId(UserLongPasswordDto userLongPassword){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	User currentUser = userService.getCurrentUser();
+    	userLongPassword.setUserId(currentUser.getId());
+    	String userLongPwd = lockService.getPwdByUidAndLockId(userLongPassword);
+    	if(StringUtils.isNotEmpty(userLongPwd)) {
+    		result.put("userLongPwd", true);
+    	}else {
+			result.put("userLongPwd", false);
+		}
+    	return result;
+    }
+    
+    /**
+     * 新增
+    * @Title: insertPwdByUidAndLockId
+    * @param @param userLongPassword
+    * @param @return
+    * @return HashMap<String,Object>
+     */
+    @RequestMapping("/insertPwdByUidAndLockId")
+    public HashMap<String, Object> insertPwdByUidAndLockId(UserLongPasswordDto userLongPassword){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	Lock lock = lockService.getLockById(userLongPassword.getLockId());
+    	lock.setBattery(userLongPassword.getBattery());
+        lockService.updateLock(lock);
+    	User currentUser = userService.getCurrentUser();
+    	userLongPassword.setUserId(currentUser.getId());
+    	lockService.insertPwdByUidAndLockId(userLongPassword);
+    	return result;
+    }
+    
+    /**
+     * 删除
+    * @Title: insertPwdByUidAndLockId
+    * @param @param userLongPassword
+    * @param @return
+    * @return HashMap<String,Object>
+     */
+    @RequestMapping("/deletePwdByUidAndLockId")
+    public HashMap<String, Object> deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	User currentUser = userService.getCurrentUser();
+    	userLongPassword.setUserId(currentUser.getId());
+    	lockService.deletePwdByUidAndLockId(userLongPassword);
+    	result.put("success", "success");
+    	return result;
+    }
 }

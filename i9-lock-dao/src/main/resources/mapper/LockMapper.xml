@@ -126,6 +126,16 @@
        </if>
     </trim>
   </sql>
+  <sql id="Query_By_Dto2_Where_Clause">
+  	 <trim prefix="WHERE" prefixOverrides="AND|OR">
+  	 	<if test="example.userId != null">
+           and userId = #{example.userId} 
+       </if>
+       <if test="example.lockId != null ">
+       	   and lockId = #{example.lockId}
+       </if>
+  	 </trim>
+  </sql>
  <sql id="Query_By_Dto_Where_Clause2">
     <trim prefix="WHERE" prefixOverrides="AND|OR">
  	  <if test="example.name != null and example.name != ''">
@@ -739,4 +749,21 @@
       keyUser = #{keyUser}
     where id = #{id}
   </update>
+  <select id="getPwdByUidAndLockId" resultType="string">
+  	select userPassword
+  	from t_user_password
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto2_Where_Clause" />
+    </if>
+  </select>
+  <insert id="insertPwdByUidAndLockId">
+  	insert into t_user_password (lockId,userId,userPassword)
+  	values(#{example.lockId},#{example.userId},#{example.userPassword})
+  </insert>
+  <delete id="deletePwdByUidAndLockId">
+  	delete from t_user_password
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto2_Where_Clause" />
+    </if>
+  </delete>
 </mapper>

@@ -7,6 +7,7 @@ import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.mapper.LockMapper;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.utils.PageBounds;
@@ -130,6 +131,21 @@ public class LockDaoImpl implements LockDao{
 	@Override
 	public void updateLockes(LockUpdateDto lockDto) throws Exception {
 		lockMapper.updateLockes(lockDto);		
+	}
+
+	@Override
+	public String getPwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		return lockMapper.getPwdByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public void insertPwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		lockMapper.insertPwdByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public void deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		lockMapper.deletePwdByUidAndLockId(userLongPassword);
 	}
 
 }

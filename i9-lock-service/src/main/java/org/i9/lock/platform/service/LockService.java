@@ -6,6 +6,7 @@ import java.util.List;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.utils.BusinessException;
@@ -143,6 +144,33 @@ public interface LockService {
      * 更换门锁
      */
 	void updateLockes(LockUpdateDto lockDto)throws BusinessException;
+	
+	/**
+	 * 查询
+	* @Title: getPwdByUidAndLockId
+	* @param @param userLongPassword
+	* @param @return
+	* @return String
+	 */
+	String getPwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
+	
+	/**
+	 * 新增
+	* @Title: insertPwdByUidAndLockId
+	* @param @param userLongPassword
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void insertPwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
+	
+	/**
+	 * 删除
+	* @Title: deletePwdByUidAndLockId
+	* @param @param userLongPassword
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
 	
 	
 }

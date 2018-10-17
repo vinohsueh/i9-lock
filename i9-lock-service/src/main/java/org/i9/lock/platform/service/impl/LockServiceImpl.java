@@ -8,6 +8,7 @@ import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.model.User;
@@ -233,6 +234,33 @@ public class LockServiceImpl implements LockService{
 	public void updateLockes(LockUpdateDto lockDto) throws BusinessException {
 		try {
 			lockDao.updateLockes(lockDto);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public String getPwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws BusinessException{
+		try {
+			return lockDao.getPwdByUidAndLockId(userLongPassword);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void insertPwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws BusinessException {
+		try {
+			 lockDao.insertPwdByUidAndLockId(userLongPassword);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws BusinessException {
+		try {
+			 lockDao.deletePwdByUidAndLockId(userLongPassword);
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
