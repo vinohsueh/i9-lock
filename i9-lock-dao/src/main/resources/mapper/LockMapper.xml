@@ -619,7 +619,7 @@
         <if test="synTime != null">
         synTime = #{synTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="disturb != null and disturb != ''">
+      <if test="disturb != null">
        disturb = #{disturb,jdbcType=INTEGER},
       </if>
       <if test="warnTime != null and warnTime != ''">

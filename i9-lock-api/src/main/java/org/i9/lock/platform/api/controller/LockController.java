@@ -543,10 +543,7 @@ public class LockController {
     	Lock lock = lockService.getLockById(lockId);
     	lock.setBattery(battery);
         lockService.updateLock(lock);
-    	JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build4();
-        jsonArray.add(jsonObject);
-        result.put("lock", jsonArray);
+        result.put("disturb", lock.getDisturb());
     	return result;
     }
     
