@@ -15,6 +15,26 @@ public class UserLongPasswordDto {
 	private String userPassword;
 	
 	private String battery;
+	
+	private Integer clickLock;
+	
+	private Integer userOrder;
+	
+	public Integer getClickLock() {
+		return clickLock;
+	}
+
+	public void setClickLock(Integer clickLock) {
+		this.clickLock = clickLock;
+	}
+
+	public Integer getUserOrder() {
+		return userOrder;
+	}
+
+	public void setUserOrder(Integer userOrder) {
+		this.userOrder = userOrder;
+	}
 
 	public String getBattery() {
 		return battery;

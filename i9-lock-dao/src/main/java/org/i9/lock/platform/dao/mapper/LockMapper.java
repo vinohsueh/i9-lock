@@ -92,5 +92,11 @@ public interface LockMapper {
 
 	void insertPwdByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
 
-	void deletePwdByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);   
+	void deletePwdByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
+
+	void insertClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
+
+	Integer getClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPasswordDto);
+
+	void updateClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPasswordDto);    
 }

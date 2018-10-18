@@ -148,4 +148,19 @@ public class LockDaoImpl implements LockDao{
 		lockMapper.deletePwdByUidAndLockId(userLongPassword);
 	}
 
+	@Override
+	public void insertClickByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		lockMapper.insertClickByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public Integer getClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws Exception {
+		return lockMapper.getClickByUidAndLockId(userLongPasswordDto);
+	}
+
+	@Override
+	public void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws Exception {
+		lockMapper.updateClickByUidAndLockId(userLongPasswordDto);
+	}
+
 }

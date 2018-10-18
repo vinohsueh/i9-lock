@@ -172,5 +172,33 @@ public interface LockService {
 	 */
 	void deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
 	
+	/**
+	 * 新增双认证
+	* @Title: insertClickByUidAndLockId
+	* @param @param userLongPassword
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void insertClickByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
+	
+	/**
+	 * 查询双认证
+	* @Title: getClickByUidAndLockId
+	* @param @param userLongPasswordDto
+	* @param @return
+	* @param @throws BusinessException
+	* @return Integer
+	 */
+	Integer getClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
+	/**
+	 * 更新双认证
+	* @Title: updateClickByUidAndLockId
+	* @param @param userLongPasswordDto
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
 	
 }

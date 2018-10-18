@@ -136,6 +136,12 @@
        </if>
   	 </trim>
   </sql>
+  <sql id="Query_By_Dto3_Where_Clause">
+  	 <trim prefix="WHERE" prefixOverrides="AND|OR">
+           and userOrder = #{example.userOrder} 
+       	   and lockId = #{example.lockId}
+  	 </trim>
+  </sql>
  <sql id="Query_By_Dto_Where_Clause2">
     <trim prefix="WHERE" prefixOverrides="AND|OR">
  	  <if test="example.name != null and example.name != ''">
@@ -610,7 +616,7 @@
       <if test="departmentPicture != null and departmentPicture != ''">
        departmentPicture = #{departmentPicture,jdbcType=VARCHAR},
       </if>
-       <if test="clickLock != null and clickLock != ''">
+       <if test="clickLock != null">
        clickLock = #{clickLock,jdbcType=INTEGER},
       </if>
       <if test="showType != null and showType != ''">
@@ -766,4 +772,27 @@
         <include refid="Query_By_Dto2_Where_Clause" />
     </if>
   </delete>
+  
+  <insert id="insertClickByUidAndLockId">
+  	insert into t_lock_ccnp (lockId,clickLock,userOrder)
+  	values(#{example.lockId},#{example.clickLock},#{example.userOrder})
+  </insert>
+  
+  <select id="getClickByUidAndLockId" resultType="int">
+  	select clickLock
+  	from t_lock_ccnp
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto3_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateClickByUidAndLockId">
+  	update t_lock_ccnp
+  	<set>
+  		clickLock = #{example.clickLock}
+  	</set>
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto3_Where_Clause" />
+    </if>
+  </update>
 </mapper>

@@ -265,4 +265,31 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public void insertClickByUidAndLockId(UserLongPasswordDto userLongPassword) throws BusinessException {
+		try {
+			 lockDao.insertClickByUidAndLockId(userLongPassword);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public Integer getClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws BusinessException {
+		try {
+			return lockDao.getClickByUidAndLockId(userLongPasswordDto);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws BusinessException {
+		try {
+			 lockDao.updateClickByUidAndLockId(userLongPasswordDto);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

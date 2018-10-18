@@ -313,11 +313,17 @@ public class LockController {
      */
     @RequestMapping(value={"/release"},method = {RequestMethod.POST})
     public HashMap<String, Object> release(Lock lock){
+    	User user = userService.getCurrentUser();
         HashMap<String, Object> result = new HashMap<String, Object>();
         lock.setShowType(1);
-        lockService.updateLock(lock); 
+        lock.setDisturb(0);
+        lock.setClickLock(0);
+        lockService.updateLock(lock);
+        UserLongPasswordDto userLongPasswordDto = new UserLongPasswordDto();
+        userLongPasswordDto.setLockId(lock.getId());
+        userLongPasswordDto.setUserId(user.getId());
+        lockService.deletePwdByUidAndLockId(userLongPasswordDto);
         result.put("移交成功", "移交成功"); 
-        User user = userService.getCurrentUser();
         List<LockKey> lockKey = lockKeyService.getLockKeyByLockId(lock.getId());
         if (!lockKey.isEmpty()) {
 			for(LockKey Key : lockKey){
@@ -397,12 +403,12 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/updateClickLock"},method = {RequestMethod.POST} )
-    public HashMap<String, Object> updateClickLock(Integer lockId, Integer clickLock,String battery){
+    public HashMap<String, Object> updateClickLock(UserLongPasswordDto userLongPasswordDto){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        lockService.updateClickLock(lockId,clickLock);
-        Lock lock = lockService.getLockById(lockId.longValue());
-        lock.setBattery(battery);
+        Lock lock = lockService.getLockById(userLongPasswordDto.getLockId());
+        lock.setBattery(userLongPasswordDto.getBattery());
         lockService.updateLock(lock);
+        lockService.updateClickByUidAndLockId(userLongPasswordDto);
         return result;
     }
     
@@ -412,13 +418,15 @@ public class LockController {
      * @return
      */
     @RequestMapping(value={"/getClickLock"},method = {RequestMethod.POST})
-    public HashMap<String, Object> getClickLock(Long lockId){
+    public HashMap<String, Object> getClickLock(UserLongPasswordDto userLongPasswordDto){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        Lock lock = lockService.getLockById(lockId);
-        if (lock != null) {
-            result.put("lockClickLock", lock.getClickLock());
+        Integer clickLock = lockService.getClickByUidAndLockId(userLongPasswordDto);
+        if(null !=clickLock) {
+        	result.put("clickLock", clickLock);
+        }else {
+        	result.put("clickLock", false);
         }
-        return result;
+		return result;
     }
     
     /**
@@ -601,6 +609,23 @@ public class LockController {
     	userLongPassword.setUserId(currentUser.getId());
     	lockService.deletePwdByUidAndLockId(userLongPassword);
     	result.put("success", "success");
+    	return result;
+    }
+    
+    /**
+     * 新增双认证
+    * @Title: insertPwdByUidAndLockId
+    * @param @param userLongPassword
+    * @param @return
+    * @return HashMap<String,Object>
+     */
+    @RequestMapping("/insertClickByUidAndLockId")
+    public HashMap<String, Object> insertClickByUidAndLockId(UserLongPasswordDto userLongPassword){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	Lock lock = lockService.getLockById(userLongPassword.getLockId());
+    	lock.setBattery(userLongPassword.getBattery());
+        lockService.updateLock(lock);
+    	lockService.insertClickByUidAndLockId(userLongPassword);
     	return result;
     }
 }
