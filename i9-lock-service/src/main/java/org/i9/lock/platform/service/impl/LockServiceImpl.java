@@ -292,4 +292,13 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+	@Override
+	public void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws BusinessException {
+		try {
+			 lockDao.deleteClickByUidAndLockId(userLongPasswordDto);
+		} catch (Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+	}
 }

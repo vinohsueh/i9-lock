@@ -22,9 +22,11 @@ import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
+import org.i9.lock.platform.service.CardService;
 import org.i9.lock.platform.service.InfoService;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
+import org.i9.lock.platform.service.PasswordService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.DateUtils;
 import org.i9.lock.platform.utils.PageBounds;
@@ -65,7 +67,10 @@ public class LockController {
     private LockKeyService lockKeyService;
     @Autowired
     private InfoService infoService;
-    
+    @Autowired
+    private PasswordService passwordService;
+    @Autowired
+    private CardService cardService;
     /**
      * 添加锁(无照片)
      * @param lockAddDto
@@ -315,14 +320,21 @@ public class LockController {
     public HashMap<String, Object> release(Lock lock){
     	User user = userService.getCurrentUser();
         HashMap<String, Object> result = new HashMap<String, Object>();
+        //1.更新锁的disturb
         lock.setShowType(1);
         lock.setDisturb(0);
-        lock.setClickLock(0);
         lockService.updateLock(lock);
+        //2.删除用户的长密码
         UserLongPasswordDto userLongPasswordDto = new UserLongPasswordDto();
         userLongPasswordDto.setLockId(lock.getId());
         userLongPasswordDto.setUserId(user.getId());
         lockService.deletePwdByUidAndLockId(userLongPasswordDto);
+        //3.删除所有双协议
+        lockService.deleteClickByUidAndLockId(userLongPasswordDto);
+        //4.删除指纹密码
+        passwordService.deletePasswordByLockId(lock.getId());
+        //5.删除ic卡的所有信息
+        cardService.deleteCardByLockId(lock.getId());
         result.put("移交成功", "移交成功"); 
         List<LockKey> lockKey = lockKeyService.getLockKeyByLockId(lock.getId());
         if (!lockKey.isEmpty()) {

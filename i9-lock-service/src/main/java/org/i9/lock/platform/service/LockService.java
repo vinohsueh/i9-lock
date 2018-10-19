@@ -200,5 +200,14 @@ public interface LockService {
 	 */
 	void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
 	
+	/**
+	 * 删除双认证
+	* @Title: deleteClickByUidAndLockId
+	* @param @param userLongPasswordDto
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
 	
 }

@@ -43,5 +43,10 @@ public class CardDaoImpl implements CardDao {
 		return cardMapper.selectExistOrderNumber(cardId);
 	}
 
+	@Override
+	public void deleteCardByLockId(Long id) {
+		cardMapper.deleteCardByLockId(id);
+	}
+
 
 }

@@ -31,4 +31,6 @@ public interface CardMapper {
 	List<Card> getAllCard(Long lockId);
 
 	List<Integer> selectExistOrderNumber(Long lockId);
+
+	void deleteCardByLockId(@Param("lockId") Long id); 
 }

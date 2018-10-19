@@ -72,4 +72,6 @@ public interface PasswordService {
     Integer selectUsefulOrderNumber(Long lockId) throws BusinessException;
 
     List<Password> listAllPasswords(Long lockId, Long id) throws BusinessException;
+
+	void deletePasswordByLockId(Long id) throws BusinessException;
 }

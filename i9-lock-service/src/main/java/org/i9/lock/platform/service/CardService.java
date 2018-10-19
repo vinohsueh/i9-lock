@@ -37,5 +37,13 @@ public interface CardService {
      * @throws BusinessException
      */
 	Integer selectExistOrderNumber(Long lockId)throws BusinessException;
+	/**
+	 * 根据lockId删除
+	* @Title: deleteCardByLockId
+	* @param @param id
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void deleteCardByLockId(Long id)throws BusinessException;
 
 }

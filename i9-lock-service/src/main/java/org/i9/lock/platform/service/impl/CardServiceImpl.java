@@ -119,4 +119,13 @@ public class CardServiceImpl implements CardService {
         }
 	}
 
+	@Override
+	public void deleteCardByLockId(Long id) throws BusinessException {
+		try {
+             cardDao.deleteCardByLockId(id);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"通过lockId删除卡失败",e.getMessage());
+        }
+	}
+
 }

@@ -77,5 +77,7 @@ public interface PasswordDao {
      */
 	List<Integer> selectExistOrderNumbers(Long lockId)throws Exception;
 
+	void deletePasswordByLockId(Long id)throws Exception;
+
 	
 }

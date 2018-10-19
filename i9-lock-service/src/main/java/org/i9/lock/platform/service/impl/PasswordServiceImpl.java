@@ -189,4 +189,13 @@ public class PasswordServiceImpl implements PasswordService{
             throw new BusinessException("查询用户全部密码失败",e.getMessage());
         }
     }
+
+	@Override
+	public void deletePasswordByLockId(Long id) throws BusinessException {
+		try {
+             passwordDao.deletePasswordByLockId(id);
+        } catch (Exception e) {
+            throw new BusinessException("删除用户指纹密码失败",e.getMessage());
+        }
+	}
 }

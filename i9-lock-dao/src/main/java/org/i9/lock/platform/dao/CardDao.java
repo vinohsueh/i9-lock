@@ -41,5 +41,12 @@ public interface CardDao {
      * @throws Exception
      */
 	List<Integer> selectExistOrderNumber(Long cardId);
+	/**
+	 * 根据lockId删除卡
+	* @Title: deleteCardByLockId
+	* @param @param id
+	* @return void
+	 */
+	void deleteCardByLockId(Long id);
 
 }

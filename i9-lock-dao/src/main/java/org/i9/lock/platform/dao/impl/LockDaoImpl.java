@@ -163,4 +163,9 @@ public class LockDaoImpl implements LockDao{
 		lockMapper.updateClickByUidAndLockId(userLongPasswordDto);
 	}
 
+	@Override
+	public void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws Exception {
+		lockMapper.deleteClickByUidAndLockId(userLongPasswordDto);
+	}
+
 }

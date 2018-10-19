@@ -150,4 +150,6 @@ public interface LockDao {
 	Integer getClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws Exception;
 
 	void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws Exception;
+
+	void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws Exception;
 }

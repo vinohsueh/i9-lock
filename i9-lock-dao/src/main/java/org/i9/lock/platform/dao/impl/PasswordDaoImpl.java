@@ -74,4 +74,9 @@ public class PasswordDaoImpl implements PasswordDao{
 		return passwordMapper.selectExistOrderNumber2(lockId);
 	}
 
+	@Override
+	public void deletePasswordByLockId(Long id) throws Exception {
+		passwordMapper.deletePasswordByLockId(id);
+	}
+
 }

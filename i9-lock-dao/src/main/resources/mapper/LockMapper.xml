@@ -795,4 +795,12 @@
         <include refid="Query_By_Dto3_Where_Clause" />
     </if>
   </update>
+  <delete id="deleteClickByUidAndLockId">
+  	delete from t_lock_ccnp
+  	<where>
+	  	<if test="example.lockId != null">
+	       	    lockId = #{example.lockId}
+	    </if>
+    </where>
+  </delete>
 </mapper>

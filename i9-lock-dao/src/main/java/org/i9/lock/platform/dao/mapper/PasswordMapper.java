@@ -46,4 +46,6 @@ public interface PasswordMapper {
      * @return
      */
 	List<Integer> selectExistOrderNumber2(@Param("lockId")Long lockId);
+
+	void deletePasswordByLockId(@Param("lockId") Long id); 
 }
