@@ -175,6 +175,19 @@ public class Lock {
      */
     private Integer disturb;
     
+    /**
+     * 0:未绑定 1：已绑定
+     */
+    private Integer forceUnlock;
+    
+	public Integer getForceUnlock() {
+		return forceUnlock;
+	}
+
+	public void setForceUnlock(Integer forceUnlock) {
+		this.forceUnlock = forceUnlock;
+	}
+
 	public Date getSynTime() {
 		return synTime;
 	}

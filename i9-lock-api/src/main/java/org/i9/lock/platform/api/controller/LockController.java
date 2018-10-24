@@ -20,6 +20,8 @@ import org.i9.lock.platform.dao.vo.LockUpdateDto;
 import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockExample;
+import org.i9.lock.platform.model.LockExample.Criteria;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.CardService;
@@ -638,6 +640,50 @@ public class LockController {
     	lock.setBattery(userLongPassword.getBattery());
         lockService.updateLock(lock);
     	lockService.insertClickByUidAndLockId(userLongPassword);
+    	return result;
+    }
+    
+    /**
+     * 查询锁状态
+    * @Title: searchForceLock
+    * @param @param keyNumber
+    * @param @return
+    * @return HashMap<String,Object>
+     */
+    @RequestMapping("/searchForceLock")
+    public HashMap<String, Object> searchForceLock(String keyNumber){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	LockExample lockExample = new LockExample();
+    	Criteria criteria = lockExample.createCriteria();
+    	criteria.andKeyNumberEqualTo(keyNumber);
+    	criteria.andShowTypeEqualTo(0);
+    	List<Lock> list = lockService.selectByExample(lockExample);
+    	if(list.size()>0 && list.size()<2) {
+    		Lock lock = list.get(0);
+    		result.put("forceUnlock", lock.getForceUnlock());
+    	}else if(list.size()>1) {
+    		result.put("errorMsg", "存在多条数据");
+    	}
+    	return result;
+    }
+    
+    /**
+     * 查询锁
+    * @Title: searchForceLock
+    * @param @param keyNumber
+    * @param @return
+    * @return HashMap<String,Object>
+     */
+    @RequestMapping("/searchLockByforce")
+    public HashMap<String, Object> searchLockByforce(String keyNumber){
+    	HashMap<String, Object> result = new HashMap<String, Object>();
+    	LockExample lockExample = new LockExample();
+    	lockExample.createCriteria().andKeyNumberEqualTo(keyNumber);
+    	List<Lock> list = lockService.selectByExample(lockExample);
+    	if(list.size()>0) {
+    		Lock lock = list.get(0);
+    		result.put("lock", lock);
+    	}
     	return result;
     }
 }

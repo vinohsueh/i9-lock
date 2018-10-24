@@ -32,6 +32,7 @@
     <result column="warnTime" jdbcType="VARCHAR" property="warnTime"/>
     <result column="updateKeyDate" property="updateKeyDate" jdbcType="TIMESTAMP" />
     <result column="disturb" jdbcType="INTEGER" property="disturb"/>
+    <result column="forceUnlock" jdbcType="INTEGER" property="forceUnlock"/>
     <result column="synTime" property="synTime" jdbcType="TIMESTAMP" />
     <result column="receiveFlag" property="receiveFlag" jdbcType="TINYINT" />
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
@@ -173,7 +174,7 @@
   
   <sql id="Base_Column_List" >
      id, keyAdmin,updateKeyDate, effective, userId, name, battery,  elePrice,  gasPrice, 
-     waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, synTime,disturb,
+     waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, synTime,disturb,forceUnlock,
     keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,propertyPrice,clickLock,showType,warnTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
@@ -215,7 +216,7 @@
       elePrice,  gasPrice, 
       waterPrice, safeMode, propertyPrice,
       ifShared, alertMinute, keyUser, 
-      createTime, keyNumber, keyDev, synTime,disturb,
+      createTime, keyNumber, keyDev, synTime,disturb,forceUnlock,
       remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,showType,warnTime
       )
     values (#{keyAdmin,jdbcType=VARCHAR}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
@@ -225,7 +226,7 @@
       #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=VARCHAR}, #{keyDev,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR},#{synTime,jdbcType=TIMESTAMP},#{disturb,jdbcType=INTEGER},
-      #{departmentType,jdbcType=INTEGER},#{departmentAddress,jdbcType=VARCHAR},#{departmentNumber,jdbcType=VARCHAR},
+      #{forceUnlock,jdbcType=INTEGER},#{departmentType,jdbcType=INTEGER},#{departmentAddress,jdbcType=VARCHAR},#{departmentNumber,jdbcType=VARCHAR},
       #{departmentPicture,jdbcType=VARCHAR},#{showType,jdbcType=INTEGER},#{warnTime,jdbcType=VARCHAR}
       )
   </insert>
@@ -313,8 +314,11 @@
        <if test="synTime != null">
         synTime,
       </if>
-       <if test="disturb != null and disturb != ''">
+       <if test="disturb != null">
         disturb,
+      </if>
+      <if test="forceUnlock != null">
+        forceUnlock,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -390,8 +394,11 @@
        <if test="synTime != null">
         #{synTime,jdbcType=TIMESTAMP},
       </if>
-        <if test="disturb != null and departmentType != ''">
+        <if test="disturb != null">
         #{disturb,jdbcType=INTEGER},
+      </if>
+      <if test="forceUnlock != null">
+        #{forceUnlock,jdbcType=INTEGER},
       </if>
       <if test="showType != null and showType != ''">
         showType,
@@ -461,8 +468,11 @@
        <if test="record.synTime != null">
         synTime = #{record.synTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.disturb != null and record.disturb != ''">
+      <if test="record.disturb != null">
        disturb = #{record.disturb,jdbcType=INTEGER},
+      </if>
+      <if test="record.forceUnlock != null">
+       forceUnlock = #{record.forceUnlock,jdbcType=INTEGER},
       </if>
       <if test="record.keyNumber != null and record.keyNumber != ''">
         keyNumber = #{record.keyNumber,jdbcType=VARCHAR},
@@ -536,6 +546,7 @@
       showType = #{record.showType,jdbcType=INTEGER},
       synTime = #{record.synTime,jdbcType=TIMESTAMP},
       disturb = #{record.disturb,jdbcType=INTEGER},
+      forceUnlock = #{record.forceUnlock,jdbcType=INTEGER},
       warnTime =#{record.warnTime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -628,6 +639,9 @@
       <if test="disturb != null">
        disturb = #{disturb,jdbcType=INTEGER},
       </if>
+      <if test="forceUnlock != null">
+       forceUnlock = #{forceUnlock,jdbcType=INTEGER},
+      </if>
       <if test="warnTime != null and warnTime != ''">
       	warnTime = #{warnTime,jdbcType=VARCHAR},
       </if>
@@ -664,6 +678,7 @@
       showType = #{showType,jdbcType=INTEGER},
       synTime = #{synTime,jdbcType=TIMESTAMP},
       disturb = #{disturb,jdbcType=INTEGER},
+      forceUnlock = #{forceUnlock,jdbcType=INTEGER},
       warnTime = #{warnTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
