@@ -223,7 +223,7 @@
       userId = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getAllCard" parameterType="java.lang.Long" resultType="org.i9.lock.platform.model.Card">
+  <select id="getAllCard" resultType="org.i9.lock.platform.model.Card">
     select * from t_card where lockId = #{lockId} AND userId= #{userId}
   </select>
   <select id="selectExistOrderNumber" parameterType="long" resultType="int">
