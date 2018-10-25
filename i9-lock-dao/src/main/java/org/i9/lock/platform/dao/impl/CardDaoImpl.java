@@ -19,8 +19,8 @@ public class CardDaoImpl implements CardDao {
 	 private CardMapper cardMapper;
 
 	@Override
-	public List<Card> getAllCard(Long lockId) throws Exception {
-		return cardMapper.getAllCard(lockId);
+	public List<Card> getAllCard(Long lockId,Long userId) throws Exception {
+		return cardMapper.getAllCard(lockId,userId);
 	}
 
 	@Override

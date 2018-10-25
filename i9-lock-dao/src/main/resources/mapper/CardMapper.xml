@@ -224,7 +224,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getAllCard" parameterType="java.lang.Long" resultType="org.i9.lock.platform.model.Card">
-    select * from t_card where lockId = #{lockId}
+    select * from t_card where lockId = #{lockId} AND userId= #{userId}
   </select>
   <select id="selectExistOrderNumber" parameterType="long" resultType="int">
     select orderNumber from t_card where lockId = #{lockId}

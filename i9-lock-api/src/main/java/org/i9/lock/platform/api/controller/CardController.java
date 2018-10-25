@@ -45,10 +45,10 @@ public class CardController {
     @RequestMapping(value={"/getAllCard"},method = {RequestMethod.POST})
     public HashMap<String, Object> getAllCard(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<Card> cards = cardService.getAllCard(lockId);
+        User user = userService.getCurrentUser();
+        List<Card> cards = cardService.getAllCard(lockId,user.getId());
         Lock lock = lockService.getLockById(lockId);
         Integer userNumber = null;
-        User user = userService.getCurrentUser();
         if (lock.getUserId() == user.getId()){
             userNumber = 0;
         }else{

@@ -28,7 +28,7 @@ public interface CardMapper {
 
     int updateByPrimaryKey(Card record);
 
-	List<Card> getAllCard(Long lockId);
+	List<Card> getAllCard(Long lockId, Long userId);
 
 	List<Integer> selectExistOrderNumber(Long lockId);
 

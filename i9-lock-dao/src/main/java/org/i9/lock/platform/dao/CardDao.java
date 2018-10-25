@@ -7,11 +7,12 @@ import org.i9.lock.platform.model.Card;
 public interface CardDao {
 	 /**
      * 查询全部卡
+	 * @param userId 
      * @param 
      * @return
      * @throws Exception
      */
-	List<Card> getAllCard(Long lockId)throws Exception;
+	List<Card> getAllCard(Long lockId, Long userId)throws Exception;
 	 /**
      * 添加卡
      * @param 

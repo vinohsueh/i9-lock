@@ -9,10 +9,11 @@ public interface CardService {
 	 /**
      * 查询全部卡
 	 * @param lockId 
+	 * @param userId 
      * @param Card
      * @throws BusinessException
      */
-	List<Card> getAllCard(Long lockId)throws BusinessException;
+	List<Card> getAllCard(Long lockId, Long userId)throws BusinessException;
 	/**
      * 添加卡
      * @param Card

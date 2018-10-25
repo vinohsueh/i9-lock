@@ -30,9 +30,9 @@ public class CardServiceImpl implements CardService {
 	 private ConfigDao configDao;
 	 
 	@Override
-	public List<Card> getAllCard(Long lockId) throws BusinessException {
+	public List<Card> getAllCard(Long lockId,Long userId) throws BusinessException {
 	    try {
-            return cardDao.getAllCard(lockId);
+            return cardDao.getAllCard(lockId,userId);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"查询卡失败",e.getMessage());
         }
