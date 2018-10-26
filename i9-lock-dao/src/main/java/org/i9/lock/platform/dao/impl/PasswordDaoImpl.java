@@ -69,9 +69,9 @@ public class PasswordDaoImpl implements PasswordDao{
 	}
 
 	@Override
-	public List<Integer> selectExistOrderNumbers(Long lockId)throws Exception {
+	public List<Integer> selectExistOrderNumbers(Long lockId,Long userId)throws Exception {
 		// TODO Auto-generated method stub
-		return passwordMapper.selectExistOrderNumber2(lockId);
+		return passwordMapper.selectExistOrderNumber(lockId,userId);
 	}
 
 	@Override

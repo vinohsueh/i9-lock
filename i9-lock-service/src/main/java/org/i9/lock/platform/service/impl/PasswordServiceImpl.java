@@ -13,7 +13,9 @@ import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
+import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.PasswordService;
+import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
@@ -40,6 +42,9 @@ public class PasswordServiceImpl implements PasswordService{
     
     @Autowired
     private LockDao lockDao;
+    
+    @Autowired
+    private UserService userService;
     @Override
     public void addPassword(Password password) throws BusinessException {
         try {
@@ -111,7 +116,8 @@ public class PasswordServiceImpl implements PasswordService{
     public Integer selectUsefulOrderNumber(Long lockId)
             throws BusinessException {
         try {
-            List<Integer> list = passwordDao.selectExistOrderNumbers(lockId);
+        	User currentUser = userService.getCurrentUser();
+            List<Integer> list = passwordDao.selectExistOrderNumbers(lockId,currentUser.getId());
           //查询最大可用编号数
             Config config = configDao.selectMaxPassword();
             int max = config.getConfigValue();

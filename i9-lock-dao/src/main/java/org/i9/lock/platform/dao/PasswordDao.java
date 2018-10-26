@@ -75,9 +75,9 @@ public interface PasswordDao {
      * @return
      * @throws Exception 
      */
-	List<Integer> selectExistOrderNumbers(Long lockId)throws Exception;
-
 	void deletePasswordByLockId(Long id)throws Exception;
+
+	List<Integer> selectExistOrderNumbers(Long lockId, Long userId)throws Exception;
 
 	
 }
