@@ -27,6 +27,7 @@
     <result column="departmentPicture" jdbcType="VARCHAR" property="departmentPicture"/>
     <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
     <result column="cusNumber" jdbcType="INTEGER" property="cusNumber"/>
+    <result column="customerNumber" jdbcType="INTEGER" property="customerNumber"/>
     <result column="clickLock" jdbcType="INTEGER" property="clickLock"/>
     <result column="showType" jdbcType="INTEGER" property="showType"/>
     <result column="warnTime" jdbcType="VARCHAR" property="warnTime"/>
@@ -727,7 +728,7 @@
   	select l.*,
 	(
 	 select count(id) from t_lock_key lk where lk.lockId = l.id
-	)as cusNumber
+	)as customerNumber
 	,(select startTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as startTime
 	,(select endTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as endTime
 	,(SELECT receiveFlag FROM t_lock_key WHERE lockId =l.id AND userId= #{example.userId})as receiveFlag

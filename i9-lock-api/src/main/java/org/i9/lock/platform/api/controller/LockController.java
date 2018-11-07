@@ -266,7 +266,7 @@ public class LockController {
             jsonHouseHold.add(jsonObject);
         }
         for (Lock lock : listLock2) { 
-            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build();
+            JSONObject jsonObject = new LockListInfoComponent().setLock(lock).build5();
             jsonTenant.add(jsonObject);
         }
         result.put("jsonHouseHold", jsonHouseHold);

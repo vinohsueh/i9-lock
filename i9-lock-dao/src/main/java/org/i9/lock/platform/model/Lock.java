@@ -158,6 +158,11 @@ public class Lock {
     private Integer cusNumber;
     
     /**
+     * 租客数量
+     */
+    private Integer customerNumber;
+    
+    /**
      * 是否显示 0:显示 1:隐藏
      */
     private Integer showType;
@@ -497,6 +502,14 @@ public class Lock {
 	}
 	 public String getKeyTimeString() {
 	        return DateUtils.dateToString(updateKeyDate);
-	    } 
+	    }
+
+	public Integer getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public void setCustomerNumber(Integer customerNumber) {
+		this.customerNumber = customerNumber;
+	} 
 	
 }

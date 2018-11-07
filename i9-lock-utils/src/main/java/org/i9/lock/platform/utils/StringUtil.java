@@ -60,6 +60,20 @@ public class StringUtil {
     
     /**
      * 日期转换
+     * 
+     * @param date
+     * @return
+     */
+    public static String dateToStringToS(Date date) {
+        if (null != date) {
+            SimpleDateFormat sdm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return sdm.format(date);
+        } else {
+            return "-";
+        }
+    }    
+    /**
+     * 日期转换
      * @param date
      * @param rep
      * @return
@@ -82,4 +96,13 @@ public class StringUtil {
     /*
      * 测试2018年1月2日 10:52:05
      */
+	public static String datetoLong(Date date) {
+		if(null !=date) {
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyMMddHHmmss");
+			String dateString = simpleDateFormat.format(date);
+			return dateString;
+		}else {
+			return "";
+		}
+	}
 }

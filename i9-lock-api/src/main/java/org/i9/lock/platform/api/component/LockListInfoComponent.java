@@ -45,7 +45,7 @@ public class LockListInfoComponent {
         jsonObject.put("departmentAddress",lock.getDepartmentAddress());
         jsonObject.put("departmentNumber", lock.getDepartmentNumber());
         jsonObject.put("departmentPicture", lock.getDepartmentPicture());
-        jsonObject.put("cusNumber",lock.getCusNumber() );
+        jsonObject.put("cusNumber",lock.getCusNumber());
         jsonObject.put("showType", lock.getShowType());
         if (lock.getStartTime() != null) {
             jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
@@ -143,6 +143,37 @@ public class LockListInfoComponent {
         jsonObject.put("id", lock.getId());
         jsonObject.put("disturb", lock.getDisturb());
         jsonObject.put("battery", lock.getBattery());
+        return jsonObject;
+    }
+    
+    public JSONObject build5() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", lock.getId());
+        jsonObject.put("name", lock.getName());
+        jsonObject.put("battery", lock.getBattery());
+        jsonObject.put("keyUser", lock.getKeyUser());
+        jsonObject.put("keyAdmin", lock.getKeyAdmin());
+        jsonObject.put("keyNumber", lock.getKeyNumber());
+        jsonObject.put("keyDev", lock.getKeyDev());
+        jsonObject.put("receiveFlag", lock.getReceiveFlag());
+        jsonObject.put("remark", lock.getRemark());
+        jsonObject.put("safeMode", lock.getSafeMode());
+        jsonObject.put("mac", lock.getMac());
+        jsonObject.put("deviceName", lock.getDeviceName());
+        jsonObject.put("startTime", null);
+        jsonObject.put("endTime", null);
+        jsonObject.put("departmentType",lock.getDepartmentType());
+        jsonObject.put("departmentAddress",lock.getDepartmentAddress());
+        jsonObject.put("departmentNumber", lock.getDepartmentNumber());
+        jsonObject.put("departmentPicture", lock.getDepartmentPicture());
+        jsonObject.put("cusNumber",lock.getCustomerNumber());
+        jsonObject.put("showType", lock.getShowType());
+        if (lock.getStartTime() != null) {
+            jsonObject.put("startTime", StringUtil.dateToStringByRep(lock.getStartTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
+        if (lock.getEndTime() != null) {
+            jsonObject.put("endTime", StringUtil.dateToStringByRep(lock.getEndTime(), "yyyy-MM-dd HH:mm:ss"));
+        }
         return jsonObject;
     }
 }
