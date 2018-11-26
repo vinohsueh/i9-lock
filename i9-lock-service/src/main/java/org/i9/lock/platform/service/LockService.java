@@ -6,6 +6,7 @@ import java.util.List;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
@@ -208,6 +209,14 @@ public interface LockService {
 	* @return void
 	 */
 	void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
+	/**
+	 * 同步锁信息
+	* @Title: syncLockPwdAndIDcard
+	* @param @param syncLockDto
+	* @param @throws BusinessException
+	 */
+    void syncLockPwdAndIDcard(SyncLockDto syncLockDto)throws BusinessException;
 	
 	
 }

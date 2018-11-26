@@ -17,6 +17,7 @@ import org.i9.lock.platform.dao.vo.LockAddDto;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Info;
 import org.i9.lock.platform.model.Lock;
@@ -39,6 +40,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -685,5 +687,21 @@ public class LockController {
     		result.put("lock", lock);
     	}
     	return result;
+    }
+    
+    /**
+     * 同步锁信息
+    * @Title: syncLockPwdAndIDcard
+    * @param @param syncLockDto
+    * @param @return
+     */
+    @ResponseBody
+    @RequestMapping("/syncLockPwdAndIDcard")
+    public HashMap<String, Object> syncLockPwdAndIDcard(SyncLockDto syncLockDto){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User currentUser = userService.getCurrentUser();
+        syncLockDto.setUserId(currentUser.getId());
+        lockService.syncLockPwdAndIDcard(syncLockDto);
+        return result;
     }
 }

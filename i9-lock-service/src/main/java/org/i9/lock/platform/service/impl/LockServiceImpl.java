@@ -8,6 +8,7 @@ import org.i9.lock.platform.dao.UserDao;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
@@ -301,4 +302,13 @@ public class LockServiceImpl implements LockService{
 			throw new BusinessException(e.getMessage());
 		}
 	}
+
+    @Override
+    public void syncLockPwdAndIDcard(SyncLockDto syncLockDto) throws BusinessException {
+        try {
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 }
