@@ -2,8 +2,9 @@ package org.i9.lock.platform.utils;
 
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
+import java.util.List;
 /**
  * 字符串工具
  * 
@@ -104,5 +105,38 @@ public class StringUtil {
 		}else {
 			return "";
 		}
+	}
+	
+	/***
+	 * String（Integer）转成List
+	* @Title: StringArrayToArrayList
+	* @param @param str
+	* @param @return
+	 */
+	public static ArrayList<Integer> StringArrayToArrayList(String str){
+	    ArrayList<Integer> pwdAcceptList = new ArrayList<Integer>();
+	    String[] pwdAcceptArray =str.split(",");
+	    for(int i=0;i<pwdAcceptArray.length;i++) {
+            pwdAcceptList.add(Integer.parseInt(pwdAcceptArray[i]));
+        }
+	    return pwdAcceptList;
+	}
+	
+	/**
+	 * 密码组转成二进制
+	* @Title: pwdToBinary
+	* @param @param pwdSelectList
+	* @param @return
+	 */
+	public static ArrayList<Integer> pwdToBinary(List<Integer> pwdSelectList){
+	    ArrayList<Integer> pwdList = new ArrayList<Integer>(); 
+        for(int i=0;i<10;i++) {
+            if(!pwdSelectList.contains(i)) {
+                pwdList.add(0);
+            }else {
+                pwdList.add(1);
+            }
+        }
+        return pwdList;
 	}
 }

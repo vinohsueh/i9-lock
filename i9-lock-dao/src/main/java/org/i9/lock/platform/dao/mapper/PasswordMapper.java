@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -47,5 +48,11 @@ public interface PasswordMapper {
      */
 	List<Integer> selectExistOrderNumber2(@Param("lockId")Long lockId);
 
-	void deletePasswordByLockId(@Param("lockId") Long id); 
+	void deletePasswordByLockId(@Param("lockId") Long id);
+
+    List<Integer> selectExistOrderNumber3(@Param("lockId") Long lockId,@Param("userId") Long userId);
+
+    void insertPwdByLockIdAndUserId(@Param("pwdSameList") ArrayList<Password> pwdSameList);
+
+    void delPwdByLockIdAndUserId(@Param("lockId") Long lockId,@Param("userId") Long userId,@Param("unPwdSameList") ArrayList<Integer> unPwdSameList);  
 }

@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.i9.lock.platform.dao.CardDao;
@@ -47,6 +48,26 @@ public class CardDaoImpl implements CardDao {
 	public void deleteCardByLockId(Long id) {
 		cardMapper.deleteCardByLockId(id);
 	}
+
+    @Override
+    public List<Integer> selectExistOrderNumber(Long lockId, Long userId) {
+        return cardMapper.selectExistOrderNumber(lockId,userId);
+    }
+
+    @Override
+    public void insertPwdByLockIdAndUserId(ArrayList<Card> pwdSameList) {
+        cardMapper.insertPwdByLockIdAndUserId(pwdSameList);
+    }
+
+    @Override
+    public void delPwdByLockIdAndUserId(Long lockId, Long userId, ArrayList<Integer> unPwdSameList) {
+        cardMapper.delPwdByLockIdAndUserId(lockId,userId,unPwdSameList);
+    }
+
+    @Override
+    public List<Integer> selectExistOrderNumber2(Long lockId, Long userId) {
+        return cardMapper.selectExistOrderNumber2(lockId,userId);
+    }
 
 
 }

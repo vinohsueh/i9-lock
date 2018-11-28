@@ -211,12 +211,18 @@ public interface LockService {
 	void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
 	
 	/**
-	 * 同步锁信息
+	 * 同步锁指纹密码
 	* @Title: syncLockPwdAndIDcard
 	* @param @param syncLockDto
 	* @param @throws BusinessException
 	 */
-    void syncLockPwdAndIDcard(SyncLockDto syncLockDto)throws BusinessException;
+    void syncLockPwd(SyncLockDto syncLockDto)throws BusinessException;
 	
-	
+    /**
+     * 同步IcCard密码
+    * @Title: syncICCard
+    * @param @param syncLockDto
+    * @param @throws BusinessException
+     */
+    void syncICCard(SyncLockDto syncLockDto)throws BusinessException;
 }

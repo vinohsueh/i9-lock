@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.i9.lock.platform.dao.PasswordDao;
@@ -78,5 +79,20 @@ public class PasswordDaoImpl implements PasswordDao{
 	public void deletePasswordByLockId(Long id) throws Exception {
 		passwordMapper.deletePasswordByLockId(id);
 	}
+
+    @Override
+    public List<Integer> selectExistOrderNumber3(Long lockId, Long userId) throws Exception {
+        return passwordMapper.selectExistOrderNumber3(lockId,userId);
+    }
+
+    @Override
+    public void insertPwdByLockIdAndUserId(ArrayList<Password> pwdSameList) throws Exception {
+        passwordMapper.insertPwdByLockIdAndUserId(pwdSameList);
+    }
+
+    @Override
+    public void delPwdByLockIdAndUserId(Long lockId, Long userId, ArrayList<Integer> unPwdSameList) throws Exception {
+        passwordMapper.delPwdByLockIdAndUserId(lockId,userId,unPwdSameList);
+    }
 
 }

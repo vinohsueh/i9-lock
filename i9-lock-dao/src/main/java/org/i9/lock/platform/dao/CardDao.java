@@ -1,5 +1,6 @@
 package org.i9.lock.platform.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.i9.lock.platform.model.Card;
@@ -49,5 +50,20 @@ public interface CardDao {
 	* @return void
 	 */
 	void deleteCardByLockId(Long id);
+	
+	/**
+	 * 根据LockId和UserId查询用户组
+	* @Title: selectExistOrderNumber
+	* @param @param lockId
+	* @param @param userId
+	* @param @return
+	 */
+    List<Integer> selectExistOrderNumber(Long lockId, Long userId);
+    
+    void insertPwdByLockIdAndUserId(ArrayList<Card> pwdSameList);
+    
+    void delPwdByLockIdAndUserId(Long lockId, Long userId, ArrayList<Integer> unPwdSameList);
+    
+    List<Integer> selectExistOrderNumber2(Long lockId, Long userId);
 
 }

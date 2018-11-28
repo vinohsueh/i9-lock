@@ -8,10 +8,10 @@ package org.i9.lock.platform.dao.vo;
  */
 public class SyncLockDto {
     
-    /*
+    /**
      * 锁id
      */
-    private int lockId;
+    private Long lockId;
     
     /**
      * 用户组编号
@@ -38,11 +38,11 @@ public class SyncLockDto {
         this.userId = userId;
     }
 
-    public int getLockId() {
+    public Long getLockId() {
         return lockId;
     }
 
-    public void setLockId(int lockId) {
+    public void setLockId(Long lockId) {
         this.lockId = lockId;
     }
 

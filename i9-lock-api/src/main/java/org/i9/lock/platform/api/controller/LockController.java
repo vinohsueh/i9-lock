@@ -26,6 +26,7 @@ import org.i9.lock.platform.model.LockExample.Criteria;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.CardService;
+import org.i9.lock.platform.service.ErrorLogService;
 import org.i9.lock.platform.service.InfoService;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
@@ -75,6 +76,8 @@ public class LockController {
     private PasswordService passwordService;
     @Autowired
     private CardService cardService;
+    @Autowired
+    private ErrorLogService errorLogSerivce;
     /**
      * 添加锁(无照片)
      * @param lockAddDto
@@ -701,7 +704,9 @@ public class LockController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User currentUser = userService.getCurrentUser();
         syncLockDto.setUserId(currentUser.getId());
-        lockService.syncLockPwdAndIDcard(syncLockDto);
+        lockService.syncLockPwd(syncLockDto);
+        lockService.syncICCard(syncLockDto);
+        errorLogSerivce.deleteErrorlogBylockIdAndOrderNumber(syncLockDto.getLockId().intValue(),syncLockDto.getUserNumber());
         return result;
     }
 }
