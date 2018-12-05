@@ -3,7 +3,13 @@ package org.i9.lock.platform.api.controller;
 import java.util.HashMap;
 
 import org.i9.lock.platform.model.ErrorLog;
+import org.i9.lock.platform.model.Lock;
+import org.i9.lock.platform.model.LockKey;
+import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.ErrorLogService;
+import org.i9.lock.platform.service.LockKeyService;
+import org.i9.lock.platform.service.LockService;
+import org.i9.lock.platform.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +28,12 @@ public class ErrorLogController {
     
     @Autowired
     private ErrorLogService errorLogService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private LockKeyService lockKeyService;
+    @Autowired
+    private LockService lockService;
     
     /**
      * 新增错误日志
@@ -33,6 +45,15 @@ public class ErrorLogController {
     @RequestMapping("/insertErrorlog")
     public HashMap<String, Object> insertErrorlog(ErrorLog errorLog) {
         HashMap<String, Object> result = new HashMap<String, Object>();
+        User currentUser = userService.getCurrentUser();
+        Lock lock = lockService.getLockById(errorLog.getLockId().longValue());
+      //判断是否是房东
+        if (lock.getUserId() - currentUser.getId() == 0) {
+            errorLog.setOrderNumber(0);
+        }else{
+            LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(errorLog.getLockId().longValue(), currentUser.getId());
+            errorLog.setOrderNumber(lockKey.getOrderNumber());
+        }
         errorLogService.insertErrorlog(errorLog);
         return result;
     }
