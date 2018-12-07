@@ -20,7 +20,11 @@ public interface ErrorLogMapper {
 
     int updateByExample(@Param("record") ErrorLog record, @Param("example") ErrorLogExample example);
 
-    int selectErrorlogBylockIdAndOrderNumber(@Param("lockId") Integer lockId,@Param("orderNumber") Integer orderNumber);
+    ErrorLog selectErrorlogBylockIdAndOrderNumber(@Param("lockId") Integer lockId,@Param("orderNumber") Integer orderNumber);
 
     void deleteErrorlogBylockIdAndOrderNumber(@Param("lockId") Integer lockId,@Param("orderNumber") Integer orderNumber);
+
+    void updateErrorlog(@Param("example") ErrorLog errorLog);
+
+    int selectCountBylockIdAndOrderNumber(@Param("lockId")Integer lockId,@Param("orderNumber") Integer orderNumber);
 }

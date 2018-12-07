@@ -27,7 +27,7 @@ public interface ErrorLogService {
     * @param @throws BusinessException
      * @return 
      */
-    int selectErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber)throws BusinessException;
+    ErrorLog selectErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber)throws BusinessException;
     
     /**
      * 根据lockid和orderNumber删除
@@ -38,5 +38,23 @@ public interface ErrorLogService {
      * @return 
      */
     void deleteErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber)throws BusinessException;
+    
+    /**
+     * 更新
+    * @Title: updateErrorlog
+    * @param @param errorLog
+    * @param @throws BusinessException
+     */
+    void updateErrorlog(ErrorLog errorLog)throws BusinessException;
+    
+    /**
+     * 查询数量
+    * @Title: selectCountBylockIdAndOrderNumber
+    * @param @param lockId
+    * @param @param orderNumber
+    * @param @return
+    * @param @throws BusinessException
+     */
+    int selectCountBylockIdAndOrderNumber(Integer lockId, Integer orderNumber)throws BusinessException;
     
 }

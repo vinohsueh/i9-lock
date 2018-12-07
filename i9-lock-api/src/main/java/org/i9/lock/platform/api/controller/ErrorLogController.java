@@ -54,6 +54,11 @@ public class ErrorLogController {
             LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(errorLog.getLockId().longValue(), currentUser.getId());
             errorLog.setOrderNumber(lockKey.getOrderNumber());
         }
+        int count = errorLogService.selectCountBylockIdAndOrderNumber(errorLog.getLockId(), errorLog.getOrderNumber());
+        if(count >0) {
+            errorLogService.updateErrorlog(errorLog);
+            return result;
+        }
         errorLogService.insertErrorlog(errorLog);
         return result;
     }
@@ -68,8 +73,12 @@ public class ErrorLogController {
     @RequestMapping("/selectErrorlogBylockId")
     public HashMap<String, Object> selectErrorlogBylockId(Integer lockId, Integer orderNumber) {
         HashMap<String, Object> result = new HashMap<String, Object>();
-        int iferror = errorLogService.selectErrorlogBylockIdAndOrderNumber(lockId,orderNumber);
-        result.put("iferror",iferror);
+        ErrorLog errorLog =errorLogService.selectErrorlogBylockIdAndOrderNumber(lockId,orderNumber);
+        if(null ==errorLog) {
+            result.put("iferror",0);
+            return result;
+        }
+        result.put("iferror",errorLog.getIferror());
         return result;
     }
     

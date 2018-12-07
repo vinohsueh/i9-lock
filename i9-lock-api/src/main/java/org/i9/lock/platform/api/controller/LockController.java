@@ -709,4 +709,24 @@ public class LockController {
         errorLogSerivce.deleteErrorlogBylockIdAndOrderNumber(syncLockDto.getLockId().intValue(),syncLockDto.getUserNumber());
         return result;
     }
+    
+    /**
+     * 更新密码信息
+    * @Title: syncLockPwdAndIDcard
+    * @param @param syncLockDto
+    * @param @return
+     */
+    @ResponseBody
+    @RequestMapping("/updatePwdByLockIdAndOrderNumber")
+    public HashMap<String, Object> updatePwdByLockIdAndOrderNumber(SyncLockDto syncLockDto){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User currentUser = userService.getCurrentUser();
+        syncLockDto.setUserId(currentUser.getId());
+        if(0 ==syncLockDto.getPwdType()) {
+            passwordService.updatePasswordByLockId(syncLockDto);
+        }else if(1 ==syncLockDto.getPwdType()) {
+            cardService.updatePasswordByLockId(syncLockDto);
+        }
+        return result;
+    }
 }

@@ -3,6 +3,7 @@ package org.i9.lock.platform.dao.mapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.model.CardExample;
 
@@ -42,4 +43,6 @@ public interface CardMapper {
     void delPwdByLockIdAndUserId(@Param("lockId") Long lockId,@Param("userId") Long userId,@Param("unPwdSameList") ArrayList<Integer> unPwdSameList);
 
     List<Integer> selectExistOrderNumber2(@Param("lockId") Long lockId,@Param("userId") Long userId);
+
+    void updatePasswordByLockId(@Param("example") SyncLockDto syncLockDto);
 }

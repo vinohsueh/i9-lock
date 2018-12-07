@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.CardDao;
 import org.i9.lock.platform.dao.mapper.CardMapper;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -67,6 +68,11 @@ public class CardDaoImpl implements CardDao {
     @Override
     public List<Integer> selectExistOrderNumber2(Long lockId, Long userId) {
         return cardMapper.selectExistOrderNumber2(lockId,userId);
+    }
+
+    @Override
+    public void updatePasswordByLockId(SyncLockDto syncLockDto) {
+        cardMapper.updatePasswordByLockId(syncLockDto);
     }
 
 

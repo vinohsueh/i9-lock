@@ -251,4 +251,9 @@
   		#{item}
   	</foreach>
   </delete>
+  <update id="updatePasswordByLockId">
+  	update t_card
+  	set name = #{example.name}
+  	where lockId = #{example.lockId} AND userId = #{example.userId} AND orderNumber = #{example.userNumber}
+  </update>
 </mapper>

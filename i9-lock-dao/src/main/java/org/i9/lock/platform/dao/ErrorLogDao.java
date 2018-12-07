@@ -26,7 +26,7 @@ public interface ErrorLogDao {
     * @param @throws Exception
      * @return 
      */
-    int selectErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber) throws Exception;
+    ErrorLog selectErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber) throws Exception;
     
     /**
      * 根据lockid，ordernumber删除状态
@@ -37,5 +37,23 @@ public interface ErrorLogDao {
      * @return 
      */
     void deleteErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber)throws Exception;
+    
+    /**
+     * 更新
+    * @Title: updateErrorlog
+    * @param @param errorLog
+    * @param @throws Exception
+     */
+    void updateErrorlog(ErrorLog errorLog)throws Exception;
+    
+    /**
+     * 查询数量
+    * @Title: selectCountBylockIdAndOrderNumber
+    * @param @param lockId
+    * @param @param orderNumber
+    * @param @return
+    * @param @throws Exception
+     */
+    int selectCountBylockIdAndOrderNumber(Integer lockId, Integer orderNumber)throws Exception;
 
 }

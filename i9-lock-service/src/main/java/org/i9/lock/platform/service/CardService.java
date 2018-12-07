@@ -2,6 +2,7 @@ package org.i9.lock.platform.service;
 
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.utils.BusinessException;
 
@@ -46,5 +47,12 @@ public interface CardService {
 	* @return void
 	 */
 	void deleteCardByLockId(Long id)throws BusinessException;
+	/**
+	 * 更新
+	* @Title: updatePasswordByLockId
+	* @param @param syncLockDto
+	* @param @throws BusinessException
+	 */
+    void updatePasswordByLockId(SyncLockDto syncLockDto)throws BusinessException;
 
 }

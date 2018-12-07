@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.utils.PageBounds;
 
@@ -97,6 +98,14 @@ public interface PasswordDao {
     * @param @throws Exception
      */
     void delPwdByLockIdAndUserId(Long lockId, Long userId, ArrayList<Integer> unPwdSameList)throws Exception;
+    
+    /**
+     * 更新
+    * @Title: updatePasswordByLockId
+    * @param @param syncLockDto
+    * @param @throws Exception
+     */
+    void updatePasswordByLockId(SyncLockDto syncLockDto)throws Exception;
 
 	
 }

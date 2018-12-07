@@ -151,11 +151,21 @@
     </if>
   </update>
   
-  <select id="selectErrorlogBylockIdAndOrderNumber" resultType="int">
-  	select iferror from t_error_log where lockId = #{lockId} AND orderNumber = #{orderNumber}
+  <select id="selectErrorlogBylockIdAndOrderNumber" resultType="org.i9.lock.platform.model.ErrorLog">
+  	select * from t_error_log where lockId = #{lockId} AND orderNumber = #{orderNumber}
   </select>
   
   <delete id="deleteErrorlogBylockIdAndOrderNumber">
   	delete from t_error_log where lockId = #{lockId} AND orderNumber = #{orderNumber}
   </delete>
+  
+  <update id="updateErrorlog">
+    update t_error_log
+    set 
+    iferror = #{example.iferror,jdbcType=INTEGER}
+    where lockId = #{example.lockId} AND orderNumber = #{example.orderNumber}
+  </update>
+  <select id="selectCountBylockIdAndOrderNumber" resultType="int">
+  select count(*) from t_error_log where lockId = #{lockId} AND orderNumber = #{orderNumber}
+  </select>
 </mapper>

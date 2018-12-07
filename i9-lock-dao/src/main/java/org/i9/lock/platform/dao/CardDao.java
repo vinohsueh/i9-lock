@@ -3,6 +3,7 @@ package org.i9.lock.platform.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 
 public interface CardDao {
@@ -65,5 +66,7 @@ public interface CardDao {
     void delPwdByLockIdAndUserId(Long lockId, Long userId, ArrayList<Integer> unPwdSameList);
     
     List<Integer> selectExistOrderNumber2(Long lockId, Long userId);
+    
+    void updatePasswordByLockId(SyncLockDto syncLockDto);
 
 }

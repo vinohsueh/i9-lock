@@ -18,13 +18,23 @@ public class ErrorLogDaoImpl implements ErrorLogDao {
     }
 
     @Override
-    public int selectErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber) throws Exception {
+    public ErrorLog selectErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber) throws Exception {
        return  errorLogMapper.selectErrorlogBylockIdAndOrderNumber(lockId,orderNumber);
     }
 
     @Override
     public void deleteErrorlogBylockIdAndOrderNumber(Integer lockId, Integer orderNumber) throws Exception {
         errorLogMapper.deleteErrorlogBylockIdAndOrderNumber(lockId,orderNumber);
+    }
+
+    @Override
+    public void updateErrorlog(ErrorLog errorLog) throws Exception {
+        errorLogMapper.updateErrorlog(errorLog);
+    }
+
+    @Override
+    public int selectCountBylockIdAndOrderNumber(Integer lockId, Integer orderNumber) throws Exception {
+        return errorLogMapper.selectCountBylockIdAndOrderNumber(lockId,orderNumber);
     }
 
 }

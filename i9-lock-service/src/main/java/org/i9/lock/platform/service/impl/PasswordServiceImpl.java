@@ -9,6 +9,7 @@ import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
@@ -204,4 +205,13 @@ public class PasswordServiceImpl implements PasswordService{
             throw new BusinessException("删除用户指纹密码失败",e.getMessage());
         }
 	}
+
+    @Override
+    public void updatePasswordByLockId(SyncLockDto syncLockDto) throws BusinessException {
+        try {
+            passwordDao.updatePasswordByLockId(syncLockDto);
+       } catch (Exception e) {
+           throw new BusinessException("更新用户指纹密码失败",e.getMessage());
+       }
+    }
 }

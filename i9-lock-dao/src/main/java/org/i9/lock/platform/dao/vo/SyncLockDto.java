@@ -29,6 +29,29 @@ public class SyncLockDto {
     private String icCardPwd;
     
     private Long userId;
+    
+    /**
+     * 0:指纹密码 1:ic卡密码
+     */
+    private Integer PwdType;
+    
+    private String name;
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public Integer getPwdType() {
+        return PwdType;
+    }
+
+    public void setPwdType(Integer pwdType) {
+        PwdType = pwdType;
+    }
 
     public Long getUserId() {
         return userId;

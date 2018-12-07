@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.CardDao;
 import org.i9.lock.platform.dao.ConfigDao;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.service.CardService;
@@ -127,5 +128,14 @@ public class CardServiceImpl implements CardService {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"通过lockId删除卡失败",e.getMessage());
         }
 	}
+
+    @Override
+    public void updatePasswordByLockId(SyncLockDto syncLockDto) throws BusinessException {
+        try {
+            cardDao.updatePasswordByLockId(syncLockDto);
+       } catch (Exception e) {
+           throw new BusinessException(ErrorCode.CRUD_ERROR,"通过lockId更新卡失败",e.getMessage());
+       }
+    }
 
 }
