@@ -225,4 +225,12 @@ public interface LockService {
     * @param @throws BusinessException
      */
     void syncICCard(SyncLockDto syncLockDto)throws BusinessException;
+    
+    /**
+     * 更新字段(全部)
+    * @Title: updateById
+    * @param @param lock
+    * @param @throws BusinessException
+     */
+    void updateById(Lock lock)throws BusinessException;
 }

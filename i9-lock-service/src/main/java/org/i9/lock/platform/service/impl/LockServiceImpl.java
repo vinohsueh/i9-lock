@@ -401,4 +401,13 @@ public class LockServiceImpl implements LockService {
             throw new BusinessException("校对IC卡密码组失败",e.getMessage());
         }
     }
+
+    @Override
+    public void updateById(Lock lock) throws BusinessException {
+        try {
+            lockDao.updateById(lock);
+        } catch (Exception e) {
+            throw new BusinessException("更新字段失败",e.getMessage());
+        }
+    }
 }
