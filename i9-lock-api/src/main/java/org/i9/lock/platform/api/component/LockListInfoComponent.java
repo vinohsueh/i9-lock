@@ -132,6 +132,7 @@ public class LockListInfoComponent {
     public JSONObject build3() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", lock.getId());
+        jsonObject.put("battery", lock.getBattery());
         if (lock.getSynTime() != null) {
             jsonObject.put("synTime", StringUtil.dateToStringByRep(lock.getSynTime(), "yyyy-MM-dd HH:mm:ss"));
         }
