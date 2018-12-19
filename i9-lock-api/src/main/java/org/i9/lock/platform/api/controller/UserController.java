@@ -1,5 +1,6 @@
 package org.i9.lock.platform.api.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -237,4 +238,16 @@ public class UserController {
 		}
 		return result; 
     }
+    
+    /*
+     * 获取当前时间
+     */
+    @RequestMapping("/getCurrentTime")
+    public HashMap<String, Object> getCurrentTime(){
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		String currentTime =StringUtil.datetoLong(new Date());
+		result.put("currentTime", currentTime);
+		return result;
+    }
 }
+

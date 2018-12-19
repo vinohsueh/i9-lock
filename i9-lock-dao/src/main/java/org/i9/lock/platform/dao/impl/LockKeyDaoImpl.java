@@ -109,4 +109,9 @@ public class LockKeyDaoImpl implements LockKeyDao{
 		lockKeyMapper.updateLockKeyrentState();
 	}
 
+    @Override
+    public void updateLockKeyByPriviteKey(LockKey lockKey) throws Exception {
+        lockKeyMapper.updateByPrimaryKey(lockKey);
+    }
+
 }

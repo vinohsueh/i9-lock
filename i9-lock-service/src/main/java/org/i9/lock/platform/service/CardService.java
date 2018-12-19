@@ -2,6 +2,7 @@ package org.i9.lock.platform.service;
 
 import java.util.List;
 
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.utils.BusinessException;
 
@@ -9,10 +10,11 @@ public interface CardService {
 	 /**
      * 查询全部卡
 	 * @param lockId 
+	 * @param userId 
      * @param Card
      * @throws BusinessException
      */
-	List<Card> getAllCard(Long lockId)throws BusinessException;
+	List<Card> getAllCard(Long lockId, Long userId)throws BusinessException;
 	/**
      * 添加卡
      * @param Card
@@ -37,5 +39,20 @@ public interface CardService {
      * @throws BusinessException
      */
 	Integer selectExistOrderNumber(Long lockId)throws BusinessException;
+	/**
+	 * 根据lockId删除
+	* @Title: deleteCardByLockId
+	* @param @param id
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void deleteCardByLockId(Long id)throws BusinessException;
+	/**
+	 * 更新
+	* @Title: updatePasswordByLockId
+	* @param @param syncLockDto
+	* @param @throws BusinessException
+	 */
+    void updatePasswordByLockId(SyncLockDto syncLockDto)throws BusinessException;
 
 }

@@ -3,6 +3,7 @@ package org.i9.lock.platform.service;
 import java.util.List;
 
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.PageBounds;
@@ -72,4 +73,8 @@ public interface PasswordService {
     Integer selectUsefulOrderNumber(Long lockId) throws BusinessException;
 
     List<Password> listAllPasswords(Long lockId, Long id) throws BusinessException;
+
+	void deletePasswordByLockId(Long id) throws BusinessException;
+
+    void updatePasswordByLockId(SyncLockDto syncLockDto)throws BusinessException;
 }

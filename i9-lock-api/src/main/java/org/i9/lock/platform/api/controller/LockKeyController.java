@@ -1,5 +1,6 @@
 package org.i9.lock.platform.api.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.PageBounds;
+import org.i9.lock.platform.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +47,6 @@ public class LockKeyController {
     /**
      * 添加租户钥匙
      * @param lockKeyDto
-     * @param bindingResult
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
@@ -106,8 +107,7 @@ public class LockKeyController {
     
     /**
      * 更新租户钥匙
-     * @param lockKeyDto
-     * @param bindingResult
+     * @param lockKey
      * @return
      */
     @RequestMapping(value={"/update"},method = {RequestMethod.POST})
@@ -121,7 +121,7 @@ public class LockKeyController {
     
     /**
      * 获取用户组编号
-     * @param lockkeyId
+     * @param lockId
      * @return
      */
     @RequestMapping(value={"/getUserOrderNumber"},method = {RequestMethod.POST})
@@ -170,7 +170,7 @@ public class LockKeyController {
     
     /**
      * 根据lockkeyId查询
-     * @param lockkeyId
+     * @param lockKeyId
      * @return
      */
     @RequestMapping(value={"/getLockKey"},method = {RequestMethod.POST})
@@ -201,5 +201,22 @@ public class LockKeyController {
         result.put("lockKey", jsonArray);
         return result;
     }
-    
+
+    /**
+     * 更换结束时间
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/updateEndTimeByLockId"},method = {RequestMethod.POST})
+        public HashMap<String, Object> updateEndTimeByLockId(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User currentUser = userService.getCurrentUser();
+        LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, currentUser.getId());
+        Date d=new Date(System.currentTimeMillis()-1000*60*60*24);
+        lockKey.setEndTime(d);
+        lockKeyService.updateLockKey(lockKey);
+        lockKey.setUserId(null);
+        lockKeyService.updateLockKeyByPriviteKey(lockKey);
+        return result;
+    }
 }

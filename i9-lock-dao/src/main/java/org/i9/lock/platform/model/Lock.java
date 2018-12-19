@@ -158,6 +158,11 @@ public class Lock {
     private Integer cusNumber;
     
     /**
+     * 租客数量
+     */
+    private Integer customerNumber;
+    
+    /**
      * 是否显示 0:显示 1:隐藏
      */
     private Integer showType;
@@ -175,6 +180,19 @@ public class Lock {
      */
     private Integer disturb;
     
+    /**
+     * 0:未绑定 1：已绑定
+     */
+    private Integer forceUnlock;
+    
+	public Integer getForceUnlock() {
+		return forceUnlock;
+	}
+
+	public void setForceUnlock(Integer forceUnlock) {
+		this.forceUnlock = forceUnlock;
+	}
+
 	public Date getSynTime() {
 		return synTime;
 	}
@@ -484,6 +502,14 @@ public class Lock {
 	}
 	 public String getKeyTimeString() {
 	        return DateUtils.dateToString(updateKeyDate);
-	    } 
+	    }
+
+	public Integer getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public void setCustomerNumber(Integer customerNumber) {
+		this.customerNumber = customerNumber;
+	} 
 	
 }

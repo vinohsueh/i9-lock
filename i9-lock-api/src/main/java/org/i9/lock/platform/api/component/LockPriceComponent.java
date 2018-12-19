@@ -36,4 +36,11 @@ public class LockPriceComponent {
         jsonObject.put("propertyPrice", lock.getPropertyPrice()); 
         return jsonObject;
     }
+    
+    public JSONObject build2() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("battery", lock.getBattery());
+        return jsonObject;
+    }
+    
 }

@@ -27,11 +27,13 @@
     <result column="departmentPicture" jdbcType="VARCHAR" property="departmentPicture"/>
     <result column="propertyPrice" jdbcType="DECIMAL" property="propertyPrice" />
     <result column="cusNumber" jdbcType="INTEGER" property="cusNumber"/>
+    <result column="customerNumber" jdbcType="INTEGER" property="customerNumber"/>
     <result column="clickLock" jdbcType="INTEGER" property="clickLock"/>
     <result column="showType" jdbcType="INTEGER" property="showType"/>
     <result column="warnTime" jdbcType="VARCHAR" property="warnTime"/>
     <result column="updateKeyDate" property="updateKeyDate" jdbcType="TIMESTAMP" />
     <result column="disturb" jdbcType="INTEGER" property="disturb"/>
+    <result column="forceUnlock" jdbcType="INTEGER" property="forceUnlock"/>
     <result column="synTime" property="synTime" jdbcType="TIMESTAMP" />
     <result column="receiveFlag" property="receiveFlag" jdbcType="TINYINT" />
     <association property="user" column="userId" select="org.i9.lock.platform.dao.mapper.UserMapper.selectByPrimaryKey"/>
@@ -126,6 +128,22 @@
        </if>
     </trim>
   </sql>
+  <sql id="Query_By_Dto2_Where_Clause">
+  	 <trim prefix="WHERE" prefixOverrides="AND|OR">
+  	 	<if test="example.userId != null">
+           and userId = #{example.userId} 
+       </if>
+       <if test="example.lockId != null ">
+       	   and lockId = #{example.lockId}
+       </if>
+  	 </trim>
+  </sql>
+  <sql id="Query_By_Dto3_Where_Clause">
+  	 <trim prefix="WHERE" prefixOverrides="AND|OR">
+           and userOrder = #{example.userOrder} 
+       	   and lockId = #{example.lockId}
+  	 </trim>
+  </sql>
  <sql id="Query_By_Dto_Where_Clause2">
     <trim prefix="WHERE" prefixOverrides="AND|OR">
  	  <if test="example.name != null and example.name != ''">
@@ -157,7 +175,7 @@
   
   <sql id="Base_Column_List" >
      id, keyAdmin,updateKeyDate, effective, userId, name, battery,  elePrice,  gasPrice, 
-     waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, synTime,disturb,
+     waterPrice, safeMode, ifShared, alertMinute, keyUser, createTime, keyNumber, synTime,disturb,forceUnlock,
     keyDev, remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,propertyPrice,clickLock,showType,warnTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="org.i9.lock.platform.model.LockExample" >
@@ -199,7 +217,7 @@
       elePrice,  gasPrice, 
       waterPrice, safeMode, propertyPrice,
       ifShared, alertMinute, keyUser, 
-      createTime, keyNumber, keyDev, synTime,disturb,
+      createTime, keyNumber, keyDev, synTime,disturb,forceUnlock,
       remark, deviceName, mac,departmentType,departmentAddress,departmentNumber,departmentPicture,showType,warnTime
       )
     values (#{keyAdmin,jdbcType=VARCHAR}, #{effective,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, 
@@ -209,7 +227,7 @@
       #{ifShared,jdbcType=TINYINT}, #{alertMinute,jdbcType=INTEGER}, #{keyUser,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{keyNumber,jdbcType=VARCHAR}, #{keyDev,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR},#{synTime,jdbcType=TIMESTAMP},#{disturb,jdbcType=INTEGER},
-      #{departmentType,jdbcType=INTEGER},#{departmentAddress,jdbcType=VARCHAR},#{departmentNumber,jdbcType=VARCHAR},
+      #{forceUnlock,jdbcType=INTEGER},#{departmentType,jdbcType=INTEGER},#{departmentAddress,jdbcType=VARCHAR},#{departmentNumber,jdbcType=VARCHAR},
       #{departmentPicture,jdbcType=VARCHAR},#{showType,jdbcType=INTEGER},#{warnTime,jdbcType=VARCHAR}
       )
   </insert>
@@ -297,8 +315,11 @@
        <if test="synTime != null">
         synTime,
       </if>
-       <if test="disturb != null and disturb != ''">
+       <if test="disturb != null">
         disturb,
+      </if>
+      <if test="forceUnlock != null">
+        forceUnlock,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -374,8 +395,11 @@
        <if test="synTime != null">
         #{synTime,jdbcType=TIMESTAMP},
       </if>
-        <if test="disturb != null and departmentType != ''">
+        <if test="disturb != null">
         #{disturb,jdbcType=INTEGER},
+      </if>
+      <if test="forceUnlock != null">
+        #{forceUnlock,jdbcType=INTEGER},
       </if>
       <if test="showType != null and showType != ''">
         showType,
@@ -445,8 +469,11 @@
        <if test="record.synTime != null">
         synTime = #{record.synTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.disturb != null and record.disturb != ''">
+      <if test="record.disturb != null">
        disturb = #{record.disturb,jdbcType=INTEGER},
+      </if>
+      <if test="record.forceUnlock != null">
+       forceUnlock = #{record.forceUnlock,jdbcType=INTEGER},
       </if>
       <if test="record.keyNumber != null and record.keyNumber != ''">
         keyNumber = #{record.keyNumber,jdbcType=VARCHAR},
@@ -520,6 +547,7 @@
       showType = #{record.showType,jdbcType=INTEGER},
       synTime = #{record.synTime,jdbcType=TIMESTAMP},
       disturb = #{record.disturb,jdbcType=INTEGER},
+      forceUnlock = #{record.forceUnlock,jdbcType=INTEGER},
       warnTime =#{record.warnTime,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -600,7 +628,7 @@
       <if test="departmentPicture != null and departmentPicture != ''">
        departmentPicture = #{departmentPicture,jdbcType=VARCHAR},
       </if>
-       <if test="clickLock != null and clickLock != ''">
+       <if test="clickLock != null">
        clickLock = #{clickLock,jdbcType=INTEGER},
       </if>
       <if test="showType != null and showType != ''">
@@ -609,8 +637,11 @@
         <if test="synTime != null">
         synTime = #{synTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="disturb != null and disturb != ''">
+      <if test="disturb != null">
        disturb = #{disturb,jdbcType=INTEGER},
+      </if>
+      <if test="forceUnlock != null">
+       forceUnlock = #{forceUnlock,jdbcType=INTEGER},
       </if>
       <if test="warnTime != null and warnTime != ''">
       	warnTime = #{warnTime,jdbcType=VARCHAR},
@@ -648,6 +679,7 @@
       showType = #{showType,jdbcType=INTEGER},
       synTime = #{synTime,jdbcType=TIMESTAMP},
       disturb = #{disturb,jdbcType=INTEGER},
+      forceUnlock = #{forceUnlock,jdbcType=INTEGER},
       warnTime = #{warnTime,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -696,7 +728,7 @@
   	select l.*,
 	(
 	 select count(id) from t_lock_key lk where lk.lockId = l.id
-	)as cusNumber
+	)as customerNumber
 	,(select startTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as startTime
 	,(select endTime from t_lock_key where lockId = l.id and userId = #{example.userId}) as endTime
 	,(SELECT receiveFlag FROM t_lock_key WHERE lockId =l.id AND userId= #{example.userId})as receiveFlag
@@ -739,4 +771,52 @@
       keyUser = #{keyUser}
     where id = #{id}
   </update>
+  <select id="getPwdByUidAndLockId" resultType="string">
+  	select userPassword
+  	from t_user_password
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto2_Where_Clause" />
+    </if>
+  </select>
+  <insert id="insertPwdByUidAndLockId">
+  	insert into t_user_password (lockId,userId,userPassword)
+  	values(#{example.lockId},#{example.userId},#{example.userPassword})
+  </insert>
+  <delete id="deletePwdByUidAndLockId">
+  	delete from t_user_password
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto2_Where_Clause" />
+    </if>
+  </delete>
+  
+  <insert id="insertClickByUidAndLockId">
+  	insert into t_lock_ccnp (lockId,clickLock,userOrder)
+  	values(#{example.lockId},#{example.clickLock},#{example.userOrder})
+  </insert>
+  
+  <select id="getClickByUidAndLockId" resultType="int">
+  	select clickLock
+  	from t_lock_ccnp
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto3_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateClickByUidAndLockId">
+  	update t_lock_ccnp
+  	<set>
+  		clickLock = #{example.clickLock}
+  	</set>
+  	<if test="_parameter != null">
+        <include refid="Query_By_Dto3_Where_Clause" />
+    </if>
+  </update>
+  <delete id="deleteClickByUidAndLockId">
+  	delete from t_lock_ccnp
+  	<where>
+	  	<if test="example.lockId != null">
+	       	    lockId = #{example.lockId}
+	    </if>
+    </where>
+  </delete>
 </mapper>

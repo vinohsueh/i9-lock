@@ -223,10 +223,37 @@
       userId = #{userId,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getAllCard" parameterType="java.lang.Long" resultType="org.i9.lock.platform.model.Card">
-    select * from t_card where lockId = #{lockId}
+  <select id="getAllCard" resultType="org.i9.lock.platform.model.Card">
+    select * from t_card where lockId = #{lockId} AND userId= #{userId}
   </select>
   <select id="selectExistOrderNumber" parameterType="long" resultType="int">
     select orderNumber from t_card where lockId = #{lockId}
   </select>
+  <delete id="deleteCardByLockId">
+  	delete from t_card where lockId=#{lockId}
+  </delete>
+  <select id="selectExistOrderNumber2" resultType="int">
+  	  select orderNumber from t_card where lockId = #{lockId} and userId = #{userId} ORDER BY orderNumber
+  </select>
+  
+  <insert id="insertPwdByLockIdAndUserId" parameterType="java.util.List">
+  	insert into t_card(lockId,userId,name,orderNumber) 
+  	values
+  	<foreach collection="pwdSameList" item="item" index="index" separator=",">
+  		(#{item.lockId},#{item.userId},#{item.name},#{item.orderNumber})
+  	</foreach>
+  </insert>
+  
+  <delete id="delPwdByLockIdAndUserId" parameterType="java.util.HashMap">
+  	delete from t_card 
+  	where lockId =#{lockId} AND userId=#{userId} AND orderNumber in
+  	<foreach collection="unPwdSameList" item="item" index="index" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach>
+  </delete>
+  <update id="updatePasswordByLockId">
+  	update t_card
+  	set name = #{example.name}
+  	where lockId = #{example.lockId} AND userId = #{example.userId} AND orderNumber = #{example.userNumber}
+  </update>
 </mapper>

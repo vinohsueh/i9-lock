@@ -7,6 +7,7 @@ import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.mapper.LockMapper;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.utils.PageBounds;
@@ -131,5 +132,45 @@ public class LockDaoImpl implements LockDao{
 	public void updateLockes(LockUpdateDto lockDto) throws Exception {
 		lockMapper.updateLockes(lockDto);		
 	}
+
+	@Override
+	public String getPwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		return lockMapper.getPwdByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public void insertPwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		lockMapper.insertPwdByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public void deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		lockMapper.deletePwdByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public void insertClickByUidAndLockId(UserLongPasswordDto userLongPassword) throws Exception {
+		lockMapper.insertClickByUidAndLockId(userLongPassword);
+	}
+
+	@Override
+	public Integer getClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws Exception {
+		return lockMapper.getClickByUidAndLockId(userLongPasswordDto);
+	}
+
+	@Override
+	public void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws Exception {
+		lockMapper.updateClickByUidAndLockId(userLongPasswordDto);
+	}
+
+	@Override
+	public void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto) throws Exception {
+		lockMapper.deleteClickByUidAndLockId(userLongPasswordDto);
+	}
+
+    @Override
+    public void updateById(Lock lock) throws Exception {
+        lockMapper.updateByPrimaryKey(lock);
+    }
 
 }

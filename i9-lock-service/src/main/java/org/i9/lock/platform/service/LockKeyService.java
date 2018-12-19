@@ -18,14 +18,14 @@ import org.i9.lock.platform.utils.PageBounds;
 public interface LockKeyService {
     /**
      * 添加锁钥匙
-     * @param LockKey
+     * @param lockKeyDto
      * @throws BusinessException
      */
     void addLockKey(LockKeyDto lockKeyDto) throws BusinessException;
     
     /**
      * 更新锁钥匙
-     * @param LockKey
+     * @param lockKey
      * @throws BusinessException
      */
     void updateLockKey(LockKey lockKey) throws BusinessException;
@@ -116,4 +116,6 @@ public interface LockKeyService {
 	List<LockKey> getTime()throws BusinessException;
 
 	void updateLockKeyrentState()throws BusinessException;
+
+    void updateLockKeyByPriviteKey(LockKey lockKey)throws BusinessException;
 }

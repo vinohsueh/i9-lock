@@ -299,6 +299,10 @@ public class LockKey {
         return StringUtil.dateToStringWithoutTime(receiveTime);
     }
     
+    public String getStartTimeString(){
+        return StringUtil.dateToStringWithoutTime(startTime);
+    }
+    
     public String getEndTimeString(){
         return StringUtil.dateToStringWithoutTime(endTime);
     }

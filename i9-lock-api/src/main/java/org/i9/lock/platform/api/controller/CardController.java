@@ -45,10 +45,10 @@ public class CardController {
     @RequestMapping(value={"/getAllCard"},method = {RequestMethod.POST})
     public HashMap<String, Object> getAllCard(Long lockId){
         HashMap<String, Object> result = new HashMap<String, Object>();
-        List<Card> cards = cardService.getAllCard(lockId);
+        User user = userService.getCurrentUser();
+        List<Card> cards = cardService.getAllCard(lockId,user.getId());
         Lock lock = lockService.getLockById(lockId);
         Integer userNumber = null;
-        User user = userService.getCurrentUser();
         if (lock.getUserId() == user.getId()){
             userNumber = 0;
         }else{
@@ -71,11 +71,14 @@ public class CardController {
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
-    public HashMap<String, Object> addCard(Card card){
+    public HashMap<String, Object> addCard(Card card,Long lockId,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         card.setUserId(user.getId());
         cardService.addCard(card);
+        Lock lock = lockService.getLockById(lockId);
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     
@@ -85,9 +88,12 @@ public class CardController {
      * @return
      */
     @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
-    public HashMap<String, Object> deleteCard(Integer cardId){
+    public HashMap<String, Object> deleteCard(Integer cardId,Long id,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         cardService.deleteCard(cardId);
+        Lock lock = lockService.getLockById(id);
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     /**

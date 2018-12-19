@@ -6,6 +6,8 @@ import java.util.List;
 import org.i9.lock.platform.dao.vo.LockReleaseDto;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 import org.i9.lock.platform.utils.BusinessException;
@@ -144,5 +146,91 @@ public interface LockService {
      */
 	void updateLockes(LockUpdateDto lockDto)throws BusinessException;
 	
+	/**
+	 * 查询
+	* @Title: getPwdByUidAndLockId
+	* @param @param userLongPassword
+	* @param @return
+	* @return String
+	 */
+	String getPwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
 	
+	/**
+	 * 新增
+	* @Title: insertPwdByUidAndLockId
+	* @param @param userLongPassword
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void insertPwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
+	
+	/**
+	 * 删除
+	* @Title: deletePwdByUidAndLockId
+	* @param @param userLongPassword
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void deletePwdByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
+	
+	/**
+	 * 新增双认证
+	* @Title: insertClickByUidAndLockId
+	* @param @param userLongPassword
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void insertClickByUidAndLockId(UserLongPasswordDto userLongPassword)throws BusinessException;
+	
+	/**
+	 * 查询双认证
+	* @Title: getClickByUidAndLockId
+	* @param @param userLongPasswordDto
+	* @param @return
+	* @param @throws BusinessException
+	* @return Integer
+	 */
+	Integer getClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
+	/**
+	 * 更新双认证
+	* @Title: updateClickByUidAndLockId
+	* @param @param userLongPasswordDto
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void updateClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
+	/**
+	 * 删除双认证
+	* @Title: deleteClickByUidAndLockId
+	* @param @param userLongPasswordDto
+	* @param @throws BusinessException
+	* @return void
+	 */
+	void deleteClickByUidAndLockId(UserLongPasswordDto userLongPasswordDto)throws BusinessException;
+	
+	/**
+	 * 同步锁指纹密码
+	* @Title: syncLockPwdAndIDcard
+	* @param @param syncLockDto
+	* @param @throws BusinessException
+	 */
+    void syncLockPwd(SyncLockDto syncLockDto)throws BusinessException;
+	
+    /**
+     * 同步IcCard密码
+    * @Title: syncICCard
+    * @param @param syncLockDto
+    * @param @throws BusinessException
+     */
+    void syncICCard(SyncLockDto syncLockDto)throws BusinessException;
+    
+    /**
+     * 更新字段(全部)
+    * @Title: updateById
+    * @param @param lock
+    * @param @throws BusinessException
+     */
+    void updateById(Lock lock)throws BusinessException;
 }

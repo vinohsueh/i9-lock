@@ -196,10 +196,10 @@ public class UserServiceImpl implements UserService{
         if(!pwdDto.getPassword().equals(pwdDto.getConfirmPwd())){
             throw new BusinessException(ErrorCode.CRUD_ERROR,"前后密码不一致");
         }
-        User user = this.getCurrentUser();
-        user.setPassword(StringUtil.MD5(pwdDto.getPassword()));
         try {
-            userDao.updateUser(user);
+        	 User user = userDao.getUserByPhone(pwdDto.getPhone());
+             user.setPassword(StringUtil.MD5(pwdDto.getPassword()));
+             userDao.updateUser(user);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"修改密码失败",e.getMessage());
         }

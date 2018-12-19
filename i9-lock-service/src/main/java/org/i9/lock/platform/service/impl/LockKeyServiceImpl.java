@@ -406,4 +406,13 @@ public class LockKeyServiceImpl implements LockKeyService {
 			 throw new BusinessException(e.getMessage());
 		}
 	}
+
+    @Override
+    public void updateLockKeyByPriviteKey(LockKey lockKey) throws BusinessException {
+        try {
+            lockKeyDao.updateLockKeyByPriviteKey(lockKey);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }

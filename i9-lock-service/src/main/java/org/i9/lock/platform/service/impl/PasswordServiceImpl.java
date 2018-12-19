@@ -9,11 +9,14 @@ import org.i9.lock.platform.dao.LockDao;
 import org.i9.lock.platform.dao.LockKeyDao;
 import org.i9.lock.platform.dao.PasswordDao;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.model.Password;
+import org.i9.lock.platform.model.User;
 import org.i9.lock.platform.service.PasswordService;
+import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.BusinessException;
 import org.i9.lock.platform.utils.ErrorCode;
 import org.i9.lock.platform.utils.PageBounds;
@@ -40,6 +43,9 @@ public class PasswordServiceImpl implements PasswordService{
     
     @Autowired
     private LockDao lockDao;
+    
+    @Autowired
+    private UserService userService;
     @Override
     public void addPassword(Password password) throws BusinessException {
         try {
@@ -111,7 +117,8 @@ public class PasswordServiceImpl implements PasswordService{
     public Integer selectUsefulOrderNumber(Long lockId)
             throws BusinessException {
         try {
-            List<Integer> list = passwordDao.selectExistOrderNumbers(lockId);
+        	User currentUser = userService.getCurrentUser();
+            List<Integer> list = passwordDao.selectExistOrderNumbers(lockId,currentUser.getId());
           //查询最大可用编号数
             Config config = configDao.selectMaxPassword();
             int max = config.getConfigValue();
@@ -188,5 +195,23 @@ public class PasswordServiceImpl implements PasswordService{
         } catch (Exception e) {
             throw new BusinessException("查询用户全部密码失败",e.getMessage());
         }
+    }
+
+	@Override
+	public void deletePasswordByLockId(Long id) throws BusinessException {
+		try {
+             passwordDao.deletePasswordByLockId(id);
+        } catch (Exception e) {
+            throw new BusinessException("删除用户指纹密码失败",e.getMessage());
+        }
+	}
+
+    @Override
+    public void updatePasswordByLockId(SyncLockDto syncLockDto) throws BusinessException {
+        try {
+            passwordDao.updatePasswordByLockId(syncLockDto);
+       } catch (Exception e) {
+           throw new BusinessException("更新用户指纹密码失败",e.getMessage());
+       }
     }
 }

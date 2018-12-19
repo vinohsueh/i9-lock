@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.i9.lock.platform.dao.CardDao;
 import org.i9.lock.platform.dao.ConfigDao;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Card;
 import org.i9.lock.platform.model.Config;
 import org.i9.lock.platform.service.CardService;
@@ -30,9 +31,9 @@ public class CardServiceImpl implements CardService {
 	 private ConfigDao configDao;
 	 
 	@Override
-	public List<Card> getAllCard(Long lockId) throws BusinessException {
+	public List<Card> getAllCard(Long lockId,Long userId) throws BusinessException {
 	    try {
-            return cardDao.getAllCard(lockId);
+            return cardDao.getAllCard(lockId,userId);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"查询卡失败",e.getMessage());
         }
@@ -118,5 +119,23 @@ public class CardServiceImpl implements CardService {
             throw new BusinessException(ErrorCode.CRUD_ERROR,"通过id查询卡失败",e.getMessage());
         }
 	}
+
+	@Override
+	public void deleteCardByLockId(Long id) throws BusinessException {
+		try {
+             cardDao.deleteCardByLockId(id);
+        } catch (Exception e) {
+            throw new BusinessException(ErrorCode.CRUD_ERROR,"通过lockId删除卡失败",e.getMessage());
+        }
+	}
+
+    @Override
+    public void updatePasswordByLockId(SyncLockDto syncLockDto) throws BusinessException {
+        try {
+            cardDao.updatePasswordByLockId(syncLockDto);
+       } catch (Exception e) {
+           throw new BusinessException(ErrorCode.CRUD_ERROR,"通过lockId更新卡失败",e.getMessage());
+       }
+    }
 
 }

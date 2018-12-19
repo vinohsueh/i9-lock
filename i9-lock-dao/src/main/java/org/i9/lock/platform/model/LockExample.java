@@ -911,13 +911,6 @@ public class LockExample {
                     "alertMinute");
             return (Criteria) this;
         }
-
-        
-        
-        
-        
-        
-        
         
         public Criteria andDepartmentTypeIsNull() {
             addCriterion("departmentType is null");
@@ -980,6 +973,67 @@ public class LockExample {
             return (Criteria) this;
         }
         
+        public Criteria andShowTypeIsNull() {
+            addCriterion("showType is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeIsNotNull() {
+            addCriterion("showType is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeEqualTo(Integer value) {
+            addCriterion("showType =", value, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeNotEqualTo(Integer value) {
+            addCriterion("showType <>", value, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeGreaterThan(Integer value) {
+            addCriterion("showType >", value, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("showType >=", value, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeLessThan(Integer value) {
+            addCriterion("showType <", value, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("showType <=", value, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeIn(List<Integer> values) {
+            addCriterion("showType in", values, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeNotIn(List<Integer> values) {
+            addCriterion("showType not in", values, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeBetween(Integer value1, Integer value2) {
+            addCriterion("showType between", value1, value2, "showType");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("showType not between", value1, value2,
+                    "showType");
+            return (Criteria) this;
+        }
+  
         public Criteria andKeyUserIsNull() {
             addCriterion("keyUser is null");
             return (Criteria) this;

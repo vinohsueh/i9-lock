@@ -15,7 +15,7 @@ public class LockKeyComponent {
 	        JSONObject jsonObject = new JSONObject();
 //	        jsonObject.put("hirerPhone", lockKey.getHirerPhone());
 //	        jsonObject.put("name", lockKey.getName());
-//	        jsonObject.put("startTime", lockKey.getStartTime());
+	        jsonObject.put("startTime", lockKey.getStartTimeString());
 	        jsonObject.put("endTime", lockKey.getEndTimeString());
 	        jsonObject.put("orderNumber", lockKey.getOrderNumber());
 //	        jsonObject.put("hireType", lockKey.getHireType());

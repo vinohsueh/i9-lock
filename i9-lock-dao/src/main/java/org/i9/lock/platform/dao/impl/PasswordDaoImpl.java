@@ -1,10 +1,12 @@
 package org.i9.lock.platform.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.i9.lock.platform.dao.PasswordDao;
 import org.i9.lock.platform.dao.mapper.PasswordMapper;
 import org.i9.lock.platform.dao.vo.PasswordSearchDto;
+import org.i9.lock.platform.dao.vo.SyncLockDto;
 import org.i9.lock.platform.model.Password;
 import org.i9.lock.platform.model.PasswordExample;
 import org.i9.lock.platform.utils.PageBounds;
@@ -69,9 +71,34 @@ public class PasswordDaoImpl implements PasswordDao{
 	}
 
 	@Override
-	public List<Integer> selectExistOrderNumbers(Long lockId)throws Exception {
+	public List<Integer> selectExistOrderNumbers(Long lockId,Long userId)throws Exception {
 		// TODO Auto-generated method stub
-		return passwordMapper.selectExistOrderNumber2(lockId);
+		return passwordMapper.selectExistOrderNumber(lockId,userId);
 	}
+
+	@Override
+	public void deletePasswordByLockId(Long id) throws Exception {
+		passwordMapper.deletePasswordByLockId(id);
+	}
+
+    @Override
+    public List<Integer> selectExistOrderNumber3(Long lockId, Long userId) throws Exception {
+        return passwordMapper.selectExistOrderNumber3(lockId,userId);
+    }
+
+    @Override
+    public void insertPwdByLockIdAndUserId(ArrayList<Password> pwdSameList) throws Exception {
+        passwordMapper.insertPwdByLockIdAndUserId(pwdSameList);
+    }
+
+    @Override
+    public void delPwdByLockIdAndUserId(Long lockId, Long userId, ArrayList<Integer> unPwdSameList) throws Exception {
+        passwordMapper.delPwdByLockIdAndUserId(lockId,userId,unPwdSameList);
+    }
+
+    @Override
+    public void updatePasswordByLockId(SyncLockDto syncLockDto) throws Exception {
+        passwordMapper.updatePasswordByLockId(syncLockDto);
+    }
 
 }

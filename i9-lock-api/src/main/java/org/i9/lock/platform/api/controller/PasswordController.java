@@ -62,11 +62,14 @@ public class PasswordController {
      * @return
      */
     @RequestMapping(value={"/add"},method = {RequestMethod.POST})
-    public HashMap<String, Object> add(@Valid Password password,BindingResult bindingResult){
+    public HashMap<String, Object> add(@Valid Password password,BindingResult bindingResult,Long lockId,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         password.setUserId(user.getId());
         passwordService.addPassword(password);
+        Lock lock = lockService.getLockById(lockId);
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     
@@ -76,10 +79,13 @@ public class PasswordController {
      * @return
      */
     @RequestMapping(value={"/delete"},method = {RequestMethod.POST})
-    public HashMap<String, Object> delete(Integer passwordId){
+    public HashMap<String, Object> delete(Integer passwordId,Long id,String battery){
         HashMap<String, Object> result = new HashMap<String, Object>();
         User user = userService.getCurrentUser();
         passwordService.deletePassword(passwordId,user.getId());
+        Lock lock = lockService.getLockById(id);
+        lock.setBattery(battery);
+        lockService.updateLock(lock);
         return result;
     }
     

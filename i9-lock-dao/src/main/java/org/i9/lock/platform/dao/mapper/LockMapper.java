@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.i9.lock.platform.dao.vo.LockSearchDto;
 import org.i9.lock.platform.dao.vo.LockUpdateDto;
+import org.i9.lock.platform.dao.vo.UserLongPasswordDto;
 import org.i9.lock.platform.model.Lock;
 import org.i9.lock.platform.model.LockExample;
 
@@ -85,5 +86,19 @@ public interface LockMapper {
      */
 	Date getKeyAdminUptime(Long lockId);
 
-	void updateLockes(LockUpdateDto lockDto); 
+	void updateLockes(LockUpdateDto lockDto);
+
+	String getPwdByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
+
+	void insertPwdByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
+
+	void deletePwdByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
+
+	void insertClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPassword);
+
+	Integer getClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPasswordDto);
+
+	void updateClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPasswordDto);
+
+	void deleteClickByUidAndLockId(@Param("example") UserLongPasswordDto userLongPasswordDto);     
 }

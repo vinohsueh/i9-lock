@@ -24,7 +24,7 @@ public interface LockKeyDao {
     
     /**
      * 更新锁钥匙
-     * @param LockKey
+     * @param lockKey
      * @throws Exception
      */
     void updateLockKey(LockKey lockKey) throws Exception;
@@ -108,4 +108,6 @@ public interface LockKeyDao {
 	List<LockKey> getTime()throws Exception;
 
 	void updateLockKeyrentState()throws Exception;
+
+    void updateLockKeyByPriviteKey(LockKey lockKey)throws Exception;
 }
