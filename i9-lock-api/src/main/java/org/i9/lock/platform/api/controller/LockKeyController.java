@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.i9.lock.platform.api.component.LockKeyComponent;
 import org.i9.lock.platform.api.component.LockKeyListComponent;
+import org.i9.lock.platform.api.component.LockKeyPriceComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.dao.vo.UpdateTimeDto;
 import org.i9.lock.platform.model.Lock;
@@ -133,6 +134,10 @@ public class LockKeyController {
         	result.put("userOrder", 0);
         }else{
         	LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
+        	if (null == lockKey.getState() && 0 == lockKey.getState()) {
+        	    lockKey.setReceiveTime(null);
+        	    lockKey.setEndTime(null);
+            }
             result.put("userOrder", lockKey.getOrderNumber());
         }
         return result;
