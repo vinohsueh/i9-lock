@@ -15,9 +15,9 @@ public class LockKeyComponent {
 	        JSONObject jsonObject = new JSONObject();
 //	        jsonObject.put("hirerPhone", lockKey.getHirerPhone());
 //	        jsonObject.put("name", lockKey.getName());
-	        jsonObject.put("startTime", lockKey.getStartTimeString());
-	        jsonObject.put("endTime", lockKey.getEndTimeString());
-	        jsonObject.put("orderNumber", lockKey.getOrderNumber());
+            jsonObject.put("startTime", lockKey.getStartTimeString());
+            jsonObject.put("endTime", lockKey.getEndTimeString());
+            jsonObject.put("orderNumber", lockKey.getOrderNumber());
 //	        jsonObject.put("hireType", lockKey.getHireType());
 //	        jsonObject.put("eleNumber", lockKey.getEleNumber());
 //	        jsonObject.put("gasNumber", lockKey.getGasNumber());
@@ -28,4 +28,9 @@ public class LockKeyComponent {
 //	        jsonObject.put("propertyPrice", lockKey.getLock().getPropertyPrice());
 	        return jsonObject;
 	    }
+        public JSONObject build1() {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("rentState", lockKey.getRentState());
+            return jsonObject;
+        }
 }

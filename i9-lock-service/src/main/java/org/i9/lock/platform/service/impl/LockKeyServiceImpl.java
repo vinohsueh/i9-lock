@@ -415,4 +415,13 @@ public class LockKeyServiceImpl implements LockKeyService {
             throw new BusinessException(e.getMessage());
         }
     }
+
+    @Override
+    public LockKey getRentStates(Long lockId, Long id) throws BusinessException {
+        try {
+            return lockKeyDao.selectLockKeyByLockIdAndUserId(lockId, id);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.i9.lock.platform.api.component.LockKeyComponent;
 import org.i9.lock.platform.api.component.LockKeyListComponent;
-import org.i9.lock.platform.api.component.LockKeyPriceComponent;
 import org.i9.lock.platform.dao.vo.LockKeyDto;
 import org.i9.lock.platform.dao.vo.UpdateTimeDto;
 import org.i9.lock.platform.model.Lock;
@@ -17,7 +16,6 @@ import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.service.LockService;
 import org.i9.lock.platform.service.UserService;
 import org.i9.lock.platform.utils.PageBounds;
-import org.i9.lock.platform.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
 
 /** 
  * 锁钥匙
@@ -134,10 +133,6 @@ public class LockKeyController {
         	result.put("userOrder", 0);
         }else{
         	LockKey lockKey = lockKeyService.selectLockKeyByLockIdAndUserId(lockId, user.getId());
-        	if (null == lockKey.getState() && 0 == lockKey.getState()) {
-        	    lockKey.setReceiveTime(null);
-        	    lockKey.setEndTime(null);
-            }
             result.put("userOrder", lockKey.getOrderNumber());
         }
         return result;
@@ -195,8 +190,10 @@ public class LockKeyController {
         List<LockKey> lockKey=lockKeyService.getTimeAndOrderNum(lockId);
         JSONArray jsonArray = new JSONArray();
         for (LockKey lockKeys : lockKey) {
-            JSONObject jsonObject = new LockKeyComponent().setLockKey(lockKeys).build();
-            jsonArray.add(jsonObject);
+            if (lockKeys.getRentState()!=0) {
+                JSONObject jsonObject = new LockKeyComponent().setLockKey(lockKeys).build();
+                jsonArray.add(jsonObject);
+            }
         }
         result.put("lockKey", jsonArray);
         return result;
@@ -217,6 +214,25 @@ public class LockKeyController {
         lockKeyService.updateLockKey(lockKey);
         lockKey.setUserId(null);
         lockKeyService.updateLockKeyByPriviteKey(lockKey);
+        return result;
+    }
+    
+    
+    
+    /**
+     * 获取RentState
+     * @param lockId
+     * @return
+     */
+    @RequestMapping(value={"/getRentStates"},method = {RequestMethod.POST})
+    public HashMap<String, Object> getRentState(Long lockId){
+        HashMap<String, Object> result = new HashMap<String, Object>();
+        User user = userService.getCurrentUser();
+        LockKey lockState = lockKeyService.getRentStates(lockId, user.getId());
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject = new LockKeyComponent().setLockKey(lockState).build1();
+        jsonArray.add(jsonObject);
+        result.put("lockState", jsonArray);
         return result;
     }
 }
