@@ -39,7 +39,7 @@ public interface LockKeyService {
     
     /**
      * 根据ID获取锁钥匙
-     * @param kid
+     * @param id
      * @return
      * @throws BusinessException
      */
