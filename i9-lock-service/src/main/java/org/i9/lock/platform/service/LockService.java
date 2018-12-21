@@ -213,18 +213,18 @@ public interface LockService {
 	/**
 	 * 同步锁指纹密码
 	* @Title: syncLockPwdAndIDcard
-	* @param @param syncLockDto
-	* @param @throws BusinessException
-	 */
-    void syncLockPwd(SyncLockDto syncLockDto)throws BusinessException;
+     * @param @param syncLockDto
+     * @param @throws BusinessException
+     */
+    String syncLockPwd(SyncLockDto syncLockDto)throws BusinessException;
 	
     /**
      * 同步IcCard密码
     * @Title: syncICCard
-    * @param @param syncLockDto
-    * @param @throws BusinessException
-     */
-    void syncICCard(SyncLockDto syncLockDto)throws BusinessException;
+	 * @param @param syncLockDto
+	 * @param @throws BusinessException
+	 */
+    String syncICCard(SyncLockDto syncLockDto)throws BusinessException;
     
     /**
      * 更新字段(全部)

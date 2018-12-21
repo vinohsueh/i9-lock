@@ -39,7 +39,7 @@ public interface LockKeyService {
     
     /**
      * 根据ID获取锁钥匙
-     * @param kid
+     * @param id
      * @return
      * @throws BusinessException
      */
@@ -119,5 +119,5 @@ public interface LockKeyService {
 
     void updateLockKeyByPriviteKey(LockKey lockKey)throws BusinessException;
 
-    LockKey getRentStates(Long lockId, Long id)throws BusinessException;
+    LockKey getRentStates(Long lockId, Long id) throws BusinessException;
 }

@@ -313,7 +313,7 @@ public class LockServiceImpl implements LockService {
     }
 
     @Override
-    public void syncLockPwd(SyncLockDto syncLockDto) throws BusinessException {
+    public String syncLockPwd(SyncLockDto syncLockDto) throws BusinessException {
         try {
             //1.1 根据lockID，userID查询用户相关密码组
             List<Integer> pwdSelectList = passwordDao.selectExistOrderNumber3(syncLockDto.getLockId(),
@@ -323,14 +323,15 @@ public class LockServiceImpl implements LockService {
             //3.1 将接受的 Stringpwd转化为集合pwdAcceptList
             ArrayList<Integer> pwdAcceptList = StringUtil.StringArrayToArrayList(syncLockDto.getFingerPwd());
             //4.1 将pwdAcceptList与pwdList进行比对，为1则新增，为0则删除
-            this.checkPwdOrderNumber(pwdList, syncLockDto, pwdAcceptList);
+            String orderNumber = this.checkPwdOrderNumber(pwdList, syncLockDto, pwdAcceptList);
+            return orderNumber;
         } catch (Exception e) {
-            throw new BusinessException("匹对指纹锁密码失败",e.getMessage());
+            throw new BusinessException("匹对指纹锁密码失败", e.getMessage());
         }
     }
     
     @Override
-    public void syncICCard(SyncLockDto syncLockDto) throws BusinessException {
+    public String syncICCard(SyncLockDto syncLockDto) throws BusinessException {
         try {
             //1.1 根据lockID，userID查询用户相关密码组
             List<Integer> pwdSelectList = cardDao.selectExistOrderNumber2(syncLockDto.getLockId(),
@@ -340,21 +341,25 @@ public class LockServiceImpl implements LockService {
             //3.1 将接受的 Stringpwd转化为集合pwdAcceptList
             ArrayList<Integer> pwdAcceptList = StringUtil.StringArrayToArrayList(syncLockDto.getIcCardPwd());
             //4.1 将pwdAcceptList与pwdList进行比对，为1则新增，为0则删除
-            this.checkPwdOrderNumber2(pwdList, syncLockDto, pwdAcceptList);
+            String orderNumber = this.checkPwdOrderNumber2(pwdList, syncLockDto, pwdAcceptList);
+            return orderNumber;
         } catch (Exception e) {
             throw new BusinessException("匹对Ic卡用户组失败",e.getMessage());
         }
     }
     
-    public void checkPwdOrderNumber(List<Integer> pwdSelectList,SyncLockDto syncLockDto,
+    public String checkPwdOrderNumber(List<Integer> pwdSelectList,SyncLockDto syncLockDto,
             ArrayList<Integer> pwdAcceptList){
         ArrayList<Password> pwdSameList = new ArrayList<Password>();
         ArrayList<Integer> unPwdSameList = new ArrayList<Integer>();
+        String orderNumber =null;
         for(int i=0;i<pwdAcceptList.size();i++) {
             Password password = new Password();
             if(pwdAcceptList.get(i) !=pwdSelectList.get(i) && pwdAcceptList.get(i) ==0) {
+                orderNumber = String.valueOf(i);
                 unPwdSameList.add(i);
             }else if(pwdAcceptList.get(i) !=pwdSelectList.get(i) && pwdAcceptList.get(i) ==1) {
+                orderNumber = String.valueOf(i);
                 password.setLockId(syncLockDto.getLockId());
                 password.setUserId(syncLockDto.getUserId());
                 password.setName("第"+(i+1)+"组密码");
@@ -369,20 +374,24 @@ public class LockServiceImpl implements LockService {
             if(unPwdSameList.size()>0) {
                 passwordDao.delPwdByLockIdAndUserId(syncLockDto.getLockId(),syncLockDto.getUserId(),unPwdSameList);
             }
+            return orderNumber;
         } catch (Exception e) {
             throw new BusinessException("校对指纹密码组失败",e.getMessage());
         }
     }
     
-    public void checkPwdOrderNumber2(List<Integer> pwdSelectList,SyncLockDto syncLockDto,
-            ArrayList<Integer> pwdAcceptList){
+    public String checkPwdOrderNumber2(List<Integer> pwdSelectList, SyncLockDto syncLockDto,
+                                       ArrayList<Integer> pwdAcceptList){
         ArrayList<Card> pwdSameList = new ArrayList<Card>();
         ArrayList<Integer> unPwdSameList = new ArrayList<Integer>();
+        String orderNumber =null;
         for(int i=0;i<pwdAcceptList.size();i++) {
             Card card = new Card();
             if(pwdAcceptList.get(i) !=pwdSelectList.get(i) && pwdAcceptList.get(i) ==0) {
+                orderNumber = String.valueOf(i);
                 unPwdSameList.add(i);
             }else if(pwdAcceptList.get(i) !=pwdSelectList.get(i) && pwdAcceptList.get(i) ==1) {
+                orderNumber = String.valueOf(i);
                 card.setLockId(syncLockDto.getLockId());
                 card.setUserId(syncLockDto.getUserId());
                 card.setName("第"+(i+1)+"组IC卡");
@@ -397,8 +406,9 @@ public class LockServiceImpl implements LockService {
             if(unPwdSameList.size()>0) {
                 cardDao.delPwdByLockIdAndUserId(syncLockDto.getLockId(),syncLockDto.getUserId(),unPwdSameList);
             }
+            return orderNumber;
         } catch (Exception e) {
-            throw new BusinessException("校对IC卡密码组失败",e.getMessage());
+            throw new BusinessException("校对IC卡密码组失败", e.getMessage());
         }
     }
 

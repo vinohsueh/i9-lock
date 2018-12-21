@@ -27,6 +27,10 @@ public class LockKeyPriceComponent {
             jsonObject.put("username", lockKey.getUser().getUsername());
             jsonObject.put("phone", lockKey.getUser().getPhone());
         }
+        else{
+            jsonObject.put("phone",null);
+            jsonObject.put("username",null);
+        }
         jsonObject.put("hireType", HireTypeEnum.getNameById(lockKey.getHireType()));
         jsonObject.put("hirePrice", lockKey.getHirePrice());
         jsonObject.put("eleNumber", lockKey.getEleNumber());

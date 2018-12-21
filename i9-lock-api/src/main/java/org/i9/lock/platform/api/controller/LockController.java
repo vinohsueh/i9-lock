@@ -166,7 +166,7 @@ public class LockController {
     /**
      * 更换门锁
      * 
-     * @param lock
+     * @param bindingResult
      * @return
      */
     @RequestMapping(value = { "/updateLockes" }, method = { RequestMethod.POST })
@@ -260,7 +260,7 @@ public class LockController {
      * 
      * @Title: Alllock
      * @Description: TODO
-     * @param lockExample
+     * @param lockSearchDto
      * @return
      */
     @RequestMapping(value = { "/Alllock" }, method = { RequestMethod.POST })
@@ -331,7 +331,7 @@ public class LockController {
     /**
      * 移交锁
      * 
-     * @param lockId
+     * @param lock
      * @return
      */
     @RequestMapping(value = { "/release" }, method = { RequestMethod.POST })
@@ -455,7 +455,7 @@ public class LockController {
     /**
      * 获取认证状态
      * 
-     * @param lockId
+     * @param userLongPasswordDto
      * @return
      */
     @RequestMapping(value = { "/getClickLock" }, method = { RequestMethod.POST })
@@ -556,7 +556,7 @@ public class LockController {
      * 
      * @Title: updateSynTime
      * @Description: TODO
-     * @param lock
+     * @param lockId
      * @return
      */
     @RequestMapping(value = { "/getSynTime" }, method = { RequestMethod.POST })
@@ -590,7 +590,8 @@ public class LockController {
      * 
      * @Title: getDisturb
      * @Description: TODO
-     * @param lock
+     * @param lockId
+     *
      * @return
      */
     @RequestMapping(value = { "/getDisturb" }, method = { RequestMethod.POST })
@@ -747,10 +748,24 @@ public class LockController {
         HashMap<String, Object> result = new HashMap<String, Object>();
         User currentUser = userService.getCurrentUser();
         syncLockDto.setUserId(currentUser.getId());
-        lockService.syncLockPwd(syncLockDto);
-        lockService.syncICCard(syncLockDto);
+        String fingerOrderNumber  = lockService.syncLockPwd(syncLockDto);
+        String idCardOrderNumber = lockService.syncICCard(syncLockDto);
         errorLogSerivce.deleteErrorlogBylockIdAndOrderNumber(syncLockDto.getLockId().intValue(),
                 syncLockDto.getUserNumber());
+        if(org.apache.commons.lang.StringUtils.isNotBlank(fingerOrderNumber)){
+            result.put("orderNumber",fingerOrderNumber);
+            result.put("result",true);
+            result.put("type",0);
+            return  result;
+        }else if (org.apache.commons.lang.StringUtils.isNotBlank(idCardOrderNumber)){
+            result.put("orderNumber",idCardOrderNumber);
+            result.put("result",true);
+            result.put("type",1);
+            return  result;
+        }
+        result.put("result",false);
+        result.put("orderNumber",null);
+        result.put("type",null);
         return result;
     }
 
