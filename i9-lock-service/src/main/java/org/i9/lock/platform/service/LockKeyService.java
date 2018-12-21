@@ -118,6 +118,4 @@ public interface LockKeyService {
 	void updateLockKeyrentState()throws BusinessException;
 
     void updateLockKeyByPriviteKey(LockKey lockKey)throws BusinessException;
-
-    LockKey getRentStates(Long lockId, Long id)throws BusinessException;
 }
