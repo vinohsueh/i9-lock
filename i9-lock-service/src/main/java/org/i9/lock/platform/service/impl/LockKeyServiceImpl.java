@@ -78,6 +78,10 @@ public class LockKeyServiceImpl implements LockKeyService {
         	 if(lockKeyDto.getLockKeyId() != null){
              	//先通过LockKeyId查询初始水电煤气物业费的单价
              	PriceDto priceDto = lockKeyDao.selectAllPrice(lockKeyDto.getLockKeyId());
+             	if (null == priceDto.getElePrice()||null == priceDto.getGasPrice()||null == priceDto.getWaterPrices() || null == priceDto.getPropertyPrice()) {
+             	   throw new BusinessException(ErrorCode.CRUD_ERROR,  "请先设置水，电，燃气，物业费用");
+                }
+             	
              	//计算使用的水电煤气，现在的-初始值
              	//电表
              	Double eleNum = lockKeyDto.getEleNumber() - priceDto.getEleNumber();
@@ -407,6 +411,15 @@ public class LockKeyServiceImpl implements LockKeyService {
     public void updateLockKeyByPriviteKey(LockKey lockKey) throws BusinessException {
         try {
             lockKeyDao.updateLockKeyByPriviteKey(lockKey);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @Override
+    public LockKey getRentStates(Long lockId, Long id) throws BusinessException {
+        try {
+            return lockKeyDao.selectLockKeyByLockIdAndUserId(lockId, id);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }

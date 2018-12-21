@@ -527,7 +527,7 @@
   </select>
   <select id="getTimeAndOrderNum" parameterType="long" resultType="org.i9.lock.platform.model.LockKey"> 
 	SELECT
-		k.endTime, k.orderNumber,k.startTime
+		k.endTime, k.orderNumber,k.startTime,k.state,k.rentState
 	FROM
 		t_lock_key k
 	WHERE
@@ -544,7 +544,7 @@
   
    <update id="updateLockKeyrentState" >
 	      update t_lock_key
-	    	set rentState = 0
+	    	set rentState = 0 ,state = null 
 	   	  WHERE  datediff(t_lock_key.endTime,now()) &gt;= 0
   </update>
 </mapper>
