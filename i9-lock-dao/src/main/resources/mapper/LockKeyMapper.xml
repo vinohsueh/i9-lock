@@ -544,7 +544,7 @@
   
    <update id="updateLockKeyrentState" >
 	      update t_lock_key
-	    	set rentState = 0 ,state = null 
+	    	set rentState = 0 
 	   	  WHERE  datediff(t_lock_key.endTime,now()) &gt;= 0
   </update>
 </mapper>
