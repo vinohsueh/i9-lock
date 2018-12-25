@@ -77,5 +77,5 @@ public interface LockKeyMapper {
      */
 	List<LockKey> getTime();
 
-	void updateLockKeyrentState();  
+	void updateLockKeyrentState(String date);  
 }

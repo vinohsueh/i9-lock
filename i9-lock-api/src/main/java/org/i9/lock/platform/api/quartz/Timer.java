@@ -8,6 +8,7 @@ import org.i9.lock.platform.model.LockKey;
 import org.i9.lock.platform.service.InfoService;
 import org.i9.lock.platform.service.LockKeyService;
 import org.i9.lock.platform.utils.PushUtils;
+import org.i9.lock.platform.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -33,7 +34,7 @@ public class Timer {
 		//endTime 房租到期时间小于5，修改State
 		lockKeyService.updateLockKeyState();
 		//endTime 房租到期时间大于当前时间，修改rentState
-		lockKeyService.updateLockKeyrentState();
+		lockKeyService.updateLockKeyrentState(StringUtil.dateToStringToS(new Date()));
 		//提醒租客续租，发送推送
 		List<LockKey> lockKey = lockKeyService.getTime();
 		if (!lockKey.isEmpty()) {

@@ -105,8 +105,8 @@ public class LockKeyDaoImpl implements LockKeyDao{
 	}
 
 	@Override
-	public void updateLockKeyrentState() throws Exception {
-		lockKeyMapper.updateLockKeyrentState();
+	public void updateLockKeyrentState(String date) throws Exception {
+		lockKeyMapper.updateLockKeyrentState(date);
 	}
 
     @Override

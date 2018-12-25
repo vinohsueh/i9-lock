@@ -107,7 +107,7 @@ public interface LockKeyDao {
      */
 	List<LockKey> getTime()throws Exception;
 
-	void updateLockKeyrentState()throws Exception;
+	void updateLockKeyrentState(String date)throws Exception;
 
     void updateLockKeyByPriviteKey(LockKey lockKey)throws Exception;
 }

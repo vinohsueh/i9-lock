@@ -399,9 +399,9 @@ public class LockKeyServiceImpl implements LockKeyService {
 	}
 
 	@Override
-	public void updateLockKeyrentState() throws BusinessException {
+	public void updateLockKeyrentState(String date) throws BusinessException {
 		try {
-			lockKeyDao.updateLockKeyrentState();
+			lockKeyDao.updateLockKeyrentState(date);
 		} catch (Exception e) {
 			 throw new BusinessException(e.getMessage());
 		}

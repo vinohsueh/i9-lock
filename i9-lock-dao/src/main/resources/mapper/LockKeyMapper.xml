@@ -542,9 +542,9 @@
 	TO_DAYS(k.endTime) - TO_DAYS(now()) &lt;=5 and k.state = 0
   </select>
   
-   <update id="updateLockKeyrentState" >
+   <update id="updateLockKeyrentState" parameterType="string">
 	      update t_lock_key
 	    	set rentState = 0 
-	   	  WHERE  datediff(t_lock_key.endTime,now()) &gt;= 0
+	   	  WHERE  t_lock_key.endTime &lt;= #{date}
   </update>
 </mapper>

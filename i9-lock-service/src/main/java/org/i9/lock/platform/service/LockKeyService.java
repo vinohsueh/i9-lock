@@ -115,7 +115,7 @@ public interface LockKeyService {
      */
 	List<LockKey> getTime()throws BusinessException;
 
-	void updateLockKeyrentState()throws BusinessException;
+	void updateLockKeyrentState(String date)throws BusinessException;
 
     void updateLockKeyByPriviteKey(LockKey lockKey)throws BusinessException;
 
